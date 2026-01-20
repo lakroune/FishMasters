@@ -1,0 +1,21 @@
+<?php
+// phpinfo();
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use app\core\Router;
+
+session_start();
+
+$base_path = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
+define('PATH_ROOT', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $base_path);
+
+$uri = $_SERVER['REQUEST_URI'];
+$path = parse_url($uri, PHP_URL_PATH);
+$path = trim($path, '/');
+
+$route = explode('/', $path);
+
+array_shift($route);
+
+$run = (new Router($route))->run();
