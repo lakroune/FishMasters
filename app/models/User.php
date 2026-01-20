@@ -4,14 +4,6 @@ namespace app\models;
 
 use Exception;
 
-// CREATE TABLE users (
-//     id_user SERIAL PRIMARY KEY,
-//     nom_user VARCHAR(100) NOT NULL,
-//     prenom_user VARCHAR(100) NOT NULL,
-//     email VARCHAR(150) UNIQUE NOT NULL,
-//     password_user VARCHAR(255) NOT NULL,
-//     role_user VARCHAR(20) NOT NULL
-// );
 
 class  User
 {
