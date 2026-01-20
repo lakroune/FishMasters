@@ -179,13 +179,37 @@
     </form>
 
     <script>
+        window.onload = function() {
+            const tab = <?= json_encode($_POST) ?>;
+            const filter = document.querySelectorAll('.filter-btn');
+
+            if (tab['spot'] && tab['exper']) {
+                for (let btn of filter) {
+                    if (btn.dataset.filter == tab.spot) {
+                        btn.classList.add('btn-active');
+                        btn.classList.remove('text-slate-500', 'hover:bg-white/5');
+                    } else {
+                        if (btn.dataset.filter == tab.exper) {
+                            btn.classList.add('btn-active');
+                            btn.classList.remove('text-slate-500', 'hover:bg-white/5');
+                        } else {
+                            btn.classList.remove('btn-active');
+                            btn.classList.add('text-slate-500', 'hover:bg-white/5');
+                        }
+                    }
+
+                }
+            }
+
+        }
+
         function submit() {
             const filter = document.querySelectorAll('.btn-active');
-            for (let btn of filter) {
-                document.getElementById('filterspot').value = btn.dataset.filter;
-                document.getElementById('filterexper').value = btn.dataset.filter;
-                document.querySelector('form').submit();
-            }
+            const spot = filter[0].dataset.filter;
+            const exper = filter[1].dataset.filter;
+            document.getElementById('filterspot').value = spot;
+            document.getElementById('filterexper').value = exper;
+            document.querySelector('form').submit();
         }
 
 
@@ -206,7 +230,7 @@
             element.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 element.style.transform = 'scale(1.02)';
-            }, 100);
+            }, 0);
             submit();
         }
     </script>

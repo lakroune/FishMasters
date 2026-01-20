@@ -10,15 +10,12 @@ class ClassementController
     }
     public function default()
     {
-        require_once __DIR__ . '/../views/classement.php';
+        $this->index();
     }
-    public function mer()
+    public function filter()
     {
+       print_r($_POST);
+
         require_once __DIR__ . '/../views/classement.php';
     }
-    public function eaudouce()
-    {
-        require_once __DIR__ . '/../views/classement.php';
-    }
-    
 }
