@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Pecheur;
+
 class ClassementController
 {
     public function index()
@@ -14,8 +16,9 @@ class ClassementController
     }
     public function filter()
     {
-       print_r($_POST);
-
+        $p = new Pecheur();
+        $p->getAllPecheur();
+        print_r($p[0]);
         require_once __DIR__ . '/../views/classement.php';
     }
 }
