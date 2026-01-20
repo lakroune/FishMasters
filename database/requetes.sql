@@ -1,4 +1,34 @@
+-- Active: 1768924390402@@www.dockhosting.dev@49581@masterfich
 
+DROP TABLE IF EXISTS commentaires;
+
+DROP TABLE IF EXISTS notification;
+
+DROP TABLE IF EXISTS badge;
+
+DROP TABLE IF EXISTS likes;
+
+DROP TABLE IF EXISTS prise;
+
+DROP TABLE IF EXISTS score;
+
+DROP TABLE IF EXISTS classement;
+
+DROP TABLE IF EXISTS spot_peche;
+
+DROP TABLE IF EXISTS reglement;
+
+DROP TABLE IF EXISTS espece;
+
+DROP TABLE IF EXISTS equipe;
+
+DROP TABLE IF EXISTS competition;
+
+DROP TABLE IF EXISTS pecheur;
+
+DROP TABLE IF EXISTS fan;
+
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id_user SERIAL PRIMARY KEY,
@@ -9,7 +39,10 @@ CREATE TABLE users (
     role_user VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE fan (CHECK (role_user = 'FAN')) INHERITS (users);
+CREATE TABLE fan (
+    PRIMARY KEY (id_user),
+    CHECK (role_user = 'FAN')
+) INHERITS (users);
 
 CREATE TABLE competition (
     id_competition SERIAL PRIMARY KEY,
@@ -26,6 +59,7 @@ CREATE TABLE equipe (
 );
 
 CREATE TABLE pecheur (
+    PRIMARY KEY (id_user),
     photo_pecheur VARCHAR(255),
     region VARCHAR(100),
     type_peche_favorite VARCHAR(100),
@@ -39,8 +73,6 @@ CREATE TABLE espece (
     coefficient INT,
     description TEXT
 );
-
-
 
 CREATE TABLE reglement (
     id_reglement SERIAL PRIMARY KEY,
@@ -115,4 +147,3 @@ CREATE TABLE commentaires (
     date_comment TIMESTAMP,
     id_fan INT REFERENCES fan (id_user)
 );
-
