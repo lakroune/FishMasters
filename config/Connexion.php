@@ -23,7 +23,6 @@ class Connexion
             $this->pdo = new PDO($dsn, $this->userDB, $this->passDB);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "yhn_";
             throw new PDOException("Connection failed: " . $e->getMessage());
         }
     }
@@ -38,7 +37,6 @@ class Connexion
 
     public function getConnexion(): PDO
     {
-       echo "hellow";
         return $this->pdo;
     }
 }
