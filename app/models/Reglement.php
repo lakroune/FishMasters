@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use config\Connexion;
 use Exception;
+use PDO;
 
 class Reglement
 {
@@ -107,7 +109,99 @@ class Reglement
         $this->id_competition = $id;
     }
     public function __toString()
-    { // TODO: Implement __toString() method.
+    {
         return "reglement: id_reglement=$this->id_reglement";
     }
+    public function ajouterReglement(array $data): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "INSERT INTO reglements (description, mode_scoring, taille_mini, especes_autorisees, limite_especes, id_competition) VALUES (:description, :mode_scoring, :taille_mini, :especes_autorisees, :limite_especes, :id_competition)";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $this->rempirer($data);
+        $stmt->bindValue(':description', $this->description);
+        $stmt->bindValue(':mode_scoring', $this->mode_scoring);
+        $stmt->bindValue(':taille_mini', $this->taille_mini);
+        $stmt->bindValue(':especes_autorisees', $this->especes_autorisees);
+        $stmt->bindValue(':limite_especes', $this->limite_especes);
+        $stmt->bindValue(':id_competition', $this->id_competition);
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+    public function modifierReglement(array $data): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "UPDATE reglement SET ";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $this->rempirer($data);
+        $stmt->bindValue(':description', $this->description);
+        $stmt->bindValue(':mode_scoring', $this->mode_scoring);
+        $stmt->bindValue(':taille_mini', $this->taille_mini);
+        $stmt->bindValue(':especes_autorisees', $this->especes_autorisees);
+        $stmt->bindValue(':limite_especes', $this->limite_especes);
+        $stmt->bindValue(':id_competition', $this->id_competition);
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getIdReglementById(int $id_reglement): ?Reglement
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM reglement WHERE id_reglement = :id_reglement";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindValue(':id_reglement', $id_reglement);
+        $stmt->execute();
+        return $stmt->fetchObject(Reglement::class);
+    }
+    public function getAllReglement(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM reglement";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Reglement::class);
+    }
+    public function getIdReglementByIdCompetition(int $id_competition): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM reglement WHERE id_competition = :id_competition";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindValue(':id_competition', $id_competition);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Reglement::class);
+    }
+
+    private function rempirer(array $data)
+    {
+        foreach ($data as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+    
 }

@@ -119,7 +119,100 @@
                 </div>
             </div>
 
+
             <div class="grid lg:grid-cols-2 gap-6">
+
+        </section>
+
+        <section id="competitions" class="admin-section hidden">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-black">Compétitions</h2>
+
+        <a href="addCompetition"
+           class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full neo-button uppercase">
+            + Ajouter une compétition
+        </a>
+    </div>
+
+    <div class="ultra-glass p-8 rounded-[40px] overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="border-b border-white/10 text-slate-500 uppercase text-xs">
+                <tr>
+                    <th class="text-left py-3">Nom</th>
+                    <th>Type</th>
+                    <th>Technique</th>
+                    <th>Environnement</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-white/5">
+
+                <tr class="hover:bg-white/5 transition">
+                    <td class="py-4 font-bold">Grand Prix de Dakhla</td>
+                    <td>Mer</td>
+                    <td>Surfcasting</td>
+                    <td>Plage</td>
+                    <td>14/10/2026</td>
+                    <td class="text-cyan-400 font-bold">Ouverte</td>
+                    <td class="text-right space-x-3">
+                        <a href="admin_competition_edit.php?id=1"
+                           class="text-cyan-400 hover:underline">
+                            Modifier
+                        </a>
+                        <a href="admin_competition_delete.php?id=1"
+                           class="text-red-500 hover:underline"
+                           onclick="return confirm('Supprimer cette compétition ?')">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+
+                <tr class="hover:bg-white/5 transition">
+                    <td class="py-4 font-bold">Bin El Ouidane Cup</td>
+                    <td>Eau douce</td>
+                    <td>Black Bass</td>
+                    <td>Barrage</td>
+                    <td>28/10/2026</td>
+                    <td class="text-yellow-400 font-bold">À venir</td>
+                    <td class="text-right space-x-3">
+                        <a href="admin_competition_edit.php?id=2"
+                           class="text-cyan-400 hover:underline">
+                            Modifier
+                        </a>
+                        <a href="admin_competition_delete.php?id=2"
+                           class="text-red-500 hover:underline"
+                           onclick="return confirm('Supprimer cette compétition ?')">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+        <section id="catches" class="admin-section hidden">
+            <h2 class="text-3xl font-black mb-6">Prises</h2>
+            <div class="ultra-glass p-8 rounded-[40px]">
+                Validation et contrôle des prises
+            </div>
+        </section>
+
+        <section id="species" class="admin-section hidden">
+            <div class="flex justify-between mb-6">
+                <h2 class="text-3xl font-black">Espèces</h2>
+                <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-2 rounded-full neo-button uppercase">
+                    + Ajouter espèce
+                </button>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6">
+
+
                 <div class="ultra-glass p-8 rounded-[40px]">
                     <h3 class="text-xl font-black mb-6 flex items-center gap-3 underline decoration-cyan-500 underline-offset-8">
                         Records de Saison
@@ -284,12 +377,24 @@
         <section id="fishermen" class="admin-section hidden">
             <h2 class="text-4xl font-black mb-6 italic italic">BASE <span class="text-cyan-400">PÊCHEURS</span></h2>
             <div class="ultra-glass p-8 rounded-[40px]">
+
                 <p class="text-slate-400 italic">Analyse des 250 licenciés actifs sur la plateforme.</p>
+
+           
+            </div>
+        </section>
+
+        <section id="settings" class="admin-section hidden">
+            <h2 class="text-3xl font-black mb-6">Paramètres</h2>
+            <div class="ultra-glass p-8 rounded-[40px]">
+                Sécurité, rôles, sessions, permissions
+
             </div>
         </section>
 
     </main>
 </div>
+
 
 <footer class="mt-20 py-12 border-t border-white/5 text-center">
     <div class="flex flex-col items-center gap-4">
@@ -302,6 +407,12 @@
             Fédération Royale Marocaine de Pêche Sportive © 2026
         </p>
     </div>
+
+<footer class="mt-24 py-12 border-t border-white/5 text-center">
+    <p class="text-[10px] font-bold tracking-[0.6em] text-slate-600 uppercase">
+        Fédération Royale Marocaine de Pêche Sportive © 2026
+    </p>
+
 </footer>
 
 <script>
