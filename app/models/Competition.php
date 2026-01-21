@@ -13,6 +13,10 @@ class Competition
     private int $id_competition;
     private string $nom_competition;
     private string $date_create;
+    private string $date_debut;
+    private string $date_fin;
+    private string $nb_participants;
+    private string $id_categorie;
 
 
     public function __construct() {}
@@ -79,7 +83,7 @@ class Competition
             return [];
         }
     }
-    public function getCompetion($id_competition): ?Competition
+    public function getCompetition($id_competition): ?Competition
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM competition WHERE id_competition = :id_competition";

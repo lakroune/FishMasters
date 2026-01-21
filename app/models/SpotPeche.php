@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use app\model\Connexion;
+use config\Connexion;
+use config\Connexion as ConfigConnexion;
 use Exception;
 use PDO;
 
