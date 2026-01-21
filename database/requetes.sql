@@ -137,7 +137,7 @@ CREATE TABLE badge (
 CREATE TABLE notification (
     id_notification SERIAL PRIMARY KEY,
     contenu TEXT,
-    date_notification TIMESTAMP,
+    date_notification TIMESTAMP DEFAULT ,
     id_fan INT REFERENCES fan (id_user)
 );
 
