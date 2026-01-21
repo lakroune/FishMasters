@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\model\Connexion;
+use config\Connexion;
 use Exception;
 use PDO;
 
