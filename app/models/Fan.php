@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\model\Connexion;
+use config\Connexion;
 use Exception;
 
 class Fan extends User
@@ -42,4 +42,3 @@ class Fan extends User
         }
     }
 }
-
