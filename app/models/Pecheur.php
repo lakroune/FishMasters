@@ -2,7 +2,13 @@
 
 namespace app\models;
 
+<<<<<<< HEAD
 use Exception;
+=======
+use config\Connexion;
+use Exception;
+use PDO;
+>>>>>>> 778b7def51f4cd8a64d05903ff0f16cf811db5b2
 
 class   Pecheur extends User
 {
@@ -75,5 +81,20 @@ class   Pecheur extends User
 
         $this->id_equipe = $id;
     }
+<<<<<<< HEAD
     
+=======
+    public function getAllPecheur(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM pecheur";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        return $stmt->fetchAll( PDO::FETCH_CLASS, Pecheur::class);
+    }
+>>>>>>> 778b7def51f4cd8a64d05903ff0f16cf811db5b2
 }

@@ -227,10 +227,17 @@
             element.classList.add('btn-active');
             element.classList.remove('text-slate-500', 'hover:bg-white/5');
 
+<<<<<<< HEAD
             element.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 element.style.transform = 'scale(1.02)';
             }, 0);
+=======
+            element.style.transform = 'scale(0.99)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 20);
+>>>>>>> 778b7def51f4cd8a64d05903ff0f16cf811db5b2
             submit();
         }
     </script>
