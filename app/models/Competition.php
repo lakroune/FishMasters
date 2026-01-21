@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\model\Connexion;
+use config\Connexion;
 use Exception;
 use PDO;
 
@@ -15,8 +15,11 @@ class Competition
     private string $date_create;
     private string $date_debut;
     private string $date_fin;
-    private string $nb_participants;
-    private string $id_categorie;
+    private string $type_competition;
+    private int $nb_matchs;
+    private int $nb_participants;
+    private int $id_categorie;
+
 
 
     public function __construct() {}
@@ -35,6 +38,39 @@ class Competition
     {
         return $this->date_create;
     }
+
+    public function getDateDebut(): string
+    {
+        return $this->date_debut;
+    }
+
+    public function getDateFin(): string
+    {
+        return $this->date_fin;
+    }
+
+    public function getType(): string
+    {
+        return $this->type_competition;
+    }
+
+
+    public function getNbMatchs(): int
+    {
+        return $this->nb_matchs;
+    }
+
+    public function getNbParticipants(): int
+    {
+        return $this->nb_participants;
+    }
+
+    public function getIdCategorie(): int
+    {
+        return $this->id_categorie;
+    }
+
+
 
     public function setId(int $id): void
     {
@@ -62,6 +98,11 @@ class Competition
         }
 
         $this->date_create = $date;
+    }
+
+    public function setDateDebut(string $date):void
+    {
+           
     }
     public function __toString()
     {
