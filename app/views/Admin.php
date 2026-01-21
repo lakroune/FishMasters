@@ -100,13 +100,11 @@
             </div>
         </section>
 
-        <!-- COMPETITIONS -->
         <section id="competitions" class="admin-section hidden">
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-3xl font-black">Compétitions</h2>
 
-        <!-- ADD COMPETITION -->
-        <a href="admin_competition_create.php"
+        <a href="addCompetition"
            class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full neo-button uppercase">
             + Ajouter une compétition
         </a>
@@ -128,7 +126,6 @@
 
             <tbody class="divide-y divide-white/5">
 
-                <!-- ROW -->
                 <tr class="hover:bg-white/5 transition">
                     <td class="py-4 font-bold">Grand Prix de Dakhla</td>
                     <td>Mer</td>
@@ -149,7 +146,6 @@
                     </td>
                 </tr>
 
-                <!-- ROW -->
                 <tr class="hover:bg-white/5 transition">
                     <td class="py-4 font-bold">Bin El Ouidane Cup</td>
                     <td>Eau douce</td>
@@ -175,8 +171,6 @@
     </div>
 </section>
 
-
-        <!-- CATCHES -->
         <section id="catches" class="admin-section hidden">
             <h2 class="text-3xl font-black mb-6">Prises</h2>
             <div class="ultra-glass p-8 rounded-[40px]">
@@ -184,7 +178,6 @@
             </div>
         </section>
 
-        <!-- SPECIES -->
         <section id="species" class="admin-section hidden">
             <div class="flex justify-between mb-6">
                 <h2 class="text-3xl font-black">Espèces</h2>
@@ -194,7 +187,7 @@
             </div>
 
             <div class="grid lg:grid-cols-2 gap-6">
-                <!-- Freshwater -->
+
                 <div class="ultra-glass p-8 rounded-[40px]">
                     <h3 class="font-bold uppercase mb-4 text-cyan-400">Eau douce</h3>
                     <ul class="space-y-2 text-sm text-slate-300">
@@ -206,7 +199,6 @@
                     </ul>
                 </div>
 
-                <!-- Sea -->
                 <div class="ultra-glass p-8 rounded-[40px]">
                     <h3 class="font-bold uppercase mb-4 text-cyan-400">Mer</h3>
                     <ul class="space-y-2 text-sm text-slate-300">
@@ -220,7 +212,6 @@
             </div>
         </section>
 
-        <!-- FISHERMEN -->
         <section id="fishermen" class="admin-section hidden">
             <h2 class="text-3xl font-black mb-6">Pêcheurs</h2>
             <div class="ultra-glass p-8 rounded-[40px]">
@@ -228,7 +219,6 @@
             </div>
         </section>
 
-        <!-- SETTINGS -->
         <section id="settings" class="admin-section hidden">
             <h2 class="text-3xl font-black mb-6">Paramètres</h2>
             <div class="ultra-glass p-8 rounded-[40px]">
@@ -239,7 +229,6 @@
     </main>
 </div>
 
-<!-- FOOTER -->
 <footer class="mt-24 py-12 border-t border-white/5 text-center">
     <p class="text-[10px] font-bold tracking-[0.6em] text-slate-600 uppercase">
         Fédération Royale Marocaine de Pêche Sportive © 2026
