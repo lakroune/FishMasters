@@ -18,7 +18,7 @@ class Fan extends User
     public function register(array $data): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "INSERT INTO user (nom_user, prenom_user, email, password_user, role_user) VALUES (:nom_user, :prenom_user, :email, :password_user, :role_user)";
+        $query = "INSERT INTO fans (nom_user, prenom_user, email, password_user, role_user) VALUES (:nom_user, :prenom_user, :email, :password_user, :role_user)";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {
@@ -32,11 +32,6 @@ class Fan extends User
         $stmt->bindValue(':role_user', $this->role_user);
         return $stmt->execute();
     }
-    /**
-     * Remplit les valeurs d'un tableau dans les attributs de l'objet
-     * en appelant les méthodes setter correspondantes.
-     * @param array $data tableau contenant les valeurs à rempiler
-     */
     private function rempirer(array $data)
     {
         foreach ($data as $key => $value) {
@@ -47,3 +42,4 @@ class Fan extends User
         }
     }
 }
+

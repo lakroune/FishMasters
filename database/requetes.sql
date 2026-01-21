@@ -39,21 +39,25 @@ CREATE TABLE users (
     role_user VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE fan (
+CREATE TABLE fans (
     PRIMARY KEY (id_user),
     CHECK (role_user = 'FAN')
 ) INHERITS (users);
 
-CREATE TABLE competition (
+CREATE TABLE competitions (
     id_competition SERIAL PRIMARY KEY,
     nom_competition VARCHAR(100),
-    date_create DATE
+    date_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_debut DATE,
+    date_fin DATE,
+    nb_equipe INT check ( nb_equipe between 5 and 10),
+    id_categorie INT REFERENCES categorie (id_categorie) 
 );
 
-CREATE TABLE equipe (
+CREATE TABLE equipes (
     id_equipe SERIAL PRIMARY KEY,
     nom_equipe VARCHAR(100),
-    nb_equipe INT,
+    nb_pecheurs INT,
     type_peche_favorite VARCHAR(100),
     id_competition INT REFERENCES competition (id_competition)
 );
@@ -92,10 +96,11 @@ CREATE TABLE spot_peche (
     especes_disponible TEXT
 );
 
+
 CREATE TABLE classement (
     id_classement SERIAL PRIMARY KEY,
     type_classement VARCHAR(50),
-    date_classement DATE,
+    date_classement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_competition INT REFERENCES competition (id_competition)
 );
 
@@ -111,7 +116,7 @@ CREATE TABLE score (
 CREATE TABLE prise (
     id_prise SERIAL PRIMARY KEY,
     image_prise VARCHAR(255),
-    date_capture TIMESTAMP,
+    date_capture TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     poids FLOAT,
     taille FLOAT,
     id_pecheur INT REFERENCES pecheur (id_user),
@@ -121,10 +126,12 @@ CREATE TABLE prise (
 
 CREATE TABLE likes (
     id_like SERIAL PRIMARY KEY,
-    date_like TIMESTAMP,
-    id_fan INT REFERENCES fan (id_user),
-    id_prise INT REFERENCES prise (id_prise),
-    id_competition INT REFERENCES competition (id_competition)
+    date_like TIMESTAMP DEFAULT current_timestamp,
+    id_fan INT REFERENCES fan (id_user) DEFAULT NULL,
+    id_prise INT REFERENCES prise (id_prise) DEFAULT NULL,
+    id_pecheur INT REFERENCES pecheur (id_user) DEFAULT NULL,
+    id_competition INT REFERENCES competition (id_competition) DEFAULT NULL,
+
 );
 
 CREATE TABLE badge (
@@ -137,7 +144,7 @@ CREATE TABLE badge (
 CREATE TABLE notification (
     id_notification SERIAL PRIMARY KEY,
     contenu TEXT,
-    date_notification TIMESTAMP DEFAULT ,
+    date_notification TIMESTAMP DEFAULT,
     id_fan INT REFERENCES fan (id_user)
 );
 

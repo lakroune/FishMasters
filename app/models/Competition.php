@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\model\Connexion;
 use Exception;
+use PDO;
 
 class Competition
 
@@ -60,5 +62,35 @@ class Competition
     public function __toString()
     {
         return "competition  : id_competition = $this->id_competition, nom_competition = $this->nom_competition, date_create = $this->date_create";
+    }
+    public function getAllCompetition(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM competition";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_CLASS, Competition::class);
+        } else {
+            return [];
+        }
+    }
+    public function getCompetion($id_competition): ?Competition
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM competition WHERE id_competition = :id_competition";
+
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindValue(':id_competition', $id_competition);
+        $stmt->execute();
+        return $stmt->fetchObject(Competition::class);
     }
 }
