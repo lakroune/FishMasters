@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-Class Nnotification
+Class Notification
 {
     private $id_note;
     private $contenu;
