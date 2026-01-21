@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Exception;
+use Exception, PDO;
+use config\Connexion;
 
 
 class Equipe
@@ -12,7 +13,63 @@ class Equipe
     private int $nb_equipe;
     private string $type_peche_favorite;
     private int $id_competition;
-    public function __construct() {}
+    private static ?PDO $pdo = null;
+    public function __construct()
+    {
+        self::$pdo = Connexion::connect()->getConnexion();
+    }
+
+
+    public function all(): array
+    {
+        $stmt = self::$pdo->query("SELECT * FROM equipe");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function find(int $id): ?array
+    {
+        $stmt = self::$pdo->prepare(
+            "SELECT * FROM equipe WHERE id = :id"
+        );
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch() ?: null;
+    }
+
+    public function create(string $nom_equipe, string $nb_equipe, string $type_peche_favorite): bool
+    {
+        $stmt = self::$pdo->prepare(
+            "INSERT INTO equipe (nom_equipe, nb_equipe, type_peche_favorite) VALUES (:nom_equipe, :nb_equipe, :type_peche_favorite)"
+        );
+        return $stmt->execute([
+            'nom_equipe' => $nom_equipe,
+            'nb_equipe' => $nb_equipe,
+            'type_peche_favorite' => $type_peche_favorite
+        ]);
+    }
+
+    public function addMembre(int $equipeId, int $pecheurId): bool
+    {
+        $stmt = self::$pdo->prepare(
+            "update pecheur set id_equipe = :id_equipe where id_user = :id_user"
+        );
+        return $stmt->execute([
+            'id_equipe' => $equipeId,
+            'id_user' => $pecheurId
+        ]);
+    }
+
+    public function getMembres(int $equipeId): array
+    {
+        $stmt = self::$pdo->prepare(
+            "SELECT p.*
+             FROM pecheur p
+             JOIN equipe e ON p.id_equipe = e.id
+             WHERE e.id = :id"
+        );
+
+        $stmt->execute(['id' => $equipeId]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 
     public function getId(): int
     {
