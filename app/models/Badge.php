@@ -46,6 +46,8 @@ Class Badge
 
         }
     }
+
+    
 }
 
 ?>
