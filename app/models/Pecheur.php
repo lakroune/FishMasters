@@ -1,6 +1,9 @@
 <?php
 namespace App\models;
 
+use config\Connexion;
+use PDO;
+
 class Pecheur extends User{
     protected $photo_pecheur;
     protected $region;
@@ -17,7 +20,9 @@ class Pecheur extends User{
    }
 
    public function login($email)
-   {  $sql = ("SELECT * FROM pecheurs WHERE email = :email");
+   { 
+      $pdo=Connexion::connect()->getConnexion();
+       $sql = ("SELECT * FROM pecheurs WHERE email = :email");
       $stmt = $pdo->prepare($sql);
       $stmt->execute(['email' => $email]);
       $result = $stmt->fetch(PDO::FETCH_CLASS, 'Pecheur');

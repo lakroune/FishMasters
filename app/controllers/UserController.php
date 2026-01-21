@@ -3,7 +3,9 @@
  use App\models\Pecheur;
  use config\Database;
 
- class UserController         
+ class UserController  {
+    
+ }       
 
 
 
