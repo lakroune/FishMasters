@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use config\Connexion;
 use Exception;
 
 class   Pecheur extends User
