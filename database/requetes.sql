@@ -233,6 +233,60 @@ EXECUTE FUNCTION increment_nb_pecheurs();
 -- ---- les requetes ----
 -- ------------------------------------------------------
 
-SELECT * FROM  classements
-WHERE type_classement = 'Equipee'
-AND id_competition = 1
+DROP VIEW IF EXISTS classementPecheur;
+
+CREATE OR REPLACE VIEW classementPecheur AS
+SELECT
+    cl.id_competition,
+    cl.type_classement,
+    p.nom_user,
+    p.prenom_user,
+    sc.total_poids,
+    sc.total_points,
+    RANK() OVER (
+        PARTITION BY cl.id_competition
+        ORDER BY sc.total_points DESC, sc.total_poids DESC
+    ) AS rank
+FROM scores sc
+JOIN classements cl ON sc.id_classement = cl.id_classement
+JOIN pecheurs p ON p.id_user = sc.id_pecheur;
+
+DROP VIEW IF EXISTS classementEquipe;
+
+CREATE VIEW classementEquipe AS
+SELECT
+    c.id_competition,
+    e.id_equipe,
+    e.nom_equipe,
+    SUM(s.total_poids)  AS total_poids_equipe,
+    SUM(s.total_points) AS total_points_equipe,
+    RANK() OVER (
+        PARTITION BY c.id_competition
+        ORDER BY SUM(s.total_points) DESC, SUM(s.total_poids) DESC
+    ) AS rang
+FROM equipes e
+JOIN pecheurs p ON p.id_equipe = e.id_equipe
+JOIN scores s ON s.id_pecheur = p.id_user
+JOIN classements cl ON cl.id_classement = s.id_classement
+JOIN competitions c ON c.id_competition = cl.id_competition
+WHERE cl.type_classement = 'Equipee'
+GROUP BY c.id_competition, e.id_equipe, e.nom_equipe;
+
+DROP VIEW IF EXISTS classementGeneralPecheur;
+
+CREATE VIEW classementGeneralPecheur AS
+SELECT
+    p.id_user AS id_pecheur,
+    u.nom_user,
+    u.prenom_user,
+    SUM(s.total_points) AS total_points,
+    SUM(s.total_poids)  AS total_poids,
+    RANK() OVER (
+        ORDER BY SUM(s.total_points) DESC, SUM(s.total_poids) DESC
+    ) AS rang_general
+FROM pecheurs p
+JOIN users u ON u.id_user = p.id_user
+JOIN scores s ON s.id_pecheur = p.id_user
+GROUP BY p.id_user, u.nom_user, u.prenom_user;
+
+SELECT*  from classementGeneralPecheur;
