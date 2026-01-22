@@ -7,15 +7,15 @@ use pdo;
 
 
 class Categorie{
-    private $idCat;
-    private $nomCat;
+    private $id_categorie;
+    private $nom_categorie;
     private $descriptionCat;
 
     public function getId(){
-        return $this->idCat;
+        return $this->id_categorie;
     }
      public function getNom(){
-        return $this->nomCat;
+        return $this->nom_categorie;
     }
      public function getDescription(){
         return $this->descriptionCat;
@@ -23,10 +23,10 @@ class Categorie{
 
 
      public function setId($id){
-     $this->idCat=$id;
+     $this->id_categorie=$id;
     }
      public function setNom($nom){
-         $this->nomCat=$nom;
+         $this->nom_categorie=$nom;
     }
      public function setDescription($description){
     $this->descriptionCat=$description;
@@ -78,4 +78,28 @@ class Categorie{
         }
     }
 
+//
+
+    public function getCategorieById($id)
+    {
+        try{
+
+            $sql = "SELECT * FROM categories WHERE id_categorie = ?";
+
+            $stmt = Connexion::connect()->getConnexion()->prepare($sql);
+
+            $stmt->execute([
+                $id
+            ]);
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS,self::class);
+
+            return $stmt->fetch();
+
+        }catch(PDOexception $e){
+
+            return $e;
+            
+        }
+    }
 }

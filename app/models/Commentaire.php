@@ -1,6 +1,8 @@
 <?php
 
 namespace app\models;
+use config\Connexion;
+use PDO;
 
 class Commentaire {
     private ?int $idCommentaire;

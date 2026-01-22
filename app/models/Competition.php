@@ -19,6 +19,7 @@ class Competition
     private int $nb_matchs;
     private int $nb_participants;
     private int $id_categorie;
+    private Categorie $categorie;
 
 
 
@@ -214,9 +215,17 @@ class Competition
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
-        $stmt->bindValue(':id_competition', $id_competition);
-        $stmt->execute();
-        return $stmt->fetchObject(Competition::class);
+        try {
+            $stmt->bindValue(':id_competition', $id_competition);
+            $stmt->execute();
+            $competition = new self();
+            $categorie = new Categorie();
+            $competition = $stmt->fetchObject(Competition::class);
+            $competition->categorie = $categorie->getCategorieById($competition->id_categorie);
+            return $competition;
+        } catch (Exception $e) {
+            throw new Exception("Une erreur sur affictaTION" . $e->getMessage());
+        }
     }
     private function remplir(array $data)
     {
