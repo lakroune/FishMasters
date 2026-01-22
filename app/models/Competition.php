@@ -161,7 +161,7 @@ class Competition
     public function addCompetition(array $data): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "INSERT INTO competition (nom_competition, date_create, date_debut, date_fin, type_competition, nb_matchs, nb_participants, id_categorie) 
+        $query = "INSERT INTO competitions (nom_competition, date_create, date_debut, date_fin, type_competition, nb_matchs, nb_participants, id_categorie) 
         VALUES (:nom_competition, :date_create, :date_debut, :date_fin, :type_competition, :nb_matchs, :nb_participants, :id_categorie)";
         try {
             $stmt = $db->prepare($query);
