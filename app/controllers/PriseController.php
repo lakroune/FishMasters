@@ -15,8 +15,8 @@ class PriseController
 
     public function index(): void
     {
-        $prises = $this->model->getAll();
-        require __DIR__ . '/../views/prise/index.php';
+        // $prises = $this->model->getAll();
+        require __DIR__ . '/../views/prise.php';
     }
 
     public function show(int $id): void

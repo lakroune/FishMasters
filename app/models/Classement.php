@@ -8,85 +8,112 @@ use PDO;
 
 class Classement
 {
-    private $id_classment;
-    private $type_classment;
-    private $date_classment;
-    private $id_competition;
-    
+    public $id_pecheur;
+    public $nom_user;
+    public $prenom_user;
+    public $total_points;
+    public $total_poids;
+
     public function __construct() {}
 
-    public function getIdClassment(): int
+    public function getIdPecheur(): int
     {
-        return $this->id_classment;
+        return $this->id_pecheur;
     }
 
-    public function getTypeClassment(): string
+    public function getNomUser(): string
     {
-        return $this->type_classment;
+        return $this->nom_user;
     }
 
-    public function getDateClassment(): string
+    public function getPrenomUser(): string
     {
-        return $this->date_classment;
+        return $this->prenom_user;
     }
 
-    public function getIdCompetition(): int
+    public function getTotalPoints(): int
     {
-        return $this->id_competition;
+        return $this->total_points;
+    }
+
+    public function getTotalPoids(): float
+    {
+        return $this->total_poids;
     }
 
 
 
-    public function setIdClassment(int $id_classment): void
+    public function setIdPecheur(int $id_pecheur): void
     {
-        if ($id_classment < 0) {
-            throw new Exception("L'id du classment doit être supérieur à 0");
+        if ($id_pecheur <= 0) {
+            throw new Exception("Id pêcheur invalide");
         }
-
-        $this->id_classment = $id_classment;
+        $this->id_pecheur = $id_pecheur;
     }
 
-    public function setTypeClassment(string $type_classment): void
+    public function setNomUser(string $nom_user): void
     {
-        if (empty($type_classment)) {
-            throw new Exception("Le type de classment ne doit pas être vide");
+        if (empty($nom_user)) {
+            throw new Exception("Le nom ne doit pas être vide");
         }
-
-        $this->type_classment = $type_classment;
+        $this->nom_user = $nom_user;
     }
 
-    public function setDateClassment(string $date_classment): void
+    public function setPrenomUser(string $prenom_user): void
     {
-        if (empty($date_classment)) {
-            throw new Exception("La date du classment ne doit pas être vide");
+        if (empty($prenom_user)) {
+            throw new Exception("Le prénom ne doit pas être vide");
         }
-
-        $this->date_classment = $date_classment;
+        $this->prenom_user = $prenom_user;
     }
 
-    public function setIdCompetition(int $id_competition): void
+    public function setTotalPoints(int $total_points): void
     {
-        if ($id_competition < 0) {
-            throw new Exception("L'id de la competition doit être supérieur à 0");
+        if ($total_points < 0) {
+            throw new Exception("Total points invalide");
         }
-
-        $this->id_competition = $id_competition;
+        $this->total_points = $total_points;
     }
 
+    public function setTotalPoids(float $total_poids): void
+    {
+        if ($total_poids < 0) {
+            throw new Exception("Total poids invalide");
+        }
+        $this->total_poids = $total_poids;
+    }
 
-    
     public static function getClassementsGenerale(): array
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM classementGeneralPecheur";
+
         try {
             $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
         } catch (Exception $e) {
-            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+            throw new Exception(
+                "Erreur lors de la requête SQL (classement général) : " . $e->getMessage()
+            );
         }
-        $stmt->execute();
+    }
+
+    public static function getClassementsPecheur(int $id_pecheur): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM classementPecheur WHERE id_pecheur = :id_pecheur";
+        try {
+            $stmt = $db->prepare($query);
+            $stmt->execute([':id_pecheur' => $id_pecheur]);
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
+        } catch (Exception $e) {
+            throw new Exception(
+                "Erreur lors de la requête SQL (classement) : " . $e->getMessage()
+            );
+        }
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
         } else {
             return [];
         }

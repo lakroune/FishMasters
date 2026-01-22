@@ -10,12 +10,7 @@ class ClassementController
     public function index()
     {
         $classements = Classement::getClassementsGenerale();
-        echo json_encode($classements);
-        foreach ($classements as $classement) {
-            echo $classement->getIdClassment();
-        }
-        // echo $classements->getIdCompetition();
-        $pecheur = new Pecheur();
+        
         require_once __DIR__ . '/../views/classement.php';
     }
     public function default()
@@ -24,7 +19,7 @@ class ClassementController
     }
     public function filter()
     {
-        
+
         require_once __DIR__ . '/../views/classement.php';
     }
 }

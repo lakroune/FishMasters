@@ -115,24 +115,22 @@
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rank-silver rounded-full flex items-center justify-center font-black text-black">2</div>
                 <img src="https://i.pravatar.cc/150?u=9" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-slate-400 p-1">
                 <h3 class="text-xl font-bold">
-                    <?php
-
-                    // $pecheur = $pecheur->getPecheurById($classements[0]->getIdUser());
+                    <?= $classements[1]->getNomUser() . ' ' .  $classements[0]->getPrenomUser();
                     ?>
                 </h3>
-                <p class="text-cyan-400 font-mono text-2xl">16,420 <span class="text-[10px] text-white">PTS</span></p>
+                <p class="text-cyan-400 font-mono text-2xl"><?= $classements[1]->getTotalPoints(); ?><span class="text-[10px] text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-1 md:order-2 h-[400px] flex flex-col justify-center border-t-4 border-yellow-500 bg-gradient-to-b from-yellow-500/10 to-transparent">
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 rank-gold rounded-full flex items-center justify-center font-black text-black text-2xl shadow-[0_0_30px_rgba(255,215,0,0.4)]">1</div>
                 <img src="https://i.pravatar.cc/150?u=1" class="w-28 h-28 rounded-full mx-auto mb-6 border-4 border-yellow-500 p-1">
-                <h3 class="text-3xl font-black uppercase">Mehdi Benmoussa</h3>
-                <p class="text-cyan-400 font-mono text-4xl">18,920 <span class="text-xs text-white">PTS</span></p>
+                <h3 class="text-3xl font-black uppercase"><?= $classements[0]->getNomUser() . ' ' .  $classements[0]->getPrenomUser(); ?></h3>
+                <p class="text-cyan-400 font-mono text-4xl"><?= $classements[0]->getTotalPoints(); ?> <span class="text-xs text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-3 md:order-3 h-[280px] flex flex-col justify-center border-t-4 border-orange-700/50">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rank-bronze rounded-full flex items-center justify-center font-black text-black">3</div>
                 <img src="https://i.pravatar.cc/150?u=12" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-orange-700 p-1">
-                <h3 class="text-lg font-bold">Amine Slaoui</h3>
-                <p class="text-cyan-400 font-mono text-xl">14,105 <span class="text-[10px] text-white">PTS</span></p>
+                <h3 class="text-lg font-bold"><?= $classements[2]->getNomUser() . ' ' .  $classements[2]->getPrenomUser(); ?></h3>
+                <p class="text-cyan-400 font-mono text-xl"><?= $classements[2]->getTotalPoints(); ?> <span class="text-[10px] text-white">PTS</span></p>
             </div>
         </div>
 
@@ -145,34 +143,23 @@
                             <th class="p-6">Athlète</th>
                             <th class="p-6">Catégorie</th>
                             <th class="p-6">Score</th>
-                            <th class="p-6 text-right">Progression</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
-                        <tr class="hover:bg-white/5 transition group">
-                            <td class="p-6 font-mono text-slate-500">#04</td>
-                            <td class="p-6">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://i.pravatar.cc/100?u=4" class="w-10 h-10 rounded-full border border-white/10">
-                                    <span class="font-bold">Sara Filali</span>
-                                </div>
-                            </td>
-                            <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Junior / Mer</td>
-                            <td class="p-6 font-mono text-cyan-400 font-bold">12,840</td>
-                            <td class="p-6 text-right text-green-500 text-xs font-bold"><i class="fa-solid fa-caret-up mr-1"></i> 2 pos</td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition group">
-                            <td class="p-6 font-mono text-slate-500">#05</td>
-                            <td class="p-6">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://i.pravatar.cc/100?u=5" class="w-10 h-10 rounded-full border border-white/10">
-                                    <span class="font-bold">Karim Bennani</span>
-                                </div>
-                            </td>
-                            <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Senior / Eau Douce</td>
-                            <td class="p-6 font-mono text-cyan-400 font-bold">11,200</td>
-                            <td class="p-6 text-right text-red-500 text-xs font-bold"><i class="fa-solid fa-caret-down mr-1"></i> 1 pos</td>
-                        </tr>
+                        <?php array_shift($classements); ?>
+                        <?php foreach ($classements as $classement => $value) : ?>
+                            <tr class="hover:bg-white/5 transition group">
+                                <td class="p-6 font-mono text-slate-500"><?= $classement + 1 ?></td>
+                                <td class="p-6">
+                                    <div class="flex items-center space-x-4">
+                                        <img src="https://i.pravatar.cc/100?u=4" class="w-10 h-10 rounded-full border border-white/10">
+                                        <span class="font-bold"><?= $value->getNomUser() . ' ' .  $value->getPrenomUser(); ?></span>
+                                    </div>
+                                </td>
+                                <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Junior / Mer</td>
+                                <td class="p-6 font-mono text-cyan-400 font-bold"><?= $value->getTotalPoints() ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
