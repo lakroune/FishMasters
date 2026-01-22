@@ -11,12 +11,6 @@ class Categorie{
     private $nomCat;
     private $descriptionCat;
 
-    public function __construct($idCat,$nomCat,$descriptionCat){
-        $this->idCat=$idCat;
-        $this->nomCat=$nomCat;
-        $this->descriptionCat=$descriptionCat;
-    }
-
     public function getId(){
         return $this->idCat;
     }
