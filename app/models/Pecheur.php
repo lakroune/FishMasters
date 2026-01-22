@@ -73,9 +73,6 @@ class Pecheur extends User
 
         $this->id_equipe = $id;
     }
-<<<<<<< HEAD
-    
-=======
     public function getAllPecheur(): array
     {
         $db = Connexion::connect()->getConnexion();
