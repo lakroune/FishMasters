@@ -157,6 +157,37 @@ class Competition
     {
         return "competition  : id_competition = $this->id_competition, nom_competition = $this->nom_competition, date_create = $this->date_create";
     }
+
+    public function addCompetition(array $data): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "INSERT INTO competition (nom_competition, date_create, date_debut, date_fin, type_competition, nb_matchs, nb_participants, id_categorie) 
+        VALUES (:nom_competition, :date_create, :date_debut, :date_fin, :type_competition, :nb_matchs, :nb_participants, :id_categorie)";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+            return false;
+        }
+        try {
+            $this->rempirer($data);
+        } catch (Exception $e) {
+            throw new Exception("erreur : " . $e->getMessage());
+            return false;
+        }
+        $stmt->bindValue(':nom_competition', $this->nom_competition);
+        $stmt->bindValue(':date_create', $this->date_create);
+        $stmt->bindValue(':date_debut', $this->date_debut);
+        $stmt->bindValue(':date_fin', $this->date_fin);
+        $stmt->bindValue(':type_competition', $this->type_competition);
+        $stmt->bindValue(':nb_matchs', $this->nb_matchs);
+        $stmt->bindValue(':nb_participants', $this->nb_participants);
+        $stmt->bindValue(':id_categorie', $this->id_categorie);
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
     public function getAllCompetition(): array
     {
         $db = Connexion::connect()->getConnexion();
@@ -173,10 +204,10 @@ class Competition
             return [];
         }
     }
-    public function getCompetition($id_competition): ?Competition
+    public function getCompetitionbyId($id_competition): ?Competition
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM competition WHERE id_competition = :id_competition";
+        $query = "SELECT * FROM competitions WHERE id_competition = :id_competition";
 
         try {
             $stmt = $db->prepare($query);
@@ -186,5 +217,14 @@ class Competition
         $stmt->bindValue(':id_competition', $id_competition);
         $stmt->execute();
         return $stmt->fetchObject(Competition::class);
+    }
+    private function rempirer(array $data)
+    {
+        foreach ($data as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
     }
 }
