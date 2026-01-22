@@ -46,21 +46,6 @@ Class Classement
             return false ;
         }
     }
-
-//getClassmentPecheur
-
-    public function getClassmentPecheur()
-    {
-        try{
-
-            $sql = "";
-
-        }catch(exception $e){
-
-            return $e ;
-
-        }
-    }
 }
 
 ?>
