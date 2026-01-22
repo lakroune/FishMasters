@@ -140,4 +140,31 @@ class Classement
         $idClassement = $stmt->fetchColumn();
         return $idClassement;
     }
+    public function getClassementGeneralePecheurs(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT * FROM classements WHERE type_classement = 'Individuelle'";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        $classements = $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+        return $classements;
+    }
+    public function getClassementGeneraleEquipes(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT * FROM classements WHERE type_classement = 'Equipe'";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        $classements = $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+        return $classements;
+    }
+    // public function 
 }
