@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Classement;
 use app\models\Pecheur;
 
 class ClassementController
@@ -16,9 +17,8 @@ class ClassementController
     }
     public function filter()
     {
-        $p = new Pecheur();
-        $p->getAllPecheur();
-    
+        $classements = Classement::getClassementsGenerale();
+        $lesTrois = array_slice($classements, 0, 3);
         require_once __DIR__ . '/../views/classement.php';
     }
 }

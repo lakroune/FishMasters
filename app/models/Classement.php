@@ -6,28 +6,77 @@ use config\Connexion;
 use Exception;
 use PDO;
 
-Class Classement
+class Classement
 {
     private $id_classment;
     private $type_classment;
     private $date_classment;
     private $id_competition;
 
-    public function __set($proprty, $value)
+    public function __construct() {}
+
+    public function getIdClassment(): int
     {
-        $this->$proprty = $value ;
+        return $this->id_classment;
     }
 
-    public function __get($proprty)
+    public function getTypeClassment(): string
     {
-        return $this->$proprty ;
+        return $this->type_classment;
     }
 
-//addClassment
-
-    public function addClassment() : bool
+    public function getDateClassment(): string
     {
-        try{
+        return $this->date_classment;
+    }
+
+    public function getIdCompetition(): int
+    {
+        return $this->id_competition;
+    }
+
+
+
+    public function setIdClassment(int $id_classment): void
+    {
+        if ($id_classment < 0) {
+            throw new Exception("L'id du classment doit être supérieur à 0");
+        }
+
+        $this->id_classment = $id_classment;
+    }
+
+    public function setTypeClassment(string $type_classment): void
+    {
+        if (empty($type_classment)) {
+            throw new Exception("Le type de classment ne doit pas être vide");
+        }
+
+        $this->type_classment = $type_classment;
+    }
+
+    public function setDateClassment(string $date_classment): void
+    {
+        if (empty($date_classment)) {
+            throw new Exception("La date du classment ne doit pas être vide");
+        }
+
+        $this->date_classment = $date_classment;
+    }
+
+    public function setIdCompetition(int $id_competition): void
+    {
+        if ($id_competition < 0) {
+            throw new Exception("L'id de la competition doit être supérieur à 0");
+        }
+
+        $this->id_competition = $id_competition;
+    }
+
+
+    public function addClassment(): bool
+    {
+        try {
 
             $sql = "INSERT INTO classment(type_classment, date_classement, id_competition)
                     VALUES (?, ?, ?)";
@@ -40,17 +89,16 @@ Class Classement
                 $this->id_competition
             ]);
 
-            return true ;
+            return true;
+        } catch (exception $e) {
 
-        }catch(exception $e){
-
-            return false ;
+            return false;
         }
     }
-    public function getClassementsGenerale()    :    array
+    public static function getClassementsGenerale(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT c.* FROM classments c inner join competitions co on c.id_competition = co.id_competition";
+        $query = "SELECT * FROM classementGeneralPecheur";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {
@@ -64,5 +112,3 @@ Class Classement
         }
     }
 }
-
-?>

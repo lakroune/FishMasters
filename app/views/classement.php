@@ -114,7 +114,7 @@
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-2 md:order-1 h-[320px] flex flex-col justify-center border-t-4 border-slate-400/30 bg-gradient-to-b from-white/5 to-transparent">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rank-silver rounded-full flex items-center justify-center font-black text-black">2</div>
                 <img src="https://i.pravatar.cc/150?u=9" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-slate-400 p-1">
-                <h3 class="text-xl font-bold">Yassine Reda</h3>
+                <h3 class="text-xl font-bold"><?= ?></h3>
                 <p class="text-cyan-400 font-mono text-2xl">16,420 <span class="text-[10px] text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-1 md:order-2 h-[400px] flex flex-col justify-center border-t-4 border-yellow-500 bg-gradient-to-b from-yellow-500/10 to-transparent">
