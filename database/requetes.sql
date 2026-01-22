@@ -193,3 +193,53 @@ CREATE Table subscriptions (
     id_pecheur INT REFERENCES pecheurs (id_user),
     date_subscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE OR REPLACE FUNCTION increment_nb_participants()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_competition IS NOT NULL THEN
+        UPDATE competitions
+        SET nb_participants = nb_participants + 1
+        WHERE id_competition = NEW.id_competition;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_increment_participants
+AFTER INSERT ON pecheurs
+FOR EACH ROW
+EXECUTE FUNCTION increment_nb_participants();
+
+-- trigger_increment_nb_pecheurs
+CREATE OR REPLACE FUNCTION increment_nb_pecheurs()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_equipe IS NOT NULL THEN
+        UPDATE equipes
+        SET nb_pecheurs = nb_pecheurs + 1
+        WHERE id_equipe = NEW.id_equipe;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_increment_pecheurs
+AFTER INSERT ON pecheurs
+FOR EACH ROW
+EXECUTE FUNCTION increment_nb_pecheurs();
+-- trigger_create_score
+CREATE OR REPLACE FUNCTION create_score_after_classement()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_pecheur IS NOT NULL THEN
+        INSERT INTO scores (total_poids, total_points, nb_prises, id_pecheur, id_classement)
+        VALUES (0, 0, 0, NEW.id_pecheur, NEW.id_classement);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_create_score
+AFTER INSERT ON classements
+FOR EACH ROW
+EXECUTE FUNCTION create_score_after_classement();
