@@ -143,7 +143,7 @@ CREATE TABLE classements (
     id_equipe INT REFERENCES equipes (id_equipe) DEFAULT NULL,
     rank int DEFAULT 0
 );
-
+SELECT * FROM especes;
 CREATE TABLE scores (
     id_score SERIAL PRIMARY KEY,
     total_poids FLOAT,
