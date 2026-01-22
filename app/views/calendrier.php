@@ -195,7 +195,6 @@
         <section id="calendar">
             <div class="grid lg:grid-cols-2 gap-6">
 
-                <!-- Compétition 1 -->
                 <?php foreach ($competitions as $competition) {
                     $debut = new DateTime($competition->getDateDebut());
                     $fin = new DateTime($competition->getDateFin());
@@ -243,7 +242,7 @@
                         <i class="fa-solid fa-calendar-check text-cyan-500 text-2xl"></i>
                     </div>
                     <div>
-                        <p class="text-4xl font-black stat-glow">12</p>
+                        <p class="text-4xl font-black stat-glow"><?= count($competitions) ?></p>
                         <p class="text-[10px] text-slate-500 uppercase font-bold">Compétitions 2026</p>
                     </div>
                 </div>
@@ -255,7 +254,19 @@
                         <i class="fa-solid fa-fish text-amber-500 text-2xl"></i>
                     </div>
                     <div>
-                        <p class="text-4xl font-black">7</p>
+                        <?php
+                        $autorise = [];
+
+                        foreach ($reglements as $reglement) {
+                            $pgarray = $reglement->getEspecesAutorisees();
+                            $pgarray = explode(',', trim($pgarray, '{}'));
+
+                            $autorise = array_merge($autorise, $pgarray);
+                        }
+
+                        // print_r($autorise);
+                        ?>
+                        <p class="text-4xl font-black"> <?= count($autorise) ?></p>
                         <p class="text-[10px] text-slate-500 uppercase font-bold">Espèces ciblées</p>
                     </div>
                 </div>
@@ -272,57 +283,20 @@
             </div>
 
             <div class="grid lg:grid-cols-4 gap-6">
-                <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-water text-cyan-500"></i>
+                <?php foreach ($spotsPeches as $spotsPeche) { ?>
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center mr-4">
+                                <i class="fa-solid fa-water text-cyan-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold"><?= $spotsPeche->getNomSpot() ?></p>
+                                <p class="text-[10px] text-slate-500 uppercase"><?= $spotsPeche->getTypeEau() ?></p>
+                            </div>
                         </div>
-                        <div>
-                            <p class="font-bold">Côte Atlantique</p>
-                            <p class="text-[10px] text-slate-500 uppercase">4 compétitions</p>
-                        </div>
+                        <p class="text-sm text-slate-400"><strong class="text-slate-300 text-[15px]">Localisation:</strong> <?= $spotsPeche->getLocalisation() ?></p>
                     </div>
-                    <p class="text-sm text-slate-400">Dakhla, Agadir, El Jadida, Casablanca</p>
-                </div>
-
-                <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-mountain text-emerald-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold">Moyen Atlas</p>
-                            <p class="text-[10px] text-slate-500 uppercase">3 compétitions</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-400">Ifrane, Azrou, Beni Mellal</p>
-                </div>
-
-                <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-amber-500/20 rounded-2xl flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-dam text-amber-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold">Grands Barrages</p>
-                            <p class="text-[10px] text-slate-500 uppercase">3 compétitions</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-400">Al Massira, Bin El Ouidane, Mohamed V</p>
-                </div>
-
-                <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-water text-purple-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold">Rivières</p>
-                            <p class="text-[10px] text-slate-500 uppercase">2 compétitions</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-400">Oued Souss, Oued Oum Er-Rbia</p>
-                </div>
+                <?php } ?>
             </div>
         </section>
 

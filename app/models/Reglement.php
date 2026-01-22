@@ -171,7 +171,7 @@ class Reglement
     public function getAllReglement(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM reglement";
+        $query = "SELECT * FROM reglements";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {
