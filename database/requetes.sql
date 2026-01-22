@@ -228,3 +228,18 @@ CREATE TRIGGER trg_increment_pecheurs
 AFTER INSERT ON pecheurs
 FOR EACH ROW
 EXECUTE FUNCTION increment_nb_pecheurs();
+-- trigger_create_score
+CREATE OR REPLACE FUNCTION create_score_after_classement()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_pecheur IS NOT NULL THEN
+        INSERT INTO scores (total_poids, total_points, nb_prises, id_pecheur, id_classement)
+        VALUES (0, 0, 0, NEW.id_pecheur, NEW.id_classement);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_create_score
+AFTER INSERT ON classements
+FOR EACH ROW
+EXECUTE FUNCTION create_score_after_classement();
