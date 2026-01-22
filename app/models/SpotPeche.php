@@ -106,7 +106,7 @@ class SpotPeche
         $stmt->execute();
         return $stmt->fetchObject(SpotPeche::class);
     }
-    public function getAllSpotPeche(): array
+    public static function getAllSpotPeche(): array
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM spot_peche";
