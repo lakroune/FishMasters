@@ -61,7 +61,17 @@ class Espece
         return $espece;
     }
 
-
+    public function create(string $nom_espece, string $coefficient, string $description): bool
+    {
+        $stmt = self::$pdo->prepare(
+            "INSERT INTO especes (nom_espece, coefficient, description) VALUES (:nom_equipe, :coefficient, :description)"
+        );
+        return $stmt->execute([
+            'nom_espece' => $nom_espece,
+            'coefficient' => $coefficient,
+            'description' => $description
+        ]);
+    }
 
     public function __toString()
     {
