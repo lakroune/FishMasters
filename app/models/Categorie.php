@@ -78,4 +78,28 @@ class Categorie{
         }
     }
 
+//
+
+    public function getCategorieById($id)
+    {
+        try{
+
+            $sql = "SELECT * FROM categories WHERE id_categorie = ?";
+
+            $stmt = Connexion::connect()->getConnexion()->prepare($sql);
+
+            $stmt->execute([
+                $id
+            ]);
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS,self::class);
+
+            return $stmt->fetch();
+
+        }catch(PDOexception $e){
+
+            return $e;
+            
+        }
+    }
 }
