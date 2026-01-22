@@ -104,10 +104,10 @@
                 </select>
             </div>
 
-            <div class="relative">
+            <!-- <div class="relative">
                 <input type="text" placeholder="RECHERCHER UN NOM..." class="w-full h-full ultra-glass bg-transparent rounded-2xl px-6 py-4 text-[10px] font-black outline-none focus:border-cyan-500/50 transition-all">
                 <i class="fa-solid fa-magnifying-glass absolute right-6 top-1/2 -translate-y-1/2 text-slate-500"></i>
-            </div>
+            </div> -->
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 items-end">
