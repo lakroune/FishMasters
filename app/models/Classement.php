@@ -4,6 +4,7 @@ namespace app\models;
 
 use config\Connexion;
 use Exception;
+use PDO;
 
 Class Classement
 {
@@ -44,6 +45,22 @@ Class Classement
         }catch(exception $e){
 
             return false ;
+        }
+    }
+    public function getClassementsGenerale()    :    array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT c.* FROM classments c inner join competitions co on c.id_competition = co.id_competition";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+        } else {
+            return [];
         }
     }
 }
