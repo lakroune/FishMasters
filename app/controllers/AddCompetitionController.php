@@ -12,12 +12,13 @@ Class AddCompetitionController
 
     public function __construct()
     {
-        $this->competition = new Competition;
-        $this->categories = new Categorie;
+        $this->competition = new Competition ;
+        $this->categories = new Categorie ;
     }
    
     public function index()
     {
+        $categories = $this->categories->getCategories();
         require_once __DIR__ . '/../views/addCompetition.php';
     }
     
