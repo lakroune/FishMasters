@@ -41,6 +41,8 @@ VALUES
 (8, 'Ouazzani', 'Rachid', 'rachid.ouazzani@gmail.com', 'pass123', 'PECHEUR', 'rachid.jpg', 'Rabat', 'Lac'),
 (10,'Chraibi', 'Hamza', 'hamza.chraibi@gmail.com', 'pass123', 'PECHEUR', 'hamza.jpg', 'Marrakech', 'Rivière');
 
+
+
 INSERT INTO categories (nom_categorie) VALUES
 ('Pêche en mer'),
 ('Pêche en rivière'),

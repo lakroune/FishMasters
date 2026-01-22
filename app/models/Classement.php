@@ -19,6 +19,7 @@ class Classement
 
     public function __construct() {}
 
+    
     public function getIdClassement(): int
     {
         return $this->id_classement;

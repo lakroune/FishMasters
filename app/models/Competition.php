@@ -21,6 +21,7 @@ class Competition
     private int $id_categorie;
     private Categorie $categorie;
 
+    
 
 
     public function __construct() {}

@@ -19,6 +19,7 @@ class SpotPeche
 
     public function getIdSpot(): int
     {
+        
         return $this->id_spot;
     }
 

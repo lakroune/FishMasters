@@ -97,6 +97,7 @@ Class Score
                 $this->id_classement
             ]);
 
+            
             return true;
 
         }catch(exception $e){

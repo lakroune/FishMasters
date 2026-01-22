@@ -41,6 +41,7 @@ class  User
     {
         return $this->password_user;
     }
+    
 
     public function getRole(): string
     {

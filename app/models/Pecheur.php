@@ -122,3 +122,4 @@ class   Pecheur extends User
         }
     }
 }
+

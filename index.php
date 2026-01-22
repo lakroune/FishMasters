@@ -19,3 +19,4 @@ $route = explode('/', $path);
 array_shift($route);
 
 $run = (new Router($route))->run();
+

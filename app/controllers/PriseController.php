@@ -13,6 +13,7 @@ class PriseController
         $this->model = new Prise();
     }
 
+    
     public function index(): void
     {
         $prises = $this->model->getAll();

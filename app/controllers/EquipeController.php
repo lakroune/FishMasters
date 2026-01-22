@@ -46,4 +46,5 @@ class EquipeController
         header("Location: /equipes/" . $_POST['equipe_id']);
         exit;
     }
+    
 }

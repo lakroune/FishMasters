@@ -50,6 +50,7 @@ class Prise
         return $prises;
     }
 
+    
     public function find(int $id): ?Prise
     {
         $stmt = $this->pdo->prepare(

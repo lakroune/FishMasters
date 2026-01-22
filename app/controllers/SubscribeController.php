@@ -13,6 +13,7 @@ class SubscribeController
         $this->model = new Subscribe();
     }
 
+    
     public function subscribe(int $id_user, int $id_competition)
     {
         if ($this->model->isSubscribed($id_user, $id_competition)) {
