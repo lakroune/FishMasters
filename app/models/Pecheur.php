@@ -11,7 +11,7 @@ class   Pecheur extends User
     private string $photo_pecheur;
     private string $region;
     private string $type_peche_favorite;
-    private int $id_equipe;
+    private ?int $id_equipe;
     public function __construct()
     {
         parent::__construct();
@@ -36,6 +36,10 @@ class   Pecheur extends User
     public function getIdEquipe(): int
     {
         return $this->id_equipe;
+    }
+    public function getPhotoPecheur(): string
+    {
+        return $this->photo_pecheur;
     }
 
     public function setPhotoPecheur(string $photo): void
