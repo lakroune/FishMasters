@@ -13,7 +13,7 @@ Class AddCompetitionController
     
     public function addComptition()
     {
-
+        
     }
 
 }

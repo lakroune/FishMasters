@@ -8,7 +8,7 @@ Class AdminController
 
     public function index()
     {
-        require_once __DIR__ . '/../views/Admin.php';
+        require_once __DIR__ . '/../views/admin.php';
     }
     
     public function addComptition()
