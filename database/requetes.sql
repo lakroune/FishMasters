@@ -193,3 +193,17 @@ CREATE Table subscriptions (
     id_pecheur INT REFERENCES pecheurs (id_user),
     date_subscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE OR REPLACE FUNCTION increment_nb_participants()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_competition IS NOT NULL THEN
+        UPDATE competitions
+        SET nb_participants = nb_participants + 1
+        WHERE id_competition = NEW.id_competition;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
