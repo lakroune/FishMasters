@@ -170,7 +170,7 @@ class Competition
             return false;
         }
         try {
-            $this->rempirer($data);
+            $this->remplir($data);
         } catch (Exception $e) {
             throw new Exception("erreur : " . $e->getMessage());
             return false;
@@ -188,7 +188,7 @@ class Competition
         }
         return false;
     }
-    public function getAllCompetition(): array
+    public static function getAllCompetition(): array
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM competition";
@@ -218,7 +218,7 @@ class Competition
         $stmt->execute();
         return $stmt->fetchObject(Competition::class);
     }
-    private function rempirer(array $data)
+    private function remplir(array $data)
     {
         foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
