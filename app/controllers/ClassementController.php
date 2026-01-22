@@ -12,7 +12,7 @@ class ClassementController
         $pecheur = new Pecheur();
         $classements = Classement::getClassementGeneralePecheurs();
         foreach ($classements as $classement) {
-            $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
+            $array_classements[] = [$classement, $pecheur->getPecheur($classement->getIdPecheur())];
         }
         require_once __DIR__ . '/../views/classement.php';
     }

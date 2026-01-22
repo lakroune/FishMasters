@@ -76,7 +76,7 @@ class   Pecheur extends User
     public function getAllPecheur(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM pecheur";
+        $query = "SELECT * FROM pecheurs";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {
@@ -85,16 +85,16 @@ class   Pecheur extends User
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, Pecheur::class);
     }
-    public function getPecheurById(int $idPecheur): ?Pecheur
+    public function getPecheurById(int $id): ?Pecheur
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM pecheur WHERE id_pecheur = :idPecheur";
+        $query = "SELECT * FROM pecheurs WHERE id_user = :id";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
-        $stmt->bindValue(':idPecheur', $idPecheur);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetchObject(Pecheur::class);
     }

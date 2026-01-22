@@ -199,4 +199,3 @@ class Classement
         return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
     }
 }
-
