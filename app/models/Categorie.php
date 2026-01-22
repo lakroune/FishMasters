@@ -2,18 +2,14 @@
 namespace app\models;
 
 use config\Connexion;
+use PDOexception;
+use pdo;
 
 
 class Categorie{
     private $idCat;
     private $nomCat;
     private $descriptionCat;
-
-    public function __construct($idCat,$nomCat,$descriptionCat){
-        $this->idCat=$idCat;
-        $this->nomCat=$nomCat;
-        $this->descriptionCat=$descriptionCat;
-    }
 
     public function getId(){
         return $this->idCat;
@@ -40,7 +36,7 @@ class Categorie{
    public static function getCompetitionParCategorie($categorie_id) {
     try {
        
-        $db = Connexion::connect()->getConnection();  
+        $db = Connexion::connect()->getConnexion();  
 
         
         $sql = "SELECT c.*, cat.nom_categorie 
@@ -60,8 +56,50 @@ class Categorie{
         echo "Errore de ". $e->getMessage();
    
     }
-}
+   }
 
 
+//getCategories
 
+    public function getCategories()
+    {
+        try{
+
+            $sql = "SELECT * FROM categories";
+
+            $stmt = Connexion::connect()->getConnexion()->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_CLASS,self::class);
+
+        }catch(PDOexception $e){
+            return $e;
+        }
+    }
+
+//
+
+    public function getCategorieById($id)
+    {
+        try{
+
+            $sql = "SELECT * FROM categories WHERE id_categorie = ?";
+
+            $stmt = Connexion::connect()->getConnexion()->prepare($sql);
+
+            $stmt->execute([
+                $id
+            ]);
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS,self::class);
+
+            return $stmt->fetch();
+
+        }catch(PDOexception $e){
+
+            return $e;
+            
+        }
+    }
 }
