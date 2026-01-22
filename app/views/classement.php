@@ -120,19 +120,19 @@
                     echo ($array_classements[1][1]->getPrenom() . ' ' . $array_classements[1][1]->getNom());
                     ?>
                 </h3>
-                <p class="text-cyan-400 font-mono text-2xl">16,420 <span class="text-[10px] text-white">PTS</span></p>
+                <p class="text-cyan-400 font-mono text-2xl"><?= $array_classements[1][2]->getTotalPoints(); ?><span class="text-[10px] text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-1 md:order-2 h-[400px] flex flex-col justify-center border-t-4 border-yellow-500 bg-gradient-to-b from-yellow-500/10 to-transparent">
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 rank-gold rounded-full flex items-center justify-center font-black text-black text-2xl shadow-[0_0_30px_rgba(255,215,0,0.4)]">1</div>
                 <img src="<?= $array_classements[0][1]->getPhotoPecheur(); ?>" class="w-28 h-28 rounded-full mx-auto mb-6 border-4 border-yellow-500 p-1">
                 <h3 class="text-3xl font-black uppercase"><?php echo ($array_classements[0][1]->getPrenom() . ' ' . $array_classements[0][1]->getNom()); ?></h3>
-                <p class="text-cyan-400 font-mono text-4xl">18,920 <span class="text-xs text-white">PTS</span></p>
+                <p class="text-cyan-400 font-mono text-4xl"><?php echo $array_classements[0][2]->getTotalPoints(); ?> <span class="text-xs text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-3 md:order-3 h-[280px] flex flex-col justify-center border-t-4 border-orange-700/50">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rank-bronze rounded-full flex items-center justify-center font-black text-black">3</div>
                 <img src="<?= $array_classements[2][1]->getPhotoPecheur(); ?>" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-orange-700 p-1">
                 <h3 class="text-lg font-bold"><?php echo ($array_classements[2][1]->getPrenom() . ' ' . $array_classements[2][1]->getNom()); ?></h3>
-                <p class="text-cyan-400 font-mono text-xl">14,105 <span class="text-[10px] text-white">PTS</span></p>
+                <p class="text-cyan-400 font-mono text-xl"><?= $array_classements[2][2]->getTotalPoints(); ?> <span class="text-[10px] text-white">PTS</span></p>
             </div>
         </div>
 
@@ -161,7 +161,7 @@
                                     </div>
                                 </td>
                                 <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Junior / Mer</td>
-                                <td class="p-6 font-mono text-cyan-400 font-bold">12,840</td>
+                                <td class="p-6 font-mono text-cyan-400 font-bold"><?php echo $array_classements[$i][2]->getTotalPoints(); ?></td>
                                 <td class="p-6 text-right text-green-500 text-xs font-bold"><i class="fa-solid fa-trophy"></i> <?php echo $array_classements[$i][0]->getTypeClassement(); ?></td>
                             </tr>
                         <?php endfor; ?>
