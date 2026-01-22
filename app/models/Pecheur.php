@@ -22,10 +22,6 @@ class   Pecheur extends User
         return parent::__toString() . "pecheur : photo_pecheur = $this->photo_pecheur, region = $this->region, type_peche_favorite = $this->type_peche_favorite, id_equipe = $this->id_equipe";
     }
 
-    public function getPhotoPecheur(): string
-    {
-        return $this->photo_pecheur;
-    }
 
     public function getRegion(): string
     {
