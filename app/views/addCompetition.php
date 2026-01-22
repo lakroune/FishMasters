@@ -55,6 +55,12 @@
     </div>
 </nav>
 
+                   
+        <!-- $stmt->bindValue(':type_competition', $this->type_competition);
+        $stmt->bindValue(':nb_matchs', $this->nb_matchs);
+        $stmt->bindValue(':nb_participants', $this->nb_participants);
+        $stmt->bindValue(':id_categorie', $this->id_categorie); -->
+
 <main class="max-w-[1100px] mx-auto pt-32 px-6">
 
     <form action="admin_competition_store.php" method="POST"
@@ -69,96 +75,48 @@
                        class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
             </div>
             <div>
-                <label class="text-xs uppercase text-slate-400">Date</label>
-                <input type="date" name="date" required
+                <label class="text-xs uppercase text-slate-400">Date Debut</label>
+                <input type="date" name="dateDebut" required
+                       class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
+            </div>
+
+            <div>
+                <label class="text-xs uppercase text-slate-400">Date Fin</label>
+                <input type="date" name="dateFin" required
                        class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
             </div>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-6">
             <div>
-                <label class="text-xs uppercase text-slate-400">Type de pêche</label>
-                <select name="water_type" required
+                <label class="text-xs uppercase text-slate-400">Type de Competition</label>
+                <select name="Competition" required
                         class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
-                    <option value="">-- Choisir --</option>
-                    <option value="freshwater">Eau douce</option>
-                    <option value="sea">Mer</option>
+                    <option value="" disabled>-- Choisir --</option>
+                    <option class="text-black" value="Equipee">Equipee</option>
+                    <option class="text-black" value="Individuelle">Individuelle</option>
                 </select>
             </div>
-                    <?php print_r($categories) ?>
+
             <div>
                 <label class="text-xs uppercase text-slate-400">Catégorie</label>
                 <select name="category" required
                         class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
                     <option class="text-black" value="" disabled>-- Choisir --</option>
                     <?php foreach($categories as $catt): ?>
-                    <option class="text-black" value=""><?= htmlspecialchars($catt->getNom()) ?></option>
+                    <option class="text-black" value="<?= htmlspecialchars($catt->getId()) ?>"><?= htmlspecialchars($catt->getNom()) ?></option>
                     <?php endforeach; ?>
                     
                 </select>
             </div>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-6">
-            <div>
-                <label class="text-xs uppercase text-slate-400">Technique</label>
-                <select name="technique" required
-                        class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
-                    <option value="">-- Choisir --</option>
-                    <option>Pole fishing</option>
-                    <option>Feeder / Float</option>
-                    <option>Carp fishing</option>
-                    <option>Fly fishing</option>
-                    <option>Lure fishing</option>
-                    <option>Surfcasting</option>
-                    <option>Jigging</option>
-                    <option>Trolling / Big Game</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="text-xs uppercase text-slate-400">Environnement</label>
-                <select name="environment" required
-                        class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
-                    <option value="">-- Choisir --</option>
-                    <option>Rivière</option>
-                    <option>Lac</option>
-                    <option>Barrage</option>
-                    <option>Plage</option>
-                    <option>Côte rocheuse</option>
-                    <option>Bateau / Large</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <label class="text-xs uppercase text-slate-400">Lieu / Spot</label>
-            <input type="text" name="location" required
-                   class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
-        </div>
-
-        <div>
-            <label class="text-xs uppercase text-slate-400">Statut</label>
-            <select name="status"
-                    class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
-                <option value="upcoming">À venir</option>
-                <option value="open">Ouverte</option>
-                <option value="closed">Terminée</option>
-            </select>
-        </div>
-
-        <div>
-            <label class="text-xs uppercase text-slate-400">Description</label>
-            <textarea name="description" rows="4"
-                      class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500"></textarea>
-        </div>
-
         <div class="flex justify-end gap-4">
-            <a href="admin_dashboard.php"
+            <a href="Admin"
                class="px-8 py-3 border border-white/20 rounded-full text-xs font-bold uppercase">
                 Annuler
             </a>
-            <button type="submit"
+            <button type="submit" name="submit"
                     class="bg-cyan-500 text-black px-8 py-3 rounded-full text-xs font-bold uppercase neo-button">
                 Enregistrer
             </button>
