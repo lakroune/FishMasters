@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-use Exception;
+use Exception, PDO;
+use config\Connexion;
+
 
 class Espece
 {
@@ -10,8 +12,56 @@ class Espece
     private string $nom_espece;
     private int $coefficient;
     private string $description;
+    private PDO $pdo;
 
-    public function __construct() {}
+
+    public function __construct()
+    {
+        self::$pdo = Connexion::connect()->getConnexion();
+    }
+
+    public function getAll(): array
+    {
+        $stmt = $this->pdo->query("SELECT * FROM espece");
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $especes = [];
+
+        foreach ($rows as $row) {
+            $espece = new Espece();
+            $espece->setIdEspece($row['id_espece']);
+            $espece->setNomEspece($row['nom_espece']);
+            $espece->setCoefficient($row['coefficient']);
+            $espece->setDescription($row['description']);
+
+            $especes[] = $espece;
+        }
+
+        return $especes;
+    }
+
+    public function find(int $id): ?Espece
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT * FROM espece WHERE id_espece = :id"
+        );
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        $espece = new Espece();
+        $espece->setIdEspece($row['id_espece']);
+        $espece->setNomEspece($row['nom_espece']);
+        $espece->setCoefficient($row['coefficient']);
+        $espece->setDescription($row['description']);
+
+        return $espece;
+    }
+
+
 
     public function __toString()
     {
