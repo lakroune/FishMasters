@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-require_once  '../../config/Connexion.php';
 
 use config\Connexion;
 use Exception;
@@ -200,4 +199,3 @@ class Classement
         return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
     }
 }
-
