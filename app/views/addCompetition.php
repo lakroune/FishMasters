@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <!-- STYLES (COPIED) -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@100;400;900&display=swap');
         :root { --accent: #00f2ff; --bg: #02040a; }
@@ -38,7 +37,6 @@
 
 <body class="antialiased">
 
-<!-- HEADER -->
 <nav class="fixed top-0 w-full z-[100] p-6">
     <div class="max-w-[1600px] mx-auto ultra-glass rounded-full px-8 py-4 flex justify-between items-center">
         <div class="flex items-center gap-2">
@@ -57,7 +55,6 @@
     </div>
 </nav>
 
-<!-- MAIN -->
 <main class="max-w-[1100px] mx-auto pt-32 px-6">
 
     <form action="admin_competition_store.php" method="POST"
@@ -65,7 +62,6 @@
 
         <h1 class="text-4xl font-black uppercase">Ajouter une compétition</h1>
 
-        <!-- BASIC INFO -->
         <div class="grid lg:grid-cols-2 gap-6">
             <div>
                 <label class="text-xs uppercase text-slate-400">Nom de la compétition</label>
@@ -80,7 +76,6 @@
             </div>
         </div>
 
-        <!-- TYPE -->
         <div class="grid lg:grid-cols-2 gap-6">
             <div>
                 <label class="text-xs uppercase text-slate-400">Type de pêche</label>
@@ -108,7 +103,6 @@
             </div>
         </div>
 
-        <!-- TECHNIQUE & ENVIRONMENT -->
         <div class="grid lg:grid-cols-2 gap-6">
             <div>
                 <label class="text-xs uppercase text-slate-400">Technique</label>
@@ -141,14 +135,12 @@
             </div>
         </div>
 
-        <!-- LOCATION -->
         <div>
             <label class="text-xs uppercase text-slate-400">Lieu / Spot</label>
             <input type="text" name="location" required
                    class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
         </div>
 
-        <!-- STATUS -->
         <div>
             <label class="text-xs uppercase text-slate-400">Statut</label>
             <select name="status"
@@ -159,14 +151,12 @@
             </select>
         </div>
 
-        <!-- DESCRIPTION -->
         <div>
             <label class="text-xs uppercase text-slate-400">Description</label>
             <textarea name="description" rows="4"
                       class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500"></textarea>
         </div>
 
-        <!-- ACTIONS -->
         <div class="flex justify-end gap-4">
             <a href="admin_dashboard.php"
                class="px-8 py-3 border border-white/20 rounded-full text-xs font-bold uppercase">
@@ -181,7 +171,6 @@
     </form>
 </main>
 
-<!-- FOOTER -->
 <footer class="mt-24 py-12 border-t border-white/5 text-center">
     <p class="text-[10px] font-bold tracking-[0.6em] text-slate-600 uppercase">
         Fédération Royale Marocaine de Pêche Sportive © 2026
