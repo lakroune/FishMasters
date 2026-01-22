@@ -1,16 +1,19 @@
 <?php
     namespace app\controllers;
 
+use app\models\Categorie;
 use app\models\Competition;
 
 Class AddCompetitionController
 {
 
     private $competition;
+    private $categories;
 
     public function __construct()
     {
         $this->competition = new Competition;
+        $this->categories = new Categorie;
     }
    
     public function index()

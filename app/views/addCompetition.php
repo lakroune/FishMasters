@@ -68,7 +68,6 @@
                 <input type="text" name="name" required
                        class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
             </div>
-
             <div>
                 <label class="text-xs uppercase text-slate-400">Date</label>
                 <input type="date" name="date" required

@@ -8,9 +8,9 @@ class EspeceController
 {
     private Espece $model;
 
-    public function __construct(Espece $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = new Espece();
     }
 
     public function index(): void
