@@ -206,4 +206,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE TRIGGER trg_increment_participants
+AFTER INSERT ON pecheurs
+FOR EACH ROW
+EXECUTE FUNCTION increment_nb_participants();
 
