@@ -20,6 +20,8 @@ DROP TABLE IF EXISTS reglement;
 
 DROP TABLE IF EXISTS espece;
 
+drop TABLE if EXISTS subscribe;
+
 DROP TABLE IF EXISTS equipe;
 
 DROP TABLE IF EXISTS competition;
@@ -30,6 +32,8 @@ DROP TABLE IF EXISTS fan;
 
 DROP TABLE IF EXISTS users;
 
+-- ----------------------------------
+-- -----------------------------------
 CREATE TABLE users (
     id_user SERIAL PRIMARY KEY,
     nom_user VARCHAR(100) NOT NULL,
@@ -39,111 +43,153 @@ CREATE TABLE users (
     role_user VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE fan (
+CREATE TABLE badges (
+    id_badge SERIAL PRIMARY KEY,
+    nom_badge VARCHAR(100)
+);
+CREATE TABLE fans (
     PRIMARY KEY (id_user),
-    CHECK (role_user = 'FAN')
+    CHECK (role_user = 'FAN'),
+    id_badge INT REFERENCES badges (id_badge) DEFAULT NULL,
+    nb_like int DEFAULT 0
 ) INHERITS (users);
 
-CREATE TABLE competition (
+CREATE table categories (
+    id_categorie SERIAL PRIMARY KEY,
+    nom_categorie VARCHAR(100)
+);
+CREATE TABLE competitions (
     id_competition SERIAL PRIMARY KEY,
     nom_competition VARCHAR(100),
-    date_create DATE
+    date_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_debut DATE,
+    type_competition VARCHAR(100) check (
+        type_competition in ('Individuelle', 'Equipee')
+    ),
+    nb_matchs int DEFAULT 0 check (nb_matchs >= 3),
+    date_fin DATE,
+    nb_participants INT check (nb_participants between 5 and 10),
+    id_categorie INT REFERENCES categories (id_categorie)
 );
+-- trigger_increment_nb_participants
 
-CREATE TABLE equipe (
+create table matches (
+    id_match SERIAL PRIMARY KEY,
+    id_competition INT REFERENCES competitions (id_competition)
+)
+
+CREATE TABLE equipes (
     id_equipe SERIAL PRIMARY KEY,
     nom_equipe VARCHAR(100),
-    nb_equipe INT,
-    type_peche_favorite VARCHAR(100),
-    id_competition INT REFERENCES competition (id_competition)
+    nb_pecheurs INT DEFAULT 1 check (nb_pecheurs <= 5),
+    id_competition INT REFERENCES competitions (id_competition)
 );
-
-CREATE TABLE pecheur (
+CREATE TABLE pecheurs (
     PRIMARY KEY (id_user),
     photo_pecheur VARCHAR(255),
     region VARCHAR(100),
     type_peche_favorite VARCHAR(100),
-    id_equipe INT REFERENCES equipe (id_equipe) DEFAULT NULL,
+    id_equipe INT REFERENCES equipes (id_equipe) DEFAULT NULL,
+    id_competition INT REFERENCES competitions (id_competition) DEFAULT NULL,
     CHECK (role_user = 'PECHEUR')
 ) INHERITS (users);
 
-CREATE TABLE espece (
+create Table match_members (
+    id_match_member SERIAL PRIMARY KEY,
+    id_match INT REFERENCES matches (id_match),
+    id_equipe INT REFERENCES equipes (id_equipe) DEFAULT NULL,
+    id_pecheur INT REFERENCES pecheurs (id_user) DEFAULT NULL
+)
+
+
+-- trigger_incremebnt_equipe
+
+
+CREATE TABLE especes (
     id_espece SERIAL PRIMARY KEY,
     nom_espece VARCHAR(100),
-    coefficient INT,
+    coefficient INT DEFAULT 1,
     description TEXT
 );
 
-CREATE TABLE reglement (
+CREATE TABLE reglements (
     id_reglement SERIAL PRIMARY KEY,
-    description TEXT,
-    mode_scoring VARCHAR(50),
     taille_mini FLOAT,
-    especes_autorisees TEXT,
-    limite_especes INT,
-    id_competition INT REFERENCES competition (id_competition)
+    poid_mini FLOAT,
+    especes_autorisees TEXT [],
+    limite_prise INT DEFAULT 1 check (limite_prise <= 3),
+    id_competition INT REFERENCES competitions (id_competition)
 );
 
-CREATE TABLE spot_peche (
+CREATE TABLE spot_peches (
     id_spot SERIAL PRIMARY KEY,
     nom_spot VARCHAR(100),
     type_eau VARCHAR(50),
     localisation VARCHAR(150),
-    especes_disponible TEXT
+    id_categorie int REFERENCES categories (id_categorie)
 );
 
-CREATE TABLE classement (
+CREATE TABLE classements (
     id_classement SERIAL PRIMARY KEY,
-    type_classement VARCHAR(50),
-    date_classement DATE,
-    id_competition INT REFERENCES competition (id_competition)
+    type_classement VARCHAR(50) check (
+        type_classement in ('Individuelle', 'Equipee')
+    ),
+    date_classement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_competition INT REFERENCES competitions (id_competition),
+    id_pecheur INT REFERENCES pecheurs (id_user) DEFAULT NULL,
+    id_equipe INT REFERENCES equipes (id_equipe) DEFAULT NULL,
+    rank int DEFAULT 0
 );
 
-CREATE TABLE score (
+CREATE TABLE scores (
     id_score SERIAL PRIMARY KEY,
     total_poids FLOAT,
     total_points FLOAT,
     nb_prises INT,
-    id_pecheur INT REFERENCES pecheur (id_user),
-    id_classement INT REFERENCES classement (id_classement)
+    id_pecheur INT REFERENCES pecheurs (id_user),
+    id_classement INT REFERENCES classements (id_classement)
 );
-
-CREATE TABLE prise (
+-- trigger_insert_classement
+CREATE TABLE prises (
     id_prise SERIAL PRIMARY KEY,
     image_prise VARCHAR(255),
-    date_capture TIMESTAMP,
+    date_capture TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     poids FLOAT,
     taille FLOAT,
-    id_pecheur INT REFERENCES pecheur (id_user),
-    id_espece INT REFERENCES espece (id_espece),
-    id_spot INT REFERENCES spot_peche (id_spot)
+    id_pecheur INT REFERENCES pecheurs (id_user),
+    id_espece INT REFERENCES especes (id_espece),
+    id_spot INT REFERENCES spot_peches (id_spot)
 );
 
 CREATE TABLE likes (
     id_like SERIAL PRIMARY KEY,
-    date_like TIMESTAMP,
-    id_fan INT REFERENCES fan (id_user),
-    id_prise INT REFERENCES prise (id_prise),
-    id_competition INT REFERENCES competition (id_competition)
+    date_like TIMESTAMP DEFAULT current_timestamp,
+    id_fan INT REFERENCES fans (id_user),
+    id_prise INT REFERENCES prises (id_prise) DEFAULT NULL,
+    id_pecheur INT REFERENCES pecheurs (id_user) DEFAULT NULL,
+    id_competition INT REFERENCES competitions (id_competition) DEFAULT NULL
 );
 
-CREATE TABLE badge (
-    id_badge SERIAL PRIMARY KEY,
-    nom_badge VARCHAR(100),
-    date_obtenu DATE,
-    id_fan INT REFERENCES fan (id_user)
-);
 
-CREATE TABLE notification (
+
+CREATE TABLE notifications (
     id_notification SERIAL PRIMARY KEY,
     contenu TEXT,
-    date_notification TIMESTAMP,
-    id_fan INT REFERENCES fan (id_user)
+    date_notification TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_fan INT REFERENCES fans (id_user)
 );
 
 CREATE TABLE commentaires (
     id_comment SERIAL PRIMARY KEY,
     contenu TEXT,
     date_comment TIMESTAMP,
-    id_fan INT REFERENCES fan (id_user)
+    id_fan INT REFERENCES fans (id_user),
+    id_prise INT REFERENCES prises (id_prise)
+);
+
+CREATE Table subscriptions (
+    id_subscription SERIAL PRIMARY KEY,
+    id_fan INT REFERENCES fans (id_user),
+    id_pecheur INT REFERENCES pecheurs (id_user),
+    date_subscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -40,4 +40,3 @@ class Connexion
         return $this->pdo;
     }
 }
-

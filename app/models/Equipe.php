@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Exception, PDO;
-use \config\Connection as Connection;
+use config\Connexion;
 
 
 class Equipe
@@ -13,67 +13,62 @@ class Equipe
     private int $nb_equipe;
     private string $type_peche_favorite;
     private int $id_competition;
-    private array $membres;
     private static ?PDO $pdo = null;
-    public function __construct(){
-        self::$pdo = Connection::connect()->getConnexion();
+    public function __construct()
+    {
+        self::$pdo = Connexion::connect()->getConnexion();
     }
 
 
     public function all(): array
     {
-        $stmt = $this->pdo->query("SELECT * FROM equipes");
+        $stmt = self::$pdo->query("SELECT * FROM equipe");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function find(int $id): ?array
     {
-        $stmt = $this->pdo->prepare(
-            "SELECT * FROM equipes WHERE id = :id"
+        $stmt = self::$pdo->prepare(
+            "SELECT * FROM equipe WHERE id = :id"
         );
         $stmt->execute(['id' => $id]);
         return $stmt->fetch() ?: null;
     }
 
-    public function create(string $nom, string $region): bool
+    public function create(string $nom_equipe, string $nb_equipe, string $type_peche_favorite): bool
     {
-        $stmt = $this->pdo->prepare(
-            "INSERT INTO equipes (nom, region) VALUES (:nom, :region)"
+        $stmt = self::$pdo->prepare(
+            "INSERT INTO equipe (nom_equipe, nb_equipe, type_peche_favorite) VALUES (:nom_equipe, :nb_equipe, :type_peche_favorite)"
         );
         return $stmt->execute([
-            'nom' => $nom,
-            'region' => $region
+            'nom_equipe' => $nom_equipe,
+            'nb_equipe' => $nb_equipe,
+            'type_peche_favorite' => $type_peche_favorite
         ]);
     }
 
-    /* ==========================
-       Team logic
-       ========================== */
-
     public function addMembre(int $equipeId, int $pecheurId): bool
     {
-        $stmt = $this->pdo->prepare(
-            "INSERT INTO equipe_pecheur (equipe_id, pecheur_id)
-             VALUES (:equipe, :pecheur)"
+        $stmt = self::$pdo->prepare(
+            "update pecheur set id_equipe = :id_equipe where id_user = :id_user"
         );
-
         return $stmt->execute([
-            'equipe' => $equipeId,
-            'pecheur' => $pecheurId
+            'id_equipe' => $equipeId,
+            'id_user' => $pecheurId
         ]);
     }
 
     public function getMembres(int $equipeId): array
     {
-        $stmt = $this->pdo->prepare(
+        $stmt = self::$pdo->prepare(
             "SELECT p.*
-             FROM pecheurs p
-             JOIN equipe_pecheur ep ON p.id = ep.pecheur_id
-             WHERE ep.equipe_id = :id"
+             FROM pecheur p
+             JOIN equipe e ON p.id_equipe = e.id
+             WHERE e.id = :id"
         );
 
         $stmt->execute(['id' => $equipeId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getId(): int

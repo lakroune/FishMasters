@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use config\Connexion;
+use config\Connexion as ConfigConnexion;
 use Exception;
+use PDO;
 
 class SpotPeche
 {
@@ -84,5 +87,35 @@ class SpotPeche
 
         $this->especes_disponible = $especes_disponible;
     }
-    
+    public function __toString()
+    {
+        return "spot : id_spot = $this->id_spot, nom_spot = $this->nom_spot, type_eau = $this->type_eau, localisation = $this->localisation, especes_disponible = $this->especes_disponible";
+    }
+
+    public function getSpotPeche($id_spot): ?SpotPeche
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM spot_peche WHERE id_spot = :id_spot";
+
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindValue(':id_spot', $id_spot);
+        $stmt->execute();
+        return $stmt->fetchObject(SpotPeche::class);
+    }
+    public function getAllSpotPeche(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM spot_peche";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, SpotPeche::class);
+    }
 }

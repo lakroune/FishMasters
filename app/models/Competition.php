@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use config\Connexion;
 use Exception;
+use PDO;
 
 class Competition
 
@@ -11,6 +13,13 @@ class Competition
     private int $id_competition;
     private string $nom_competition;
     private string $date_create;
+    private string $date_debut;
+    private string $date_fin;
+    private string $type_competition;
+    private int $nb_matchs;
+    private int $nb_participants;
+    private int $id_categorie;
+
 
 
     public function __construct() {}
@@ -29,6 +38,39 @@ class Competition
     {
         return $this->date_create;
     }
+
+    public function getDateDebut(): string
+    {
+        return $this->date_debut;
+    }
+
+    public function getDateFin(): string
+    {
+        return $this->date_fin;
+    }
+
+    public function getType(): string
+    {
+        return $this->type_competition;
+    }
+
+
+    public function getNbMatchs(): int
+    {
+        return $this->nb_matchs;
+    }
+
+    public function getNbParticipants(): int
+    {
+        return $this->nb_participants;
+    }
+
+    public function getIdCategorie(): int
+    {
+        return $this->id_categorie;
+    }
+
+
 
     public function setId(int $id): void
     {
@@ -57,8 +99,43 @@ class Competition
 
         $this->date_create = $date;
     }
+
+    public function setDateDebut(string $date):void
+    {
+           
+    }
     public function __toString()
     {
         return "competition  : id_competition = $this->id_competition, nom_competition = $this->nom_competition, date_create = $this->date_create";
+    }
+    public function getAllCompetition(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM competition";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_CLASS, Competition::class);
+        } else {
+            return [];
+        }
+    }
+    public function getCompetition($id_competition): ?Competition
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM competition WHERE id_competition = :id_competition";
+
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindValue(':id_competition', $id_competition);
+        $stmt->execute();
+        return $stmt->fetchObject(Competition::class);
     }
 }

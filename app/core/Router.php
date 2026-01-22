@@ -27,7 +27,7 @@ class Router
             } else {
                 call_user_func_array([$controller, 'default'], $params);
             }
-        } else {
+        } else{
             call_user_func_array([new NotfoundController(), 'index'], $params);
         }
     }
