@@ -9,8 +9,11 @@ class ClassementController
 {
     public function index()
     {
-        $classements = Classement::getClassementsGenerale();
-        
+        $pecheur = new Pecheur();
+        $classements = Classement::getClassementGeneralePecheurs();
+        foreach ($classements as $classement) {
+            $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
+        }
         require_once __DIR__ . '/../views/classement.php';
     }
     public function default()

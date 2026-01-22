@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-require_once  '../../config/Connexion.php';
 
 use config\Connexion;
 use Exception;
