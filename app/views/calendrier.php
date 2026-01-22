@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@100;400;900&display=swap');
-        
-        :root { --accent: #00f2ff; --bg: #02040a; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #fff; }
-        .font-mono { font-family: 'Space Grotesk', sans-serif; }
+
+        :root {
+            --accent: #00f2ff;
+            --bg: #02040a;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: #fff;
+        }
+
+        .font-mono {
+            font-family: 'Space Grotesk', sans-serif;
+        }
 
         /* Glassmorphism 2026 */
         .ultra-glass {
@@ -26,16 +38,33 @@
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .neo-button:hover { transform: translateY(-3px); box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
 
-        .stat-glow { text-shadow: 0 0 15px rgba(0, 242, 255, 0.5); }
-        
+        .neo-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        .stat-glow {
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+        }
+
         /* Bento Layout Custom */
-        .bento-header { grid-area: h; }
-        .bento-live { grid-area: l; }
-        .bento-rank { grid-area: r; }
-        .bento-stats { grid-area: s; }
-        
+        .bento-header {
+            grid-area: h;
+        }
+
+        .bento-live {
+            grid-area: l;
+        }
+
+        .bento-rank {
+            grid-area: r;
+        }
+
+        .bento-stats {
+            grid-area: s;
+        }
+
         .custom-grid {
             display: grid;
             grid-template-areas: "h h l" "r s l";
@@ -44,7 +73,10 @@
         }
 
         @media (max-width: 1024px) {
-            .custom-grid { grid-template-areas: "h" "l" "r" "s"; grid-template-columns: 1fr; }
+            .custom-grid {
+                grid-template-areas: "h" "l" "r" "s";
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Filtres actifs */
@@ -56,21 +88,44 @@
 
         /* Animation pour les événements à venir */
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(0, 242, 255, 0.6); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(0, 242, 255, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+            }
         }
-        
+
         .upcoming-event {
             animation: pulse-glow 2s infinite;
         }
 
         /* Badges de type de compétition */
-        .badge-mer { background: linear-gradient(135deg, #00f2ff20, #0066ff20); border-left: 4px solid #00f2ff; }
-        .badge-lac { background: linear-gradient(135deg, #00ffaa20, #00cc8820); border-left: 4px solid #00ffaa; }
-        .badge-barrage { background: linear-gradient(135deg, #ffaa0020, #ff660020); border-left: 4px solid #ffaa00; }
-        .badge-riviere { background: linear-gradient(135deg, #aa00ff20, #6600cc20); border-left: 4px solid #aa00ff; }
+        .badge-mer {
+            background: linear-gradient(135deg, #00f2ff20, #0066ff20);
+            border-left: 4px solid #00f2ff;
+        }
+
+        .badge-lac {
+            background: linear-gradient(135deg, #00ffaa20, #00cc8820);
+            border-left: 4px solid #00ffaa;
+        }
+
+        .badge-barrage {
+            background: linear-gradient(135deg, #ffaa0020, #ff660020);
+            border-left: 4px solid #ffaa00;
+        }
+
+        .badge-riviere {
+            background: linear-gradient(135deg, #aa00ff20, #6600cc20);
+            border-left: 4px solid #aa00ff;
+        }
     </style>
 </head>
+
 <body class="antialiased selection:bg-cyan-500 selection:text-black">
 
     <nav class="fixed top-0 w-full z-[100] p-6">
@@ -81,7 +136,7 @@
                 </div>
                 <span class="text-2xl font-black uppercase tracking-tighter">Fish<span class="text-cyan-400">Masters</span></span>
             </div>
-            
+
             <div class="hidden lg:flex space-x-10 text-xs font-bold uppercase tracking-widest text-slate-400">
                 <a href="\fishmasters" class="hover:text-cyan-400 transition">Accueil</a>
                 <a href="#calendar" class="hover:text-cyan-400 transition text-cyan-400">Calendrier</a>
@@ -97,7 +152,7 @@
     </nav>
 
     <main class="max-w-[1600px] mx-auto px-6 pt-32 space-y-16">
-        
+
         <!-- En-tête du calendrier -->
         <section>
             <div class="ultra-glass p-12 rounded-[40px] flex flex-col justify-center relative overflow-hidden">
@@ -125,7 +180,7 @@
                     <span id="event-count">12</span> compétitions programmées
                 </div>
             </div>
-            
+
             <div class="flex flex-wrap gap-3">
                 <button class="filter-btn px-6 py-3 ultra-glass rounded-full text-sm font-bold hover:bg-cyan-500 hover:text-black transition filter-active" data-filter="all">TOUTES LES COMPÉTITIONS</button>
                 <button class="filter-btn px-6 py-3 ultra-glass rounded-full text-sm font-bold hover:bg-cyan-500 hover:text-black transition" data-filter="mer"><i class="fa-solid fa-water mr-2"></i> MER</button>
@@ -139,210 +194,49 @@
         <!-- Calendrier des compétitions -->
         <section id="calendar">
             <div class="grid lg:grid-cols-2 gap-6">
-                
+
                 <!-- Compétition 1 -->
-                <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="mer" data-upcoming="true">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-20 h-20 bg-cyan-500/10 rounded-3xl flex flex-col items-center justify-center border border-cyan-500/20">
-                            <span class="text-2xl font-black">14</span>
-                            <span class="text-[10px] uppercase font-bold">Jan</span>
-                        </div>
-                        <div class="flex flex-col items-end space-y-2">
-                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold uppercase">Surfcasting</span>
-                            <div class="flex items-center text-slate-500 text-sm">
-                                <i class="fa-solid fa-users mr-1"></i>
-                                <span>120 participants max</span>
+                <?php foreach ($competitions as $competition) {
+                    $debut = new DateTime($competition->getDateDebut());
+                    $fin = new DateTime($competition->getDateFin());
+                    $interval = $debut->diff($fin);
+                    $duree = $interval->days;
+                ?>
+
+                    <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="mer" data-upcoming="true">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="w-20 h-20 bg-cyan-500/10 rounded-3xl flex flex-col items-center justify-center border border-cyan-500/20">
+                                <span class="text-2xl font-black"><?= $duree ?></span>
+                                <span class="text-[10px] uppercase font-bold">jours</span>
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold uppercase"><?= $competition->getType() ?></span>
+                                <div class="flex items-center text-slate-500 text-sm">
+                                    <i class="fa-solid fa-users mr-1"></i>
+                                    <span><?= $competition->getNbParticipants() ?></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-cyan-500 text-[10px] font-bold uppercase tracking-widest">Mer • Atlantique</span>
-                        <h4 class="text-2xl font-black uppercase group-hover:text-cyan-400 transition">Grand Prix de Dakhla</h4>
-                        <p class="text-sm text-slate-500 font-medium mb-4">Plage d'Oum El Bouir, Dakhla • Eaux libres</p>
-                        <p class="text-slate-400 text-sm">Compétition de surfcasting en équipe de 2. Pêche de nuit autorisée. Trophée spécial pour le plus gros loup de mer.</p>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
-                            <span class="text-xs font-bold">Prix: 25.000 DH</span>
+
+                        <div class="mb-6">
+                            <span class="text-cyan-500 text-[10px] font-bold uppercase tracking-widest">Mer • Atlantique</span>
+                            <h4 class="text-2xl font-black uppercase group-hover:text-cyan-400 transition"><?= $competition->getNom() ?></h4>
+                            <p class="text-sm text-slate-500 font-medium mb-4">Plage d'Oum El Bouir, Dakhla • Eaux libres</p>
+                            <p class="text-slate-400 text-sm">de <?= $competition->getDateDebut() ?> a <?= $competition->getDateFin() ?></p>
                         </div>
-                        <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full uppercase neo-button">S'inscrire</button>
-                    </div>
-                </div>
-                
-                <!-- Compétition 2 -->
-                <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="barrage" data-upcoming="true">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-20 h-20 bg-amber-500/10 rounded-3xl flex flex-col items-center justify-center border border-amber-500/20">
-                            <span class="text-2xl font-black">28</span>
-                            <span class="text-[10px] uppercase font-bold">Jan</span>
-                        </div>
-                        <div class="flex flex-col items-end space-y-2">
-                            <span class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase">Black Bass</span>
-                            <div class="flex items-center text-slate-500 text-sm">
-                                <i class="fa-solid fa-users mr-1"></i>
-                                <span>50 équipes</span>
+
+                        <div class="flex justify-between items-center mt-auto">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
+                                <span class="text-xs font-bold">Prix: 25.000 DH</span>
                             </div>
+                            <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full uppercase neo-button">S'inscrire</button>
                         </div>
                     </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-amber-500 text-[10px] font-bold uppercase tracking-widest">Barrage • Eau douce</span>
-                        <h4 class="text-2xl font-black uppercase group-hover:text-amber-400 transition">Bin El Ouidane Cup</h4>
-                        <p class="text-sm text-slate-500 font-medium mb-4">Barrage Bin El Ouidane, Azilal • Pêche en bateau</p>
-                        <p class="text-slate-400 text-sm">Tournoi de pêche au black bass en bateau. Mesure et relâche obligatoire. Équipement électronique autorisé.</p>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
-                            <span class="text-xs font-bold">Prix: 18.000 DH</span>
-                        </div>
-                        <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full uppercase neo-button">S'inscrire</button>
-                    </div>
-                </div>
-                
-                <!-- Compétition 3 -->
-                <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="lac" data-upcoming="true">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-20 h-20 bg-emerald-500/10 rounded-3xl flex flex-col items-center justify-center border border-emerald-500/20">
-                            <span class="text-2xl font-black">12</span>
-                            <span class="text-[10px] uppercase font-bold">Fév</span>
-                        </div>
-                        <div class="flex flex-col items-end space-y-2">
-                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-bold uppercase">Truite</span>
-                            <div class="flex items-center text-slate-500 text-sm">
-                                <i class="fa-solid fa-users mr-1"></i>
-                                <span>80 participants</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest">Lac • Montagne</span>
-                        <h4 class="text-2xl font-black uppercase group-hover:text-emerald-400 transition">Challenge Dayet Aoua</h4>
-                        <p class="text-sm text-slate-500 font-medium mb-4">Lac Dayet Aoua, Ifrane • Pêche à la mouche</p>
-                        <p class="text-slate-400 text-sm">Compétition exclusivement à la mouche. Taille minimale de capture: 25cm. Matériel no-kill fourni sur place.</p>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
-                            <span class="text-xs font-bold">Prix: 15.000 DH</span>
-                        </div>
-                        <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full uppercase neo-button">S'inscrire</button>
-                    </div>
-                </div>
-                
-                <!-- Compétition 4 -->
-                <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="riviere" data-upcoming="false">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-20 h-20 bg-purple-500/10 rounded-3xl flex flex-col items-center justify-center border border-purple-500/20">
-                            <span class="text-2xl font-black">4</span>
-                            <span class="text-[10px] uppercase font-bold">Mars</span>
-                        </div>
-                        <div class="flex flex-col items-end space-y-2">
-                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-bold uppercase">Ombre</span>
-                            <div class="flex items-center text-slate-500 text-sm">
-                                <i class="fa-solid fa-users mr-1"></i>
-                                <span>60 participants</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-purple-500 text-[10px] font-bold uppercase tracking-widest">Rivière • Eau vive</span>
-                        <h4 class="text-2xl font-black uppercase group-hover:text-purple-400 transition">Trophée Oued Souss</h4>
-                        <p class="text-sm text-slate-500 font-medium mb-4">Oued Souss, Agadir • Pêche en waders</p>
-                        <p class="text-slate-400 text-sm">Compétition de pêche à l'ombre commun. Zone de pêche délimitée sur 2km. Appâts naturels uniquement.</p>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
-                            <span class="text-xs font-bold">Prix: 12.000 DH</span>
-                        </div>
-                        <button class="bg-slate-700 text-white text-xs font-bold px-6 py-3 rounded-full uppercase">Terminé</button>
-                    </div>
-                </div>
-                
-                <!-- Compétition 5 -->
-                <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="mer" data-upcoming="true">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-20 h-20 bg-cyan-500/10 rounded-3xl flex flex-col items-center justify-center border border-cyan-500/20 upcoming-event">
-                            <span class="text-2xl font-black">18</span>
-                            <span class="text-[10px] uppercase font-bold">Mars</span>
-                        </div>
-                        <div class="flex flex-col items-end space-y-2">
-                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold uppercase">Pêche en mer</span>
-                            <div class="flex items-center text-slate-500 text-sm">
-                                <i class="fa-solid fa-users mr-1"></i>
-                                <span>40 bateaux</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-cyan-500 text-[10px] font-bold uppercase tracking-widest">Mer • Méditerranée</span>
-                        <h4 class="text-2xl font-black uppercase group-hover:text-cyan-400 transition">Med Cup Saïdia</h4>
-                        <p class="text-sm text-slate-500 font-medium mb-4">Baie de Saïdia, Berkane • Pêche hauturière</p>
-                        <p class="text-slate-400 text-sm">Compétition en mer ouverte, catégories dorade, loup et pageot. Limite: 5 poissons par bateau.</p>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
-                            <span class="text-xs font-bold">Prix: 30.000 DH</span>
-                        </div>
-                        <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full uppercase neo-button">S'inscrire</button>
-                    </div>
-                </div>
-                
-                <!-- Compétition 6 -->
-                <div class="ultra-glass p-8 rounded-[35px] flex flex-col group cursor-pointer hover:border-cyan-500/50 transition duration-500 competition-item" data-types="barrage" data-upcoming="true">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-20 h-20 bg-amber-500/10 rounded-3xl flex flex-col items-center justify-center border border-amber-500/20">
-                            <span class="text-2xl font-black">1</span>
-                            <span class="text-[10px] uppercase font-bold">Avr</span>
-                        </div>
-                        <div class="flex flex-col items-end space-y-2">
-                            <span class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase">Carpe</span>
-                            <div class="flex items-center text-slate-500 text-sm">
-                                <i class="fa-solid fa-users mr-1"></i>
-                                <span>100 participants</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-amber-500 text-[10px] font-bold uppercase tracking-widest">Barrage • Nuit</span>
-                        <h4 class="text-2xl font-black uppercase group-hover:text-amber-400 transition">Al Massira Carp Night</h4>
-                        <p class="text-sm text-slate-500 font-medium mb-4">Barrage Al Massira, Settat • Session 48h</p>
-                        <p class="text-slate-400 text-sm">Session de pêche à la carpe de 48h. 3 cannes maximum par pêcheur. Pesée et photo avant relâche.</p>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-trophy text-amber-500 mr-2"></i>
-                            <span class="text-xs font-bold">Prix: 22.000 DH</span>
-                        </div>
-                        <button class="bg-cyan-500 text-black text-xs font-bold px-6 py-3 rounded-full uppercase neo-button">S'inscrire</button>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="text-center mt-12">
-                <button class="px-8 py-4 ultra-glass rounded-full text-sm font-bold hover:bg-white hover:text-black transition">
-                    <i class="fa-solid fa-calendar-days mr-2"></i> Voir tout le calendrier 2026
-                </button>
-            </div>
+                <?php } ?>
         </section>
 
-        <!-- Statistiques -->
-        <section class="grid lg:grid-cols-3 gap-6">
+        <section class="grid lg:grid-cols-2 gap-20">
             <div class="ultra-glass p-8 rounded-[40px]">
                 <div class="flex items-center">
                     <div class="w-16 h-16 bg-cyan-500/20 rounded-3xl flex items-center justify-center mr-6">
@@ -354,19 +248,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="ultra-glass p-8 rounded-[40px]">
-                <div class="flex items-center">
-                    <div class="w-16 h-16 bg-emerald-500/20 rounded-3xl flex items-center justify-center mr-6">
-                        <i class="fa-solid fa-location-dot text-emerald-500 text-2xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-4xl font-black">8</p>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold">Régions du Maroc</p>
-                    </div>
-                </div>
-            </div>
-            
+
             <div class="ultra-glass p-8 rounded-[40px]">
                 <div class="flex items-center">
                     <div class="w-16 h-16 bg-amber-500/20 rounded-3xl flex items-center justify-center mr-6">
@@ -388,7 +270,7 @@
                     <i class="fa-solid fa-map mr-2"></i> Carte interactive
                 </div>
             </div>
-            
+
             <div class="grid lg:grid-cols-4 gap-6">
                 <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
                     <div class="flex items-center mb-4">
@@ -402,7 +284,7 @@
                     </div>
                     <p class="text-sm text-slate-400">Dakhla, Agadir, El Jadida, Casablanca</p>
                 </div>
-                
+
                 <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center mr-4">
@@ -415,7 +297,7 @@
                     </div>
                     <p class="text-sm text-slate-400">Ifrane, Azrou, Beni Mellal</p>
                 </div>
-                
+
                 <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-amber-500/20 rounded-2xl flex items-center justify-center mr-4">
@@ -428,7 +310,7 @@
                     </div>
                     <p class="text-sm text-slate-400">Al Massira, Bin El Ouidane, Mohamed V</p>
                 </div>
-                
+
                 <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center mr-4">
@@ -468,25 +350,25 @@
             const filterButtons = document.querySelectorAll('.filter-btn');
             const competitionItems = document.querySelectorAll('.competition-item');
             const eventCount = document.getElementById('event-count');
-            
+
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     // Retirer la classe active de tous les boutons
                     filterButtons.forEach(btn => btn.classList.remove('filter-active'));
-                    
+
                     // Ajouter la classe active au bouton cliqué
                     this.classList.add('filter-active');
-                    
+
                     const filter = this.getAttribute('data-filter');
                     let visibleCount = 0;
-                    
+
                     // Filtrer les compétitions
                     competitionItems.forEach(item => {
                         const types = item.getAttribute('data-types');
                         const upcoming = item.getAttribute('data-upcoming') === 'true';
-                        
+
                         let shouldShow = false;
-                        
+
                         if (filter === 'all') {
                             shouldShow = true;
                         } else if (filter === 'upcoming') {
@@ -494,7 +376,7 @@
                         } else {
                             shouldShow = types.includes(filter);
                         }
-                        
+
                         if (shouldShow) {
                             item.style.display = 'flex';
                             visibleCount++;
@@ -502,15 +384,16 @@
                             item.style.display = 'none';
                         }
                     });
-                    
+
                     // Mettre à jour le compteur
                     eventCount.textContent = visibleCount;
                 });
             });
-            
+
             // Simuler un clic sur "À VENIR" au chargement
             document.querySelector('[data-filter="upcoming"]').click();
         });
     </script>
 </body>
+
 </html>

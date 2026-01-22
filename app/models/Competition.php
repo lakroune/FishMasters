@@ -191,7 +191,7 @@ class Competition
     public static function getAllCompetition(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM competition";
+        $query = "SELECT * FROM competitions";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {

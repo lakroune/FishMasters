@@ -36,7 +36,7 @@ class Categorie{
    public static function getCompetitionParCategorie($categorie_id) {
     try {
        
-        $db = Connexion::connect()->getConnexion();  
+        $db = Connexion::connect()->getConnexion();
 
         
         $sql = "SELECT c.*, cat.nom_categorie 

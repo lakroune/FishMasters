@@ -2,15 +2,11 @@
 
 namespace app\models;
 
-<<<<<<< HEAD
-use Exception;
-=======
 use config\Connexion;
 use Exception;
 use PDO;
->>>>>>> 778b7def51f4cd8a64d05903ff0f16cf811db5b2
 
-class   Pecheur extends User
+class Pecheur extends User
 {
     private string $photo_pecheur;
     private string $region;

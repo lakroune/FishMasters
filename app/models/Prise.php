@@ -43,7 +43,6 @@ class Prise
             $prise->pecheur = $pecheur;
             $prise->espece = $espece;
             $prise->spot = $spot;
-
             $prises[] = $prise;
         }
 

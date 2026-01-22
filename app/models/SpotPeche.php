@@ -109,7 +109,7 @@ class SpotPeche
     public static function getAllSpotPeche(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM spot_peche";
+        $query = "SELECT * FROM spot_peches";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {

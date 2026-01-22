@@ -12,7 +12,7 @@ class CompetitionController
     {
         $competitions = Competition::getAllCompetition();
         $spotsPeches = SpotPeche::getAllSpotPeche();
-        require_once(PATH_ROOT . "app/views/calendrier.php");
+        require_once "app/views/calendrier.php";
     }
     public function default()
     {
