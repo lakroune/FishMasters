@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Exception, PDO;
+use Exception, PDO, app\models\Pecheur;
 use config\Connexion;
 
 
@@ -23,16 +23,34 @@ class Equipe
     public function all(): array
     {
         $stmt = self::$pdo->query("SELECT * FROM equipe");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $equipes = [];
+        foreach ($rows as $row) {
+            $equipe = new Equipe();
+            $equipe->setIdCompetition($row->id_competition);
+            $equipe->setTypePeche($row->type_peche_favorite);
+            $equipe->setNbEquipe($row->nb_equipe);
+            $equipe->setIdEquipe($row->id_equipe);
+            $equipe->setNomEquipe($row->nom_equipe);
+            $equipes[] = $equipe;
+        }
+        return $equipes;
     }
 
-    public function find(int $id): ?array
+    public function find(int $id): ?Equipe
     {
         $stmt = self::$pdo->prepare(
             "SELECT * FROM equipe WHERE id = :id"
         );
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch() ?: null;
+        if(!$stmt->execute(['id' => $id])) return null;
+        $row = $stmt->fetch() ?: null;
+        $equipe = new Equipe();
+        $equipe->setIdCompetition($row->id_competition);
+        $equipe->setTypePeche($row->type_peche_favorite);
+        $equipe->setNbEquipe($row->nb_equipe);
+        $equipe->setIdEquipe($row->id_equipe);
+        $equipe->setNomEquipe($row->nom_equipe);
+        return $equipe;
     }
 
     public function create(string $nom_equipe, string $nb_equipe, string $type_peche_favorite): bool
@@ -69,6 +87,22 @@ class Equipe
 
         $stmt->execute(['id' => $equipeId]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+        $memberes = [];
+        foreach ($rows as $row) {
+            $membre = new Pecheur();
+            $membre->setIdEquipe($row->id_equipe);
+            $membre->setTypePeche($row->type_peche_favorite);
+            $membre->setRegion($row->region);
+            $membre->setPhotoPecheur($row->photo_pecheur);
+            $membre->setRole($row->role_user);
+            $membre->setPassword($row->password_user);
+            $membre->setEmail($row->email);
+            $membre->setPrenom($row->prenom_user);
+            $membre->setNom($row->nom_user);
+            $membre->setId($row->id_user);
+            $memberes[] = $membre;
+        }
+        return $equipes;
     }
 
     public function getId(): int

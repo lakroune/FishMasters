@@ -22,10 +22,6 @@ class   Pecheur extends User
         return parent::__toString() . "pecheur : photo_pecheur = $this->photo_pecheur, region = $this->region, type_peche_favorite = $this->type_peche_favorite, id_equipe = $this->id_equipe";
     }
 
-    public function getPhotoPecheur(): string
-    {
-        return $this->photo_pecheur;
-    }
 
     public function getRegion(): string
     {
@@ -89,4 +85,33 @@ class   Pecheur extends User
         $stmt->execute();
         return $stmt->fetchAll( PDO::FETCH_CLASS, Pecheur::class);
     }
+     
+    public  function creer(): bool
+    { try{
+      $db = Connexion::connect()->getConnexion();
+       $sql = "INSERT INTO pecheur(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite, id_equipe) VALUES (?,?,?,?,?,?,?,?,?)";
+       $stmt = $db->prepare($sql);
+       $stmt->execute([
+         $this->nom_user,
+         $this->prenom_user,
+         $this->email,
+         $this->password_user,
+         $this->role_user,
+         $this->photo_pecheur,
+         $this->region,
+         $this->type_peche_favorite,
+         $this->id_equipe
+       ]);
+       return true;
+    }catch(Exception $e){
+      return false;
+    }
+
+    }
+
+
+
+
+
+
 }

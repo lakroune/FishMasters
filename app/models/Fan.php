@@ -30,7 +30,22 @@ class Fan extends User
         $stmt->bindValue(':email', $this->email);
         $stmt->bindValue(':password_user', $this->password_user);
         $stmt->bindValue(':role_user', $this->role_user);
-        return $stmt->execute();
+        if ($stmt->execute())
+            return true;
+        return false;
+    }
+    public function getFanById(int $id_user): ?Fan
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "select * from fans where id_user= $id_user";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindValue(':role_user', $this->role_user);
+        $stmt->execute();
+        return $stmt->fetchObject(Fan::class);
     }
     private function rempirer(array $data)
     {
