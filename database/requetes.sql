@@ -290,3 +290,4 @@ JOIN scores s ON s.id_pecheur = p.id_user
 GROUP BY p.id_user, u.nom_user, u.prenom_user;
 
 SELECT*  from classementGeneralPecheur;
+
