@@ -9,6 +9,13 @@ class ClassementController
 {
     public function index()
     {
+        $classements = Classement::getClassementsGenerale();
+        echo json_encode($classements);
+        foreach ($classements as $classement) {
+            echo $classement->getIdClassment();
+        }
+        // echo $classements->getIdCompetition();
+        $pecheur = new Pecheur();
         require_once __DIR__ . '/../views/classement.php';
     }
     public function default()
@@ -17,8 +24,7 @@ class ClassementController
     }
     public function filter()
     {
-        $classements = Classement::getClassementsGenerale();
-        $lesTrois = array_slice($classements, 0, 3);
+        
         require_once __DIR__ . '/../views/classement.php';
     }
 }

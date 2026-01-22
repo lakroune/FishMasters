@@ -12,7 +12,7 @@ class Classement
     private $type_classment;
     private $date_classment;
     private $id_competition;
-
+    
     public function __construct() {}
 
     public function getIdClassment(): int
@@ -74,27 +74,7 @@ class Classement
     }
 
 
-    public function addClassment(): bool
-    {
-        try {
-
-            $sql = "INSERT INTO classment(type_classment, date_classement, id_competition)
-                    VALUES (?, ?, ?)";
-
-            $stmt = Connexion::connect()->getConnexion()->prepare($sql);
-
-            $stmt->execute([
-                $this->type_classment,
-                $this->date_classment,
-                $this->id_competition
-            ]);
-
-            return true;
-        } catch (exception $e) {
-
-            return false;
-        }
-    }
+    
     public static function getClassementsGenerale(): array
     {
         $db = Connexion::connect()->getConnexion();
