@@ -2,27 +2,20 @@
 
 namespace app\models;
 
+require_once  '../../config/Connexion.php';
+
 use config\Connexion;
 use Exception;
 use PDO;
 
-//  id_classement SERIAL PRIMARY KEY,
-//     type_classement VARCHAR(50) check (
-//         type_classement in ('Individuelle', 'Equipee')
-//     ),
-//     date_classement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-//     id_competition INT REFERENCES competitions (id_competition),
-//     id_pecheur INT REFERENCES pecheurs (id_user) DEFAULT NULL,
-//     id_equipe INT REFERENCES equipes (id_equipe) DEFAULT NULL,
-//     rank int DEFAULT 0
 class Classement
 {
     private int $id_classement;
     private string $type_classement;
     private string $date_classement;
     private int $id_competition;
-    private int $id_pecheur;
-    private int $id_equipe;
+    private ?int $id_pecheur;
+    private ?int $id_equipe;
     private int $rank;
 
     public function __construct() {}
@@ -98,9 +91,9 @@ class Classement
 
     public function setIdPecheur(int $id): void
     {
-        if ($id <= 0) {
-            throw new Exception("L'id du pecheur doit être supérieur à 0");
-        }
+        // if ($id <= 0 ) {
+        //     throw new Exception("L'id du pecheur doit être supérieur à 0");
+        // }
         $this->id_pecheur = $id;
     }
 
@@ -140,7 +133,7 @@ class Classement
         $idClassement = $stmt->fetchColumn();
         return $idClassement;
     }
-    public function getClassementGeneralePecheurs(): array
+    public static function getClassementGeneralePecheurs(): array
     {
         $db = Connexion::connect()->getConnexion();
         $requete = "SELECT * FROM classements WHERE type_classement = 'Individuelle'";
@@ -150,13 +143,12 @@ class Classement
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
         }
         $stmt->execute();
-        $classements = $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
-        return $classements;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
     }
-    public function getClassementGeneraleEquipes(): array
+    public static function getClassementGeneraleEquipes(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT * FROM classements WHERE type_classement = 'Equipe'";
+        $requete = "SELECT * FROM classements WHERE type_classement = 'Equipee'";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {
@@ -166,5 +158,46 @@ class Classement
         $classements = $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
         return $classements;
     }
-    // public function 
+    public static function getClassementByTypeEau(string $type_eau): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where sp.type_eau = :type_eau";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $stmt->bindParam(':type_eau', $type_eau);
+        $stmt->execute();
+        $classements = $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+        return $classements;
+    }
+    public static function getClassementByEspece(int $id_espece): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT cl.* FROM classements cl inner join competitions com on cl.id_competition = com.id_competition inner join  pecheurs p on com.id_competition = p.id_competition inner join prises pr on p.id_user = pr.id_pecheur inner join especes e on pr.id_espece = e.id_espece where e.id_espece = :id_espece";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $stmt->bindParam(':id_espece', $id_espece);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+    }
+    public static function getClassementByNamePecheur(string $name): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT cl.* FROM classements cl inner join pecheurs p on cl.id_pecheur = p.id_user where concat(p.nom_user, ' ', p.prenom_user) like :name";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $name = '%' . $name . '%';
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+    }
 }
+
