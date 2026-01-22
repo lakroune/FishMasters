@@ -11,7 +11,8 @@ class HomeController
      */
     public function index()
     {
-        echo "Home";
+       
+        require_once __DIR__."/../views/Admin.php";
     }
     /**
      * This function is called when no other route is matched.

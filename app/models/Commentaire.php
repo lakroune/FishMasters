@@ -69,7 +69,7 @@ class Commentaire {
            $db = Connexion::connect()->getConnexion();
            $sql="SELECT * FROM commentaires WHERE id_commentaire=:id";
             $stmt = $db->prepare($sql);
-            $stmt->execute([':id'->$idCommentaire]);
+            $stmt->execute([':id'=>$idCommentaire]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -96,6 +96,9 @@ class Commentaire {
         $stmt = $db->prepare($sql);
         return $stmt->execute([':id' => $id]);
     }
+
+
+    
 
  
 
