@@ -119,6 +119,39 @@ class Competition
 
         $this->date_fin = $date;
     }
+    public function setType(string $type): void
+    {
+        if (empty($type)) {
+            throw new Exception("Le type de la competition ne doit pas être vide");
+        }
+
+        $this->type_competition = $type;
+    }
+    public function setNbMatchs(int $nb_matchs): void
+    {
+        if ($nb_matchs < 0) {
+            throw new Exception("Le nombre de matchs doit être supérieur à 0");
+        }
+
+        $this->nb_matchs = $nb_matchs;
+    }
+    public function setNbParticipants(int $nb_participants): void
+    {
+        if ($nb_participants < 0) {
+            throw new Exception("Le nombre de participants doit être supérieur à 0");
+        }
+
+        $this->nb_participants = $nb_participants;
+    }
+    public function setIdCategorie(int $id_categorie): void
+    {
+        if ($id_categorie < 0) {
+            throw new Exception("L'id de la categorie doit être supérieur à 0");
+        }
+
+        $this->id_categorie = $id_categorie;
+    }
+
 
     public function __toString()
     {
