@@ -100,10 +100,26 @@ class Competition
         $this->date_create = $date;
     }
 
-    public function setDateDebut(string $date):void
+    public function setDateDebut(string $date): void
     {
-           
+        $regex = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
+        if (!preg_match($regex, $date)) {
+            throw new Exception("La date de la competition n'est pas au bon format");
+        }
+
+        $this->date_debut = $date;
     }
+
+    public function setDateFin(string $date): void
+    {
+        $regex = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
+        if (!preg_match($regex, $date)) {
+            throw new Exception("La date de la competition n'est pas au bon format");
+        }
+
+        $this->date_fin = $date;
+    }
+
     public function __toString()
     {
         return "competition  : id_competition = $this->id_competition, nom_competition = $this->nom_competition, date_create = $this->date_create";
