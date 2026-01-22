@@ -243,10 +243,3 @@ CREATE TRIGGER trg_create_score
 AFTER INSERT ON classements
 FOR EACH ROW
 EXECUTE FUNCTION create_score_after_classement();
-
-
--- ------------------------------------------------------
--- ---- les requetes ----
--- ------------------------------------------------------
-
-SELECT *
