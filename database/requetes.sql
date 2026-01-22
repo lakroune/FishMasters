@@ -211,3 +211,20 @@ AFTER INSERT ON pecheurs
 FOR EACH ROW
 EXECUTE FUNCTION increment_nb_participants();
 
+-- trigger_increment_nb_pecheurs
+CREATE OR REPLACE FUNCTION increment_nb_pecheurs()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_equipe IS NOT NULL THEN
+        UPDATE equipes
+        SET nb_pecheurs = nb_pecheurs + 1
+        WHERE id_equipe = NEW.id_equipe;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_increment_pecheurs
+AFTER INSERT ON pecheurs
+FOR EACH ROW
+EXECUTE FUNCTION increment_nb_pecheurs();
