@@ -85,14 +85,14 @@
                     <option value="sea">Mer</option>
                 </select>
             </div>
-                  
+                    <?php print_r($categories) ?>
             <div>
                 <label class="text-xs uppercase text-slate-400">Catégorie</label>
                 <select name="category" required
                         class="w-full mt-2 px-4 py-3 rounded-xl outline-none focus:border-cyan-500">
                     <option class="text-black" value="" disabled>-- Choisir --</option>
                     <?php foreach($categories as $catt): ?>
-                    <option class="text-black" value="<?= htmlspecialchars($catt['id_categorie']) ?>">Eau douce – Coarse fishing</option>
+                    <option class="text-black" value=""><?= htmlspecialchars($catt->getNom()) ?></option>
                     <?php endforeach; ?>
                     
                 </select>
