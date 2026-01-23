@@ -50,7 +50,7 @@ class  User
         return $this->role_user;
     }
 
-    public function setId(int $id): void
+    public function setIdUser(int $id): void
     {
         if ($id < 0) {
             throw new Exception("L'id doit être supérieur à 0");
@@ -79,7 +79,7 @@ class  User
 
     public function setEmail(string $email): void
     {
-        $regex = '/^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/';
+        $regex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/';
         if (!preg_match($regex, $email)) {
             throw new Exception("L'email n'est pas au bon format");
         }

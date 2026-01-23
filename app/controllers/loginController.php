@@ -31,7 +31,6 @@ class LoginController
                 header("Location:  " . PATH_ROOT . "/login");
                 exit;
             }
-            $user = new User();
             $user = User::findByEmail($email);
 
             if (password_verify($password, $user->getPassword())) {

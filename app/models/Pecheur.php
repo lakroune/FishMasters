@@ -107,8 +107,12 @@ class Pecheur extends User
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "INSERT INTO pecheur(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite, id_equipe) VALUES (?,?,?,?,?,?,?,?,?)";
-            $stmt = $db->prepare($sql);
+            $sql = "INSERT INTO pecheurs(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite, id_equipe) VALUES (?,?,?,?,?,?,?,?,?)";
+            try {
+                $stmt = $db->prepare($sql);
+            } catch (Exception $e) {
+                new Exception("ee" . $e);
+            }
             $stmt->execute([
                 $this->nom_user,
                 $this->prenom_user,

@@ -6,6 +6,7 @@ use Config\Connexion;
 use PDO;
 use app\models\Pecheur;
 use app\models\Fan;
+use Exception;
 
 class signupController
 {
@@ -27,36 +28,43 @@ class signupController
 
         $folder = "uploads/" . "fish_master_" . time() . "_" . $filename;
 
-        if (move_uploaded_file($tempname, $folder)) {
-            if ($_POST['roleUser'] == "PECHEUR") {
-                $pech->setNom($_POST['nomUser'] ?? '');
-                $pech->setPrenom($_POST['prenomUser'] ?? '');
-                $pech->setEmail($_POST['emailUser'] ?? '');
-                $pech->setRole($_POST['roleUser'] ?? '');
+
+        if ($_POST['role'] == "PECHEUR") {
+            if (move_uploaded_file($tempname, $folder)) {
+
+                $pech->setNom($_POST['nom'] ?? '');
+                $pech->setPrenom($_POST['prenom'] ?? '');
+                $pech->setEmail($_POST['email'] ?? '');
+                $pech->setRole($_POST['role'] ?? '');
                 $pech->setRegion($_POST['region'] ?? '');
                 $pech->setTypePeche($_POST['type_peche_favorite'] ?? '');
                 $pech->setPhotoPecheur($filename);
-                $password_hash = password_hash($_POST['passwordUser'], PASSWORD_BCRYPT);
+                $password_hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
                 $pech->setPassword($password_hash);
-                if ($pech->creer()) {
-                    header('Location: ' . PATH_ROOT . '/login');
-                    exit;
-                } else {
-                    header('Location: ' . PATH_ROOT . '/signup/error');
-                    exit;
-                }
-            } elseif ($_POST['roleUser'] == "FAN") {
-                if ($fans->register($_POST)) {
-                    header('Location: ' . PATH_ROOT . '/login');
-                } else {
-                    header('Location: ' . PATH_ROOT . '/signup/error');
-                    exit;
+
+                try {
+                    if ($pech->creer()) {
+                        header('Location: ' . PATH_ROOT . '/login');
+                        exit;
+                    } else {
+                        header('Location: ' . PATH_ROOT . '/signup/error/pecheur');
+                        exit;
+                    }
+                } catch (Exception $e) {
+                    echo $e->getMessage();
                 }
             } else {
-                header('Location: ' . PATH_ROOT . '/signup/error');
+                header('Location: ' . PATH_ROOT . '/signup/error/pecheur');
+                exit;
             }
-        } else {
-            header('Location: ' . PATH_ROOT . '/signup/error');
+        } elseif ($_POST["role"] === "FAN") {
+            $_POST['password'] = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            if ($fans->register($_POST)) {
+                header('Location: ' . PATH_ROOT . '/login');
+            } else {
+                header('Location: ' . PATH_ROOT . '/signup/error');
+                exit;
+            }
         }
     }
     public function error()
