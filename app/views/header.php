@@ -19,7 +19,7 @@ if (isset($_SESSION['User'])) {
                 </div>
 
                 <div class="hidden lg:flex space-x-10 text-xs font-bold uppercase tracking-widest text-slate-300">
-                    <a href="<?= PATH_ROOT ?>/actualites" class="hover:text-pink-400 transition italic">Fil d'Actu</a>
+                    <a href="<?= PATH_ROOT ?>" class="hover:text-pink-400 transition italic">Fil d'Actu</a>
                     <a href="<?= PATH_ROOT ?>/competition" class="hover:text-cyan-400 transition text-cyan-400">Calendrier</a>
                     <a href="<?= PATH_ROOT ?>/about" class="hover:text-cyan-400 transition">Decouvrir </a>
                     <a href="<?= PATH_ROOT ?>/classement" class="hover:text-cyan-400 transition">Classement</a>

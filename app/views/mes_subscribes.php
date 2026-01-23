@@ -28,8 +28,14 @@
             text-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
         }
 
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 
@@ -57,10 +63,10 @@
                     <a href="<?= PATH_ROOT ?>/explore" class="mt-4 inline-block text-rose-500 font-black text-[10px] uppercase underline">Découvrir les pros</a>
                 </div>
             <?php else: ?>
-                
+
                 <?php foreach ($subscriptions as $pecheur) : ?>
                     <div class="ultra-glass rounded-[30px] p-4 flex flex-col justify-between border border-white/5 hover:border-rose-500/30 transition-all duration-300 group">
-                        
+
                         <div class="flex justify-between items-start mb-4">
                             <div class="relative">
                                 <img src="<?= $pecheur->getPhotoPecheur(); ?>" class="w-16 h-16 rounded-2xl object-cover border-2 border-white/10 group-hover:border-rose-500 transition-colors">
@@ -80,7 +86,6 @@
                             <a href="<?= PATH_ROOT ?>/pecheur/profile/<?= $pecheur->getIdUser(); ?>" class="w-full bg-white/5 text-white text-[8px] font-black uppercase py-2 rounded-lg text-center hover:bg-white/10 transition-all mb-1">
                                 Voir le Profil
                             </a>
-                            
                             <form action="<?= PATH_ROOT ?>/pecheur/unsubscribe" method="post">
                                 <input type="hidden" name="id_pecheur" value="<?= $pecheur->getIdUser(); ?>">
                                 <button type="submit" class="w-full bg-rose-500/10 text-rose-500 border border-rose-500/20 text-[9px] font-black uppercase py-3 rounded-xl hover:bg-rose-500 hover:text-white transition-all tracking-widest">
@@ -97,4 +102,5 @@
     </main>
 
 </body>
+
 </html>
