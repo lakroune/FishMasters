@@ -6,7 +6,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 use app\core\Router;
 
 session_start();
-session_abort();
 $base_path = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
 define('PATH_ROOT', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .$base_path);
 

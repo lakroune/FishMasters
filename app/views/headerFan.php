@@ -11,21 +11,21 @@
         </div>
 
         <div class="hidden lg:flex space-x-10 text-xs font-bold uppercase tracking-widest text-slate-300">
-            <a href="<?= PATH_ROOT ?>/live" class="flex items-center space-x-2 text-rose-500 hover:text-white transition group">
-                <span class="w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
-                <span>En Direct</span>
-            </a>
             <a href="<?= PATH_ROOT ?>/actualites" class="hover:text-pink-400 transition italic">Fil d'Actu</a>
-            <a href="<?= PATH_ROOT ?>/pecheurs" class="hover:text-pink-400 transition">Mes Favoris</a>
-            <a href="<?= PATH_ROOT ?>/boutique" class="hover:text-pink-400 transition border-b border-pink-500/30">Store ⚡</a>
+            <a href="<?= PATH_ROOT ?>/competition" class="hover:text-cyan-400 transition text-cyan-400">Calendrier</a>
+            <a href="<?= PATH_ROOT ?>/about" class="hover:text-cyan-400 transition">Decouvrir </a>
+            <a href="<?= PATH_ROOT ?>/classement" class="hover:text-cyan-400 transition">Classement</a>
         </div>
 
         <div class="flex items-center space-x-5">
-            <button class="hidden md:block text-[10px] font-black bg-white text-black px-5 py-2 rounded-full hover:bg-pink-500 hover:text-white transition-all uppercase tracking-tighter">
-                Supporter un Pro
+
+            <button class="relative text-slate-400 hover:text-cyan-400 transition">
+                <i class="fa-solid fa-bell text-lg"></i>
+                <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-[#0a0a0a]"></span>
             </button>
 
             <div class="flex items-center space-x-4 border-l border-white/10 pl-5">
+
                 <div class="relative group">
                     <button class="flex items-center space-x-2 focus:outline-none">
                         <div class="w-10 h-10 rounded-full border-2 border-pink-500 overflow-hidden shadow-[0_0_15px_rgba(244,63,94,0.2)]">
@@ -36,8 +36,6 @@
 
                     <div class="absolute right-0 mt-4 w-52 bg-[#0f172a]/95 backdrop-blur-xl border border-white/5 rounded-3xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
                         <div class="px-4 py-2 border-b border-white/5 mb-2">
-                            <p class="text-[9px] text-pink-400 font-black uppercase tracking-widest">Niveau 12</p>
-                            <p class="text-xs text-white font-bold">Fan Passionné</p>
                         </div>
                         <a href="<?= PATH_ROOT ?>/mes-favoris" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">❤️ MES FAVORIS</a>
                         <a href="<?= PATH_ROOT ?>/mes-billets" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">🎟️ MES BILLETS</a>

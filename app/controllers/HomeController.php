@@ -17,7 +17,7 @@ class HomeController
             elseif ($_SESSION['User']->getRole() === "PECHEUR"):
                 require_once __DIR__ . '/../views/Profile_Pecheur.php';
             elseif ($_SESSION['User']->getRole() === "FAN"):
-                require_once __DIR__ . '/../views/Profile_Fan.php';
+                require_once __DIR__ . '/../views/actualites.php';
             endif;
         else:
             require_once __DIR__ . '/../views/index.php';

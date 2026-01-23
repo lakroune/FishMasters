@@ -30,7 +30,7 @@
 
                 <div class="relative group">
                     <button class="w-10 h-10 rounded-full border-2 border-cyan-500/30 p-0.5 hover:border-cyan-400 transition duration-300">
-                        <img src="<?= $_SESSION['User']->getPhotoPecheur(); ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
+                        <img src="<?= "zz";// $_SESSION['User']->getPhotoPecheur(); ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
                     </button>
 
                     <div class="absolute right-0 mt-2 w-48 bg-[#0f172a] border border-white/10 rounded-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
