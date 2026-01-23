@@ -32,9 +32,9 @@ class Prise
 
         foreach ($rows as $row) {
             $prise = new Prise();
-            $pecheur = (new Pecheur())->find($row["id_pecheur"]);
-            $espece = (new Espece())->find($row["id_espece"]);
-            $spot = (new SpotPeche())->find($row["id_spot"]);
+            $pecheur = (new Pecheur())->getPecheurById($row["id_pecheur"]);
+            $espece = (new Espece())->getEspeceParId($row["id_espece"]);
+            $spot = (new SpotPeche())->getSpotPeche($row["id_spot"]);
             $prise->id_prise = $row['id_prise'];
             $prise->image_prise = $row['image_prise'];
             $prise->date_capture = $row['date_capture'];
@@ -49,7 +49,7 @@ class Prise
         return $prises;
     }
 
-    
+
     public function find(int $id): ?Prise
     {
         $stmt = $this->pdo->prepare(
@@ -63,9 +63,9 @@ class Prise
         }
 
         $prise = new Prise();
-        $pecheur = (new Pecheur())->find($row["id_pecheur"]);
-        $espece = (new Espece())->find($row["id_espece"]);
-        $spot = (new SpotPeche())->find($row["id_spot"]);
+        $pecheur = (new Pecheur())->getPecheurById($row["id_pecheur"]);
+        $espece = (new Espece())->getEspeceParId($row["id_espece"]);
+        $spot = (new SpotPeche())->getSpotPeche($row["id_spot"]);
         $prise->id_prise = $row['id_prise'];
         $prise->image_prise = $row['image_prise'];
         $prise->date_capture = $row['date_capture'];

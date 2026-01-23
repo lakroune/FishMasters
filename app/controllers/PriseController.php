@@ -13,7 +13,7 @@ class PriseController
         $this->model = new Prise();
     }
 
-    
+
     public function index(): void
     {
         // $prises = $this->model->getAll();
@@ -41,22 +41,38 @@ class PriseController
     public function store(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $success = $this->model->create(
-                $_POST['image_prise'],
-                $_POST['date_capture'],
-                $_POST['poids'],
-                $_POST['taille'],
-                $_POST['id_pecheur'],
-                $_POST['id_espece'],
-                $_POST['id_spot']
-            );
 
-            if ($success) {
-                header('Location: /prise');
-                exit;
+            $filename = $_FILES["photoPrise"]['name'];
+            $tempname = $_FILES["photoPrise"]['tmp_name'];
+
+            $folder = "uploads/" . "fish_master_Prises" . time() . "_" . $filename;
+
+            if (move_uploaded_file($tempname, $folder)) {
+                $success = $this->model->create(
+                    $_POST['image_prise'],
+                    $_POST['date_capture'],
+                    $_POST['poids'],
+                    $_POST['taille'],
+                    $_SESSION['User']->getIdUser(),
+                    $_POST['id_espece'],
+                    $_POST['id_spot']
+                );
+                if ($success) {
+                    header('Location: ' . PATH_ROOT . '/prise');
+                    exit;
+                } else {
+                    header('Location: ' . PATH_ROOT . '/prise/error');
+                    exit;
+                }
             }
-
-            echo "Erreur lors de la création";
+        } else {
+            header('Location: ' . PATH_ROOT . '/prise/error');
+            exit;
         }
+    }
+    public function error(): void
+    {
+        echo "<script>alert('Veuillez remplir tous les champs')</script>";
+        require __DIR__ . '/../views/prise.php';
     }
 }

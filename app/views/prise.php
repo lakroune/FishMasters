@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,31 +9,45 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Outfit:wght@300;400;900&display=swap');
-        :root { --accent: #00f2ff; --bg: #02040a; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #fff; }
+
+        :root {
+            --accent: #00f2ff;
+            --bg: #02040a;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: #fff;
+        }
+
         .ultra-glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .input-field {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
+
         .input-field:focus {
             border-color: var(--accent);
             background: rgba(0, 242, 255, 0.05);
             outline: none;
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
         }
-        .radio-card:checked + label {
+
+        .radio-card:checked+label {
             background: var(--accent);
             color: #000;
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
         }
     </style>
 </head>
+
 <body class="antialiased p-4 md:p-8">
 
     <main class="max-w-2xl mx-auto pt-10 pb-20">
@@ -42,10 +57,10 @@
             <div class="w-10"></div>
         </div>
 
-        <form class="space-y-6">
-            
+        <form action="<?= PATH_ROOT ?>/prise/store" method="post" class="space-y-6">
+
             <div class="ultra-glass rounded-[30px] p-8 border-dashed border-2 border-white/10 text-center hover:border-cyan-500/50 transition cursor-pointer group">
-                <input type="file" id="photo" class="hidden" accept="image/*">
+                <input type="file" name="photoPrise" id="photo" class="hidden" accept="image/*">
                 <label for="photo" class="cursor-pointer">
                     <div class="w-16 h-16 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-camera text-cyan-500 text-2xl"></i>
@@ -58,7 +73,7 @@
             <div class="ultra-glass rounded-[30px] p-6 space-y-4">
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Espèce de poisson</label>
-                    <select class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none">
+                    <select name="id_espece" class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none">
                         <option>Loup de Mer (Bar)</option>
                         <option>Dorade Royale</option>
                         <option>Sars</option>
@@ -69,11 +84,11 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Poids (kg)</label>
-                        <input type="number" step="0.01" placeholder="0.00" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
+                        <input name="poids" type="number" step="0.01" placeholder="0.00" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
                     </div>
                     <div>
                         <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Taille (cm)</label>
-                        <input type="number" placeholder="0" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
+                        <input name="taille" type="number" placeholder="0" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
                     </div>
                 </div>
             </div>
@@ -82,14 +97,18 @@
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Spot de pêche</label>
                     <div class="relative">
-                        <input type="text" placeholder="Géolocalisation automatique..." class="input-field w-full p-4 rounded-2xl text-sm font-bold pl-12">
-                        <i class="fa-solid fa-location-dot absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500"></i>
-                    </div>
+                                <select name="id_spot" class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none bg-dark text-slate-500 cursor-pointer pr-12  bg-transpar ent border-none focus:border-cyan-500/50 transition all duration-300 ease-in outline-none ">
+                                    <option class="" value="1" selected>Spot 1</option>
+                                    <option value="2">Spot 2</option>
+                                    <option value="3">Spot 3</option>
+                                    <option value="4">Spot 4</option>
+                                    <option value="5">Spot 5</option>
+                                    <option value="6">Spot 6</option>
+                                </select>
+                                <i class="fa-solid fa-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                      </div>
                 </div>
-                <div>
-                    <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Heure de capture</label>
-                    <input type="time" id="currentTime" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
-                </div>
+                
             </div>
 
             <div class="grid grid-cols-2 gap-4">
@@ -120,8 +139,8 @@
         const timeInput = document.getElementById('currentTime');
         timeInput.value = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
 
-        function handleStatusAnimation() {
-        }
+        function handleStatusAnimation() {}
     </script>
 </body>
+
 </html>
