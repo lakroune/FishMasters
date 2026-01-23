@@ -38,7 +38,7 @@ class Subscribe
         $stmt = $this->pdo->prepare("
             SELECT COUNT(*)
             FROM subscriptions
-            WHERE id_user = :id_user AND id_pecheur = :id_pecheur
+            WHERE id_fan = :id_user AND id_pecheur = :id_pecheur
         ");
         $stmt->execute([
             'id_user' => $id_user,

@@ -73,7 +73,7 @@
                             <span class="text-[8px] font-black text-slate-500 uppercase italic">18k Pts</span>
 
                         </div>
-                        <form action="<?= PATH_ROOT ?>/pecheur/subscribe" method="post">
+                        <form action="<?= PATH_ROOT ?>/pecheur/subscribe/<?= $pecheur->getIdUser(); ?>" method="post">
                             <input type="hidden" name="id_pecheur" value="<?= $pecheur->getIdUser(); ?>">
                             <button onclick="toggleFollow(this)" class="w-full bg-white text-black text-[9px] font-black uppercase py-3 rounded-xl hover:bg-cyan-500 transition-all tracking-widest active:scale-95">
                                 S'abonner

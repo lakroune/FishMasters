@@ -41,17 +41,17 @@ class PecheurController
         require_once __DIR__ . '/../views/profilePecheur.php';
     }
 
-    public function subscribe()
+    public function subscribe(int $id_pecheur)
     {
         $subscribe = new Subscribe();
-        if ($subscribe->isSubscribed($_SESSION['User']->getIdUser(), $_GET['id_pecheur']) === true) {
-            if ($subscribe->delete($_SESSION['User']->getId(), $_GET['id_pecheur'])) {
+        if ($subscribe->isSubscribed($_SESSION['User']->getIdUser(), $id_pecheur)) {
+            if ($subscribe->delete($_SESSION['User']->getIdUser(), $id_pecheur)) {
                 header("Location: " . PATH_ROOT . "/pecheur");
             } else {
                 header("Location: " . PATH_ROOT . "/pecheur");
             }
         } else {
-            if ($subscribe->create($_SESSION['User']->getIdUser(), $_GET['id_pecheur'])) {
+            if ($subscribe->create($_SESSION['User']->getIdUser(), $id_pecheur)) {
                 header("Location: " . PATH_ROOT . "/pecheur");
             } else {
                 header("Location: " . PATH_ROOT . "/pecheur");
