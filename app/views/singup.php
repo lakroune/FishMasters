@@ -38,45 +38,45 @@
                     <p class="text-sm text-gray-400">Join the FishMasters community</p>
                 </div>
 
-                <form method="POST"  action="<?= PATH_ROOT ?>/signup/signup" enctype="multipart/form-data"
+                <form method="POST"  action="<?= PATH_ROOT ?>/singup/singup" enctype="multipart/form-data"
                           class="space-y-4">
 
                     <!-- NOM -->
                     <div>
                         <label class="text-xs text-gray-300">Nom</label>
-                        <input type="text" name="nom" required
+                        <input type="text" name="nomUser" required
                             class="w-full mt-1 px-3 py-2 text-sm rounded-lg bg-gray-700 focus:ring-2 focus:ring-cyan-400 outline-none">
                     </div>
 
                     <!-- PRENOM -->
                     <div>
                         <label class="text-xs text-gray-300">Prénom</label>
-                        <input type="text" name="prenom" required
+                        <input type="text" name="prenomUser" required
                             class="w-full mt-1 px-3 py-2 text-sm rounded-lg bg-gray-700 focus:ring-2 focus:ring-cyan-400 outline-none">
                     </div>
 
                     <!-- EMAIL -->
                     <div>
                         <label class="text-xs text-gray-300">Email</label>
-                        <input type="email" name="email" required
+                        <input type="email" name="emailUser" required
                             class="w-full mt-1 px-3 py-2 text-sm rounded-lg bg-gray-700 focus:ring-2 focus:ring-cyan-400 outline-none">
                     </div>
 
                     <!-- PASSWORD -->
                     <div>
                         <label class="text-xs text-gray-300">Password</label>
-                        <input type="password" name="password" required
+                        <input type="password" name="passwordUser" required
                             class="w-full mt-1 px-3 py-2 text-sm rounded-lg bg-gray-700 focus:ring-2 focus:ring-cyan-400 outline-none">
                     </div>
 
                     <!-- ROLE -->
                     <div>
                         <label class="text-xs text-gray-300">Rôle</label>
-                        <select id="roleSelect" name="role" required
+                        <select id="roleSelect" name="roleUser" required
                             class="w-full mt-1 px-3 py-2 text-sm rounded-lg bg-gray-700 focus:ring-2 focus:ring-cyan-400 outline-none">
                             <option value="">Sélectionner</option>
-                            <option value="fan">Fan</option>
-                            <option value="pecheur">Pêcheur</option>
+                            <option value="FAN">Fan</option>
+                            <option value="PECHEUR">Pêcheur</option>
                         </select>
                     </div>
 
@@ -112,7 +112,7 @@
                         <!-- PHOTO -->
                         <div>
                             <label class="text-xs text-gray-300">Photo</label>
-                            <input type="file" name="photo"
+                            <input type="file" name="photoPecheur" accept="image/*" 
                                 class="w-full mt-1 text-sm text-gray-300
                                        file:bg-cyan-400 file:text-black
                                        file:border-0 file:px-3 file:py-1
@@ -144,7 +144,7 @@
         roleSelect.addEventListener('change', () => {
             pecheurFields.classList.toggle(
                 'hidden',
-                roleSelect.value !== 'pecheur'
+                roleSelect.value !== 'PECHEUR'
             );
         });
     </script>

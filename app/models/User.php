@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use config\Connexion;
 use Exception;
+use PDO;
 
 
 class  User
@@ -17,7 +19,7 @@ class  User
 
     public function __construct() {}
 
-    public function getId(): int
+    public function getIdUser(): int
     {
         return $this->id_user;
     }
@@ -86,7 +88,7 @@ class  User
 
     public function setPassword(string $password): void
     {
-        if (empty($password > 8)) {
+        if (strlen($password) < 8) {
             throw new Exception("Le mot de passe doit contenir au moins 8 caractères");
         }
 
@@ -105,4 +107,18 @@ class  User
     {
         return "user  : id_user = $this->id_user, nom_user = $this->nom_user, prenom_user = $this->prenom_user, email = $this->email, password_user = $this->password_user, role_user = $this->role_user";
     }
+
+   public function findbyEmail(string $email)
+   { try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT * FROM users WHERE email = :email";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([':email'=> $email]);
+            return $stmt->fetch(PDO::FETCH_CLASS, 'User');
+   }catch(Exception $e){
+        return $e->getMessage();
+   }
+
+   }
+
 }

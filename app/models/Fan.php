@@ -30,7 +30,7 @@ class Fan extends User
         $stmt->bindValue(':email', $this->email);
         $stmt->bindValue(':password_user', $this->password_user);
         $stmt->bindValue(':role_user', $this->role_user);
-        if($stmt->execute());
+        if ($stmt->execute());
         return true;
         return false;
     }
@@ -44,4 +44,3 @@ class Fan extends User
         }
     }
 }
-

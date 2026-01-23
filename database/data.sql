@@ -59,3 +59,5 @@ INSERT INTO notification (contenu, date_notification, id_fan) VALUES
 -- Commentaires
 INSERT INTO commentaires (contenu, date_comment, id_fan) VALUES
 ('Magnifique prise ! Bravo.', NOW(), 2);
+
+select * from pecheurs;

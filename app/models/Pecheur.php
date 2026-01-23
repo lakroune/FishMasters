@@ -87,35 +87,35 @@ class   Pecheur extends User
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
         $stmt->execute();
-        return $stmt->fetchAll( PDO::FETCH_CLASS, Pecheur::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Pecheur::class);
     }
-     
+
     public  function creer(): bool
-    { try{
-      $db = Connexion::connect()->getConnexion();
-       $sql = "INSERT INTO pecheur(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite, id_equipe) VALUES (?,?,?,?,?,?,?,?,?)";
-       $stmt = $db->prepare($sql);
-       $stmt->execute([
-         $this->nom_user,
-         $this->prenom_user,
-         $this->email,
-         $this->password_user,
-         $this->role_user,
-         $this->photo_pecheur,
-         $this->region,
-         $this->type_peche_favorite,
-         $this->id_equipe
-       ]);
-       return true;
-    }catch(Exception $e){
-      return false;
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "INSERT INTO pecheurs (nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite) VALUES (?,?,?,?,?,?,?,?)";
+            $stmt = $db->prepare($sql);
+            $result = $stmt->execute([
+                $this->nom_user,
+                $this->prenom_user,
+                $this->email,
+                $this->password_user,
+                $this->role_user,
+                $this->photo_pecheur,
+                $this->region,
+                $this->type_peche_favorite,
+            ]);
+
+            if($result){
+               return true;
+            } else {
+                return "warning";
+            }
+            
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
     }
-
-    }
-
-
-
-
-
-
 }

@@ -55,7 +55,7 @@
                     Welcome back to the digital frontier.
                 </p>
 
-                <form action="<?=  PATH_ROOT?>/login/login"  method="POST"  class="space-y-4">
+                <form method="POST"  class="space-y-4">
                     <div>
                         <label class="text-gray-300 text-xs">Email Address</label>
                         <input type="email" name="email" placeholder="name@company.com"
@@ -64,12 +64,11 @@
 
                     <div>
                         <label class="text-gray-300 text-xs">Password</label>
-                        <input type="password" name="password" placeholder="********"
+                        <input type="password" name="passwordUser" placeholder="********"
                             class="w-full mt-1 px-3 py-2 text-sm rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
                     </div>
 
-                    <button
-                        type="submit"
+                    <button type="submit" name="login"
                         class="w-full bg-cyan-400 text-gray-900 py-2 text-sm rounded-lg font-semibold hover:bg-cyan-500 transition">
                         Authorize Access
                     </button>
