@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,18 +16,7 @@
 <body class="bg-[#02040a] text-white antialiased">
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full z-50 p-6">
-        <div class="max-w-[1600px] mx-auto bg-black/40 backdrop-blur-xl border border-white/5 rounded-full px-8 py-4 flex items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-cyan-400 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-fish-fins text-black"></i>
-                </div>
-                <span class="text-2xl font-black uppercase tracking-tight">
-                    Fish<span class="text-cyan-400">Masters</span>
-                </span>
-            </div>
-        </div>
-    </nav>
+    <?php include "header.php"; ?>
 
     <!-- REGISTER FORM -->
     <main class="min-h-screen flex items-center justify-center px-4 pt-24">
@@ -38,8 +28,8 @@
                     <p class="text-sm text-gray-400">Join the FishMasters community</p>
                 </div>
 
-                <form method="POST"  action="<?= PATH_ROOT ?>/singup/singup" enctype="multipart/form-data"
-                          class="space-y-4">
+                <form method="POST" action="<?= PATH_ROOT ?>/signup/signup" enctype="multipart/form-data"
+                    class="space-y-4">
 
                     <!-- NOM -->
                     <div>
@@ -112,7 +102,7 @@
                         <!-- PHOTO -->
                         <div>
                             <label class="text-xs text-gray-300">Photo</label>
-                            <input type="file" name="photoPecheur" accept="image/*" 
+                            <input type="file" name="photoPecheur" accept="image/*"
                                 class="w-full mt-1 text-sm text-gray-300
                                        file:bg-cyan-400 file:text-black
                                        file:border-0 file:px-3 file:py-1
@@ -122,7 +112,7 @@
                     </div>
 
                     <!-- SUBMIT -->
-                    <button type="submit" name="singup"
+                    <button type="submit" name="signup"
                         class="w-full bg-cyan-400 text-gray-900 py-2 text-sm rounded-lg font-semibold hover:bg-cyan-500 transition">
                         Create Account
                     </button>
@@ -130,7 +120,7 @@
 
                 <p class="text-xs text-center text-gray-400">
                     Already have an account?
-                    <a href="#" class="text-cyan-400 hover:underline">Login</a>
+                    <a href="<?= PATH_ROOT ?>/login" class="text-cyan-400 hover:underline">Login</a>
                 </p>
             </div>
         </div>
@@ -150,4 +140,5 @@
     </script>
 
 </body>
+
 </html>

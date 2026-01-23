@@ -33,18 +33,7 @@
 <body class="antialiased">
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full z-50 p-6">
-        <div class="max-w-[1600px] mx-auto  px-8 py-4 flex items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-cyan-400 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-fish-fins text-black"></i>
-                </div>
-                <span class="text-2xl font-black uppercase tracking-tight">
-                    Fish<span class="text-cyan-400">Masters</span>
-                </span>
-            </div>
-        </div>
-    </nav>
+    <?php include "header.php"; ?>
 
     <!-- CENTERED LOGIN FORM -->
     <main class="min-h-screen flex items-center justify-center px-4">
@@ -81,7 +70,7 @@
 
                 <p class="text-center text-xs text-gray-400">
                     New to the platform?
-                    <a href="#" class="text-cyan-400 hover:underline">
+                    <a href="<?= PATH_ROOT ?>/signup" class="text-cyan-400 hover:underline">
                         Create an account
                     </a>
                 </p>

@@ -7,17 +7,17 @@ use PDO;
 use app\models\Pecheur;
 use app\models\Fan;
 
-class SingupController
+class signupController
 {
     public function index()
     {
-        require_once __DIR__ . '/../views/singup.php';
+        require_once __DIR__ . '/../views/signup.php';
     }
     public function default()
     {
         $this->index();
     }
-    public function singup()
+    public function signup()
     {
         $pech = new Pecheur();
         $fans = new Fan();
@@ -42,21 +42,21 @@ class SingupController
                     header('Location: ' . PATH_ROOT . '/login');
                     exit;
                 } else {
-                    header('Location: ' . PATH_ROOT . '/singup/error');
+                    header('Location: ' . PATH_ROOT . '/signup/error');
                     exit;
                 }
             } elseif ($_POST['roleUser'] == "FAN") {
                 if ($fans->register($_POST)) {
                     header('Location: ' . PATH_ROOT . '/login');
                 } else {
-                    header('Location: ' . PATH_ROOT . '/singup/error');
+                    header('Location: ' . PATH_ROOT . '/signup/error');
                     exit;
                 }
             } else {
-                header('Location: ' . PATH_ROOT . '/singup/error');
+                header('Location: ' . PATH_ROOT . '/signup/error');
             }
         } else {
-            header('Location: ' . PATH_ROOT . '/singup/error');
+            header('Location: ' . PATH_ROOT . '/signup/error');
         }
     }
 }
