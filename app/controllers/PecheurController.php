@@ -42,23 +42,18 @@ class PecheurController
     public function subscribe()
     {
         $subscribe = new Subscribe();
-        if ($subscribe->isSubscribed($_POST['id_user'], $_POST['id_competition'])) {
-            if ($subscribe->create($_POST['id_user'], $_POST['id_competition'])) {
-                echo "success";
-                exit;
+        if ($subscribe->isSubscribed($_SESSION['User']->getId(), $_GET['id_pecheur']) === true) {
+            if ($subscribe->delete($_SESSION['User']->getId(), $_GET['id_pecheur'])) {
+                header("Location: " . PATH_ROOT . "/pecheur");
             } else {
-                echo "failed";
-                exit;
-            };
-        }
-        else{
-            if ($subscribe->delete($_POST['id_user'], $_POST['id_competition'])) {
-                echo "success";
-                exit;
+                header("Location: " . PATH_ROOT . "/pecheur");
+            }
+        } else {
+            if ($subscribe->create($_SESSION['User']->getId(), $_GET['id_pecheur'])) {
+                header("Location: " . PATH_ROOT . "/pecheur");
             } else {
-                echo "failed";
-                exit;
-            };
+                header("Location: " . PATH_ROOT . "/pecheur");
+            }
         }
     }
 }
