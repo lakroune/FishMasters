@@ -11,7 +11,7 @@ class HomeController
      */
     public function index()
     {
-        echo "Home";
+        require __DIR__ . '/../views/index.php';
     }
     
     /**
