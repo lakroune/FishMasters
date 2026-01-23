@@ -1,136 +1,93 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishFan — Fil d'actualité</title>
+    <title>Le Concept — FishFan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;900&display=swap');
         body { font-family: 'Outfit', sans-serif; background: #02040a; color: #fff; }
         .ultra-glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .story-ring { padding: 2px; background: linear-gradient(to tr, #f43f5e, #fb7185, #fda4af); }
+        .text-gradient { background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="antialiased pb-28">
+<body class="antialiased">
 
-    <?php include('headerFan.php'); ?>
+    <?php include('header.php'); ?>
 
-    <main class="max-w-4xl mx-auto px-6 pt-32">
+    <main class="max-w-6xl mx-auto px-6 pt-40 pb-20">
         
-        <section class="mb-10">
-            <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-pink-500 mb-6 px-2">Pros en Direct</h3>
-            <div class="flex space-x-5 overflow-x-auto no-scrollbar pb-4">
-                
-                <div class="flex-shrink-0 flex flex-col items-center space-y-2 cursor-pointer">
-                    <div class="w-16 h-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center text-pink-500">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <span class="text-[9px] font-bold text-slate-500 uppercase">Ma Story</span>
-                </div>
+        <div class="text-center mb-20">
+            <span class="text-pink-500 font-black text-[10px] uppercase tracking-[0.5em]">L'Univers des Passionnés</span>
+            <h1 class="text-6xl md:text-8xl font-black uppercase italic leading-none mt-4">Plus qu'une <br> <span class="text-gradient">Communauté.</span></h1>
+            <p class="text-slate-500 max-w-2xl mx-auto mt-8 text-sm md:text-base font-medium leading-relaxed">
+                FishFan est la première destination pour les amoureux de la pêche au Maroc. Suivez vos athlètes préférés, participez à l'évolution du sport et accédez à des contenus exclusifs.
+            </p>
+        </div>
 
-                <div class="flex-shrink-0 flex flex-col items-center space-y-2 cursor-pointer group">
-                    <div class="w-16 h-16 rounded-3xl story-ring p-[2px] shadow-[0_0_15px_rgba(244,63,94,0.3)]">
-                        <div class="w-full h-full rounded-[22px] overflow-hidden border-2 border-[#02040a]">
-                            <img src="https://i.pravatar.cc/150?u=pro1" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <span class="text-[9px] font-black text-rose-500 uppercase flex items-center">
-                        <span class="w-1 h-1 bg-rose-500 rounded-full mr-1 animate-ping"></span> Live
-                    </span>
-                </div>
-
-                <?php for($i=0; $i<5; $i++): ?>
-                <div class="flex-shrink-0 flex flex-col items-center space-y-2 opacity-60 hover:opacity-100 transition">
-                    <div class="w-16 h-16 rounded-3xl p-[2px] bg-white/10">
-                        <div class="w-full h-full rounded-[22px] overflow-hidden border-2 border-[#02040a]">
-                            <img src="https://i.pravatar.cc/150?u=user<?= $i ?>" class="w-full h-full object-cover grayscale">
-                        </div>
-                    </div>
-                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter italic">Pro_Angler</span>
-                </div>
-                <?php endfor; ?>
-            </div>
-        </section>
-
-        <section class="space-y-8 max-w-2xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <article class="ultra-glass rounded-[45px] border border-white/5 overflow-hidden group">
-                <div class="p-6 flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://i.pravatar.cc/150?u=yassine" class="w-11 h-11 rounded-2xl object-cover border border-pink-500/20">
-                        <div>
-                            <h4 class="text-sm font-black uppercase tracking-tight italic">Yassine Amrani <i class="fa-solid fa-circle-check text-pink-500 text-[10px] ml-1"></i></h4>
-                            <p class="text-[9px] text-slate-500 font-bold uppercase">Agadir • Il y a 4h</p>
-                        </div>
+            <div class="ultra-glass p-10 rounded-[50px] md:col-span-2 flex flex-col justify-end min-h-[350px] relative overflow-hidden group">
+                <i class="fa-solid fa-anchor absolute -top-10 -right-10 text-[200px] opacity-[0.03] group-hover:rotate-12 transition-transform duration-700"></i>
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-pink-500 rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+                        <i class="fa-solid fa-bullseye text-white"></i>
                     </div>
-                    <button class="w-10 h-10 rounded-full hover:bg-white/5 transition flex items-center justify-center text-slate-500"><i class="fa-solid fa-ellipsis"></i></button>
+                    <h3 class="text-3xl font-black uppercase italic mb-4">Notre Mission</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                        Propulser la pêche sportive au premier plan en connectant les fans directement avec l'élite des pêcheurs nationaux à travers une technologie de pointe.
+                    </p>
                 </div>
+            </div>
 
-                <div class="px-4">
-                    <div class="relative rounded-[35px] overflow-hidden aspect-square md:aspect-video">
-                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1200" class="w-full h-full object-cover">
-                        <div class="absolute top-6 left-6 bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest text-pink-400">
-                            Prise Exceptionnelle 🔥
-                        </div>
+            <div class="ultra-glass p-10 rounded-[50px] border-t-2 border-pink-500/30 flex flex-col items-center justify-center text-center">
+                <h4 class="text-5xl font-black italic text-pink-500 mb-2">24/7</h4>
+                <p class="text-[10px] font-black uppercase tracking-widest text-white">Accès aux Directs</p>
+                <p class="text-slate-500 text-xs mt-4">Ne ratez aucun combat, vivez chaque prise en temps réel avec nos pros.</p>
+            </div>
+
+            <div class="ultra-glass p-10 rounded-[50px] flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                    <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                        <i class="fa-solid fa-heart text-pink-500 text-xs"></i>
                     </div>
+                    <span class="text-[8px] font-black uppercase bg-pink-500/10 text-pink-400 px-3 py-1 rounded-full">Exclusif</span>
                 </div>
-
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-6 px-2">
-                        <div class="flex space-x-6">
-                            <button onclick="toggleLike(this)" class="flex items-center space-x-2 group">
-                                <i class="fa-solid fa-heart text-xl text-slate-600 group-hover:text-rose-500 transition-all"></i>
-                                <span class="text-xs font-black text-slate-400">1.4k</span>
-                            </button>
-                            <button class="flex items-center space-x-2 group">
-                                <i class="fa-solid fa-comment text-xl text-slate-600 group-hover:text-white transition-all"></i>
-                                <span class="text-xs font-black text-slate-400">85</span>
-                            </button>
-                            <button class="flex items-center space-x-2 group">
-                                <i class="fa-solid fa-paper-plane text-xl text-slate-600 group-hover:text-pink-400 transition-all"></i>
-                            </button>
-                        </div>
-                        <button class="text-slate-600 hover:text-white transition"><i class="fa-solid fa-bookmark text-xl"></i></button>
-                    </div>
-
-                    <div class="px-2">
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            <span class="font-black text-white uppercase mr-2 tracking-tighter italic text-sm">Yassine Amrani</span>
-                            Un combat épique ce matin à la plage de Legzira ! Une courbine de 12kg capturée en plein lever de soleil. #Surfcasting #Agadir #FishMasters
-                        </p>
-                    </div>
+                <div>
+                    <h3 class="text-xl font-black uppercase italic mb-2">Supportez vos Pros</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed">
+                        Devenez un supporter officiel et débloquez des badges uniques, des réductions en boutique et des accès VIP.
+                    </p>
                 </div>
-            </article>
+            </div>
 
-            </section>
+            <div class="ultra-glass p-10 rounded-[50px] md:col-span-2 flex items-center gap-10">
+                <div class="hidden md:block w-32 h-32 rounded-[35px] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1529230117714-7641fa81d7f4?q=80&w=400" class="w-full h-full object-cover grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-black uppercase italic mb-2 tracking-tighter">Historique des Records</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Consultez la base de données statique de tous les records homologués depuis la création de la ligue FishMasters.
+                    </p>
+                    <button class="mt-4 text-[10px] font-black uppercase text-pink-500 hover:underline">Voir les archives <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[10px] font-bold text-slate-600 uppercase tracking-widest">© 2026 FishFan Media Group</p>
+            <div class="flex gap-8 text-slate-500 text-[10px] font-black uppercase tracking-tighter">
+                <a href="#" class="hover:text-pink-500 transition">Règlement</a>
+                <a href="#" class="hover:text-pink-500 transition">Confidentialité</a>
+                <a href="#" class="hover:text-pink-500 transition">Contact</a>
+            </div>
+        </footer>
 
     </main>
 
-    <div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] ultra-glass rounded-full p-2 flex justify-around items-center z-50 border border-white/10 shadow-2xl">
-        <a href="#" class="w-12 h-12 flex items-center justify-center text-pink-500"><i class="fa-solid fa-house-chimney text-sm"></i></a>
-        <a href="#" class="w-12 h-12 flex items-center justify-center text-slate-500"><i class="fa-solid fa-magnifying-glass text-sm"></i></a>
-        <div class="w-14 h-14 bg-gradient-to-tr from-pink-600 to-rose-400 rounded-full flex items-center justify-center text-white shadow-lg shadow-pink-500/40 transform -translate-y-4 border-4 border-[#02040a]">
-            <i class="fa-solid fa-bolt text-xl"></i>
-        </div>
-        <a href="#" class="w-12 h-12 flex items-center justify-center text-slate-500"><i class="fa-solid fa-bag-shopping text-sm"></i></a>
-        <a href="#" class="w-12 h-12 flex items-center justify-center text-slate-500"><i class="fa-solid fa-circle-user text-sm"></i></a>
-    </div>
-
-    <script>
-        function toggleLike(btn) {
-            const icon = btn.querySelector('i');
-            const count = btn.querySelector('span');
-            icon.classList.toggle('text-rose-500');
-            icon.classList.toggle('text-slate-600');
-            icon.classList.toggle('fa-solid');
-            icon.classList.toggle('fa-regular');
-            
-            btn.style.transform = 'scale(1.2)';
-            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
-        }
-    </script>
 </body>
 </html>
