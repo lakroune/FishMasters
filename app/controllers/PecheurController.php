@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Subscribe;
+
 class PecheurController
 {
     /**
@@ -35,5 +37,28 @@ class PecheurController
     public function profile()
     {
         require_once __DIR__ . '/../views/profilePecheur.php';
+    }
+
+    public function subscribe()
+    {
+        $subscribe = new Subscribe();
+        if ($subscribe->isSubscribed($_POST['id_user'], $_POST['id_competition'])) {
+            if ($subscribe->create($_POST['id_user'], $_POST['id_competition'])) {
+                echo "success";
+                exit;
+            } else {
+                echo "failed";
+                exit;
+            };
+        }
+        else{
+            if ($subscribe->delete($_POST['id_user'], $_POST['id_competition'])) {
+                echo "success";
+                exit;
+            } else {
+                echo "failed";
+                exit;
+            };
+        }
     }
 }
