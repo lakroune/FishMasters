@@ -1,6 +1,10 @@
 <?php
 
 namespace app\controllers;
+use app\models\Competition;
+use app\models\Equipe;
+use app\models\Pecheur;
+use app\models\SpotPeche;
 
 class AboutController
 {
@@ -8,4 +12,8 @@ class AboutController
     {
         require_once __DIR__ . '/../views/about.php';
     }
+
+    
+
+
 }
