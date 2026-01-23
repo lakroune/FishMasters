@@ -46,11 +46,12 @@
                 </header>
             </div>
 
-            <div class="ultra-glass flex items-center px-5 py-2 rounded-2xl focus-within:ring-2 ring-cyan-500/30 transition-all">
+                <form method="POST" action="<?= PATH_ROOT ?>/About/searchAll" class="space-y-4">
+            <form method="POST"  class="ultra-glass flex items-center px-5 py-2 rounded-2xl focus-within:ring-2 ring-cyan-500/30 transition-all">
                 <i class="fa-solid fa-magnifying-glass text-slate-500 mr-4"></i>
-                <input type="text" placeholder="Rechercher un spot, un pro ou un club..." class="bg-transparent w-full py-3 outline-none text-sm font-medium">
-                <button class="bg-white/5 p-2 rounded-xl hover:text-cyan-400"><i class="fa-solid fa-sliders"></i></button>
-            </div>
+                <input type="text" name="key" placeholder="Rechercher un spot, un pro ou un club..." class="bg-transparent w-full py-3 outline-none text-sm font-medium">
+                <button type="submit" name="submit" class="bg-white/5 p-2 rounded-xl hover:text-cyan-400"><i class="fa-solid fa-sliders"></i></button>
+            </form>
 
 
         </div>
@@ -64,19 +65,20 @@
                 <a href="#" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+                <?php if(!empty($results)): ?>
+                     <?php var_dump($results) ?>
+                <?php foreach($results as $result): ?>
                 <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
                     <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                        <img src="https://i.ibb.co/9n6dGdM/1.png" alt="image" class="w-16 h-16 rounded-full object-cover">
+                        <img src="<?= $result->getPhotoPecheur(); ?>" alt="image" class="w-16 h-16 rounded-full object-cover">
                     </div>
                     <h3 class="font-bold text-sm"></h3>
-                    <p class="text-[9px] text-slate-500 uppercase mt-1">nom pecheur</p>
+                    <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $result->getNom(); ?></p>
                 </div>
-                <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
-                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                        <img src="https://i.ibb.co/9n6dGdM/1.png" alt="image" class="w-16 h-16 rounded-full object-cover">
-                    </div>
-                    <h3 class="font-bold text-sm"></h3>
-                    <p class="text-[9px] text-slate-500 uppercase mt-1">nom pecheur</p>
+                <?php endforeach; ?>
+                <!-- -->
+                    <!-- <p>No results found.</p> -->
+                 <?php endif;?>   
                 </div>
 
             </div>
