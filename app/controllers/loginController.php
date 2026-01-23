@@ -40,7 +40,7 @@ class LoginController
                 } elseif ($user->getRole() === "PECHEUR") {
                     header("Location: ./Profile_Pecheur");
                 } elseif ($user->getRole() === "FAN") {
-                    header("Location: ./Profile_Fan");
+                    header("Location: " . PATH_ROOT . "/Profile_Fan");
                 }
                 exit;
             } else {
