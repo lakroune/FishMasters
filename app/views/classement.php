@@ -104,30 +104,35 @@
                 </select>
             </div>
 
-            <div class="relative">
+            <!-- <div class="relative">
                 <input type="text" placeholder="RECHERCHER UN NOM..." class="w-full h-full ultra-glass bg-transparent rounded-2xl px-6 py-4 text-[10px] font-black outline-none focus:border-cyan-500/50 transition-all">
                 <i class="fa-solid fa-magnifying-glass absolute right-6 top-1/2 -translate-y-1/2 text-slate-500"></i>
-            </div>
+            </div> -->
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 items-end">
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-2 md:order-1 h-[320px] flex flex-col justify-center border-t-4 border-slate-400/30 bg-gradient-to-b from-white/5 to-transparent">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rank-silver rounded-full flex items-center justify-center font-black text-black">2</div>
-                <img src="https://i.pravatar.cc/150?u=9" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-slate-400 p-1">
-                <h3 class="text-xl font-bold">Yassine Reda</h3>
-                <p class="text-cyan-400 font-mono text-2xl">16,420 <span class="text-[10px] text-white">PTS</span></p>
+                <img src="<?= $array_classements[1][1]->getPhotoPecheur();  ?>" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-slate-400 p-1">
+                <h3 class="text-xl font-bold">
+                    <?php
+
+                    echo ($array_classements[1][1]->getPrenom() . ' ' . $array_classements[1][1]->getNom());
+                    ?>
+                </h3>
+                <p class="text-cyan-400 font-mono text-2xl"><?= $array_classements[1][2]->getTotalPoints(); ?><span class="text-[10px] text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-1 md:order-2 h-[400px] flex flex-col justify-center border-t-4 border-yellow-500 bg-gradient-to-b from-yellow-500/10 to-transparent">
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 rank-gold rounded-full flex items-center justify-center font-black text-black text-2xl shadow-[0_0_30px_rgba(255,215,0,0.4)]">1</div>
-                <img src="https://i.pravatar.cc/150?u=1" class="w-28 h-28 rounded-full mx-auto mb-6 border-4 border-yellow-500 p-1">
-                <h3 class="text-3xl font-black uppercase">Mehdi Benmoussa</h3>
-                <p class="text-cyan-400 font-mono text-4xl">18,920 <span class="text-xs text-white">PTS</span></p>
+                <img src="<?= $array_classements[0][1]->getPhotoPecheur(); ?>" class="w-28 h-28 rounded-full mx-auto mb-6 border-4 border-yellow-500 p-1">
+                <h3 class="text-3xl font-black uppercase"><?php echo ($array_classements[0][1]->getPrenom() . ' ' . $array_classements[0][1]->getNom()); ?></h3>
+                <p class="text-cyan-400 font-mono text-4xl"><?php echo $array_classements[0][2]->getTotalPoints(); ?> <span class="text-xs text-white">PTS</span></p>
             </div>
             <div class="ultra-glass p-8 rounded-[40px] text-center relative order-3 md:order-3 h-[280px] flex flex-col justify-center border-t-4 border-orange-700/50">
                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rank-bronze rounded-full flex items-center justify-center font-black text-black">3</div>
-                <img src="https://i.pravatar.cc/150?u=12" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-orange-700 p-1">
-                <h3 class="text-lg font-bold">Amine Slaoui</h3>
-                <p class="text-cyan-400 font-mono text-xl">14,105 <span class="text-[10px] text-white">PTS</span></p>
+                <img src="<?= $array_classements[2][1]->getPhotoPecheur(); ?>" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-orange-700 p-1">
+                <h3 class="text-lg font-bold"><?php echo ($array_classements[2][1]->getPrenom() . ' ' . $array_classements[2][1]->getNom()); ?></h3>
+                <p class="text-cyan-400 font-mono text-xl"><?= $array_classements[2][2]->getTotalPoints(); ?> <span class="text-[10px] text-white">PTS</span></p>
             </div>
         </div>
 
@@ -140,34 +145,26 @@
                             <th class="p-6">Athlète</th>
                             <th class="p-6">Catégorie</th>
                             <th class="p-6">Score</th>
-                            <th class="p-6 text-right">Progression</th>
+                            <th class="p-6 text-right">type de course</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
-                        <tr class="hover:bg-white/5 transition group">
-                            <td class="p-6 font-mono text-slate-500">#04</td>
-                            <td class="p-6">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://i.pravatar.cc/100?u=4" class="w-10 h-10 rounded-full border border-white/10">
-                                    <span class="font-bold">Sara Filali</span>
-                                </div>
-                            </td>
-                            <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Junior / Mer</td>
-                            <td class="p-6 font-mono text-cyan-400 font-bold">12,840</td>
-                            <td class="p-6 text-right text-green-500 text-xs font-bold"><i class="fa-solid fa-caret-up mr-1"></i> 2 pos</td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition group">
-                            <td class="p-6 font-mono text-slate-500">#05</td>
-                            <td class="p-6">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://i.pravatar.cc/100?u=5" class="w-10 h-10 rounded-full border border-white/10">
-                                    <span class="font-bold">Karim Bennani</span>
-                                </div>
-                            </td>
-                            <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Senior / Eau Douce</td>
-                            <td class="p-6 font-mono text-cyan-400 font-bold">11,200</td>
-                            <td class="p-6 text-right text-red-500 text-xs font-bold"><i class="fa-solid fa-caret-down mr-1"></i> 1 pos</td>
-                        </tr>
+                        <?php
+                        for ($i = 0; $i < count($array_classements); $i++) :
+                        ?>
+                            <tr class="hover:bg-white/5 transition group">
+                                <td class="p-6 font-mono text-slate-500"><?php echo $array_classements[$i][0]->getRank(); ?></td>
+                                <td class="p-6">
+                                    <div class="flex items-center space-x-4">
+                                        <img src="<?php echo $array_classements[$i][1]->getPhotoPecheur(); ?>" class="w-10 h-10 rounded-full border border-white/10">
+                                        <span class="font-bold"><?php echo ($array_classements[$i][1]->getPrenom() . ' ' . $array_classements[$i][1]->getNom()); ?></span>
+                                    </div>
+                                </td>
+                                <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Junior / Mer</td>
+                                <td class="p-6 font-mono text-cyan-400 font-bold"><?php echo $array_classements[$i][2]->getTotalPoints(); ?></td>
+                                <td class="p-6 text-right text-green-500 text-xs font-bold"><i class="fa-solid fa-trophy"></i> <?php echo $array_classements[$i][0]->getTypeClassement(); ?></td>
+                            </tr>
+                        <?php endfor; ?>
                     </tbody>
                 </table>
             </div>

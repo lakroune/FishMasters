@@ -91,9 +91,9 @@ class Classement
 
     public function setIdPecheur(int $id): void
     {
-        // if ($id <= 0 ) {
-        //     throw new Exception("L'id du pecheur doit être supérieur à 0");
-        // }
+        if ($id <= 0 ) {
+            throw new Exception("L'id du pecheur doit être supérieur à 0");
+        }
         $this->id_pecheur = $id;
     }
 
@@ -136,7 +136,7 @@ class Classement
     public static function getClassementGeneralePecheurs(): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT * FROM classements WHERE type_classement = 'Individuelle'";
+        $requete = "SELECT * FROM classements WHERE type_classement = 'Individuelle' ORDER BY rank ASC";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {
@@ -161,7 +161,7 @@ class Classement
     public static function getClassementByTypeEau(string $type_eau): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where sp.type_eau = :type_eau";
+        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where sp.type_eau = :type_eau group by cl.id_classement order by cl.rank asc";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {
@@ -175,7 +175,7 @@ class Classement
     public static function getClassementByEspece(int $id_espece): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT cl.* FROM classements cl inner join competitions com on cl.id_competition = com.id_competition inner join  pecheurs p on com.id_competition = p.id_competition inner join prises pr on p.id_user = pr.id_pecheur inner join especes e on pr.id_espece = e.id_espece where e.id_espece = :id_espece";
+        $requete = "SELECT cl.* FROM classements cl inner join competitions com on cl.id_competition = com.id_competition inner join  pecheurs p on com.id_competition = p.id_competition inner join prises pr on p.id_user = pr.id_pecheur inner join especes e on pr.id_espece = e.id_espece where e.id_espece = :id_espece group by cl.id_classement order by cl.rank asc";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {
@@ -188,7 +188,7 @@ class Classement
     public static function getClassementByNamePecheur(string $name): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT cl.* FROM classements cl inner join pecheurs p on cl.id_pecheur = p.id_user where concat(p.nom_user, ' ', p.prenom_user) like :name";
+        $requete = "SELECT cl.* FROM classements cl inner join pecheurs p on cl.id_pecheur = p.id_user where concat(p.nom_user, ' ', p.prenom_user) like :name group by cl.id_classement order by cl.rank asc";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {

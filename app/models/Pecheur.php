@@ -37,6 +37,10 @@ class   Pecheur extends User
     {
         return $this->id_equipe;
     }
+    public function getPhotoPecheur(): string
+    {
+        return $this->photo_pecheur;
+    }
 
     public function setPhotoPecheur(string $photo): void
     {

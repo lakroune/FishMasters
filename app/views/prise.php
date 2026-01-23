@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DÉCLARER UNE PRISE — FISHMASTERS X</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Outfit:wght@300;400;900&display=swap');
+        :root { --accent: #00f2ff; --bg: #02040a; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #fff; }
+        .ultra-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: var(--accent);
+            background: rgba(0, 242, 255, 0.05);
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+        .radio-card:checked + label {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased p-4 md:p-8">
+
+    <main class="max-w-2xl mx-auto pt-10 pb-20">
+        <div class="flex items-center justify-between mb-10">
+            <a href="#" class="text-slate-500 hover:text-white transition"><i class="fa-solid fa-arrow-left mr-2"></i> Retour</a>
+            <h1 class="text-2xl font-black uppercase tracking-tighter">Nouvelle <span class="text-cyan-500">Prise</span></h1>
+            <div class="w-10"></div>
+        </div>
+
+        <form class="space-y-6">
+            
+            <div class="ultra-glass rounded-[30px] p-8 border-dashed border-2 border-white/10 text-center hover:border-cyan-500/50 transition cursor-pointer group">
+                <input type="file" id="photo" class="hidden" accept="image/*">
+                <label for="photo" class="cursor-pointer">
+                    <div class="w-16 h-16 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-camera text-cyan-500 text-2xl"></i>
+                    </div>
+                    <p class="font-bold uppercase text-xs tracking-widest">Prendre une photo</p>
+                    <p class="text-[10px] text-slate-500 mt-2">Preuve visuelle obligatoire pour validation</p>
+                </label>
+            </div>
+
+            <div class="ultra-glass rounded-[30px] p-6 space-y-4">
+                <div>
+                    <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Espèce de poisson</label>
+                    <select class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none">
+                        <option>Loup de Mer (Bar)</option>
+                        <option>Dorade Royale</option>
+                        <option>Sars</option>
+                        <option>Espèce non listée...</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Poids (kg)</label>
+                        <input type="number" step="0.01" placeholder="0.00" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Taille (cm)</label>
+                        <input type="number" placeholder="0" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ultra-glass rounded-[30px] p-6 space-y-4">
+                <div>
+                    <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Spot de pêche</label>
+                    <div class="relative">
+                        <input type="text" placeholder="Géolocalisation automatique..." class="input-field w-full p-4 rounded-2xl text-sm font-bold pl-12">
+                        <i class="fa-solid fa-location-dot absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500"></i>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Heure de capture</label>
+                    <input type="time" id="currentTime" class="input-field w-full p-4 rounded-2xl text-sm font-bold">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="relative">
+                    <input type="radio" name="status" id="relache" class="hidden radio-card" checked>
+                    <label for="relache" class="block ultra-glass p-4 rounded-2xl text-center cursor-pointer transition-all duration-300">
+                        <i class="fa-solid fa-leaf mb-2 block"></i>
+                        <span class="text-[10px] font-black uppercase">Relâché</span>
+                    </label>
+                </div>
+                <div class="relative">
+                    <input type="radio" name="status" id="garde" class="hidden radio-card">
+                    <label for="garde" class="block ultra-glass p-4 rounded-2xl text-center cursor-pointer transition-all duration-300">
+                        <i class="fa-solid fa-utensils mb-2 block"></i>
+                        <span class="text-[10px] font-black uppercase">Gardé</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-cyan-500 text-black font-black py-5 rounded-[25px] uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-95 transition-all">
+                Enregistrer ma prise
+            </button>
+        </form>
+    </main>
+
+    <script>
+        // Remplir l'heure automatiquement
+        const now = new Date();
+        const timeInput = document.getElementById('currentTime');
+        timeInput.value = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+
+        // Animation de sélection (Optionnel si géré par CSS)
+        function handleStatusAnimation() {
+            // Logique supplémentaire si besoin
+        }
+    </script>
+</body>
+</html>
