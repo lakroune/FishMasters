@@ -115,6 +115,37 @@ class   Pecheur extends User
 
 
 
+    public static function afficherPecheure()
+{
+  
+        $db = Connexion::connect()->getConnexion();
+
+        $sql = "
+            SELECT 
+                p.nom_user,
+                p.region,
+                p.type_peche_favorite,
+                p.id_pecheur,
+                COUNT(pr.id_prise)                AS nb_prises,
+                SUM(pr.poids)                     AS total_poids,
+                SUM(pr.poids * e.coefficient)     AS total_points
+            FROM prises pr
+            JOIN especes e ON pr.id_espece = e.id_espece
+            JOIN pecheurs p ON pr.id_pecheur = p.id_use
+            WHERE e.id_delete = 0
+            GROUP BY p.id_pecheur
+        ";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
+
+
 
 
 
