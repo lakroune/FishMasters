@@ -18,6 +18,11 @@ Class AddCompetitionController
    
     public function index()
     {
+        if(isset($_POST['submit'])){
+            $add = new AddCompetitionController;
+            $add->addComptition();
+        }
+        
         $categories = $this->categories->getCategories();
         require_once __DIR__ . '/../views/addCompetition.php';
     }
@@ -25,26 +30,16 @@ Class AddCompetitionController
     public function addComptition()
     {
         $data = [
-    'nom_competition'   => $_POST['name'],
-    'date_create'       => 'NULL',
-    'date_debut'        => $_POST['dateDebut'],
-    'date_fin'          => $_POST['dateFin'],
-    'type_competition'  => $_POST['Competition'],
-    'nb_matchs'         => '0',
-    'nb_participants'   => '0',
-    'id_categorie'      => $_POST['category'],
-];
-
-        if(isset($_POST['submit'])){
-        $this->competition->setNom($_POST['name']);
-        $this->competition->setDateDebut($_POST['dateDebut']);
-        $this->competition->setDateFin($_POST['dateFin']);
-        $this->competition->setIdCategorie($_POST['category']);
-        $this->competition->setType($_POST['Competition']);
-
+            'nom_competition'   => $_POST['name'],
+            'date_debut'        => $_POST['dateDebut'],
+            'date_fin'          => $_POST['dateFin'],
+            'type_competition'  => $_POST['Competition'],
+            'nb_matchs'         => 0,
+            'nb_participants'   => 0,
+            'id_categorie'      => $_POST['category'],
+        ];
 
         $this->competition->addCompetition($data);
-        }
     }
 
 }

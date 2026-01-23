@@ -63,7 +63,7 @@
 
 <main class="max-w-[1100px] mx-auto pt-32 px-6">
 
-    <form action="admin_competition_store.php" method="POST"
+    <form method="POST"
           class="ultra-glass p-10 rounded-[45px] space-y-10">
 
         <h1 class="text-4xl font-black uppercase">Ajouter une compétition</h1>
