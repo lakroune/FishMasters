@@ -13,7 +13,7 @@
          <div class="hidden lg:flex space-x-10 text-xs font-bold uppercase tracking-widest text-slate-400">
              <a href="<?= PATH_ROOT ?>/home" class="hover:text-cyan-400 transition">Accueil</a>
              <a href="<?= PATH_ROOT ?>/competition" class="hover:text-cyan-400 transition text-cyan-400">Calendrier</a>
-             <a href="<?= PATH_ROOT ?>/classement" class="hover:text-cyan-400 transition">Liste Des pecheurs</a>
+             <a href="<?= PATH_ROOT ?>/about" class="hover:text-cyan-400 transition">Decouvrir </a>
              <a href="<?= PATH_ROOT ?>/classement" class="hover:text-cyan-400 transition">Classement</a>
          </div>
 
