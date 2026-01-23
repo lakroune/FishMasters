@@ -18,6 +18,7 @@ class EspeceController
         $especes = $this->model->getAll();
         require __DIR__ . '/../views/espece/index.php';
     }
+    
 
     public function show(int $id): void
     {

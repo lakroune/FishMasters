@@ -20,6 +20,7 @@ class Espece
         self::$pdo = Connexion::connect()->getConnexion();
     }
 
+    
     public function getAll(): array
     {
         $stmt = $this->pdo->query("SELECT * FROM espece");

@@ -13,6 +13,7 @@ class HomeController
     {
         echo "Home";
     }
+    
     /**
      * This function is called when no other route is matched.
      */

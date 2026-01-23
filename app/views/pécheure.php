@@ -83,7 +83,8 @@
                     </div>
 
                     <div class="w-full bg-white/5 rounded-full h-2 mb-2">
-                        <div class="bg-cyan-500 h-full rounded-full" style="width: 85%"></div>
+             
+                    <div class="bg-cyan-500 h-full rounded-full" style="width: 85%"></div>
                     </div>
                     <p class="text-[10px] font-bold text-slate-500 uppercase">Progression Championnat: 85%</p>
                 </div>

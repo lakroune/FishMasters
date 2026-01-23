@@ -19,6 +19,7 @@ class Reglement
     public function __construct() {}
     public function getIdReglement(): int
     {
+        
         return $this->id_reglement;
     }
     public function getDescription(): string

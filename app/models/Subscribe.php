@@ -2,75 +2,74 @@
 
 namespace app\models;
 
-use PDO, DateTime;
+use PDO;
+use Exception;
+use config\Connexion;
 
 class Subscribe
 {
-
     private PDO $pdo;
-    private int $subscribe_id;
-    private int $pecheur_id;
-    private DateTime $create_at;
 
-    public function __construct(PDO $pdo)
+    public function __construct()
     {
-        $this->pdo = $pdo;
-    }
-    public function add(int $fanId, int $pecheurId): bool
-    {
-        $stmt = $this->pdo->prepare(
-            "INSERT INTO subscriptions (fan_id, pecheur_id)
-             VALUES (:fan, :pecheur)"
-        );
-
-        return $stmt->execute([
-            'fan' => $fanId,
-            'pecheur' => $pecheurId
-        ]);
+        $this->pdo = Connexion::connect()->getConnexion();
     }
 
-    public function remove(int $fanId, string $type, int $targetId): bool
+    public function create(int $id_fan, int $id_pecheur): bool
     {
-        $stmt = $this->pdo->prepare(
-            "DELETE FROM subscriptions
-             WHERE fan_id = :fan
-               AND target_type = :type
-               AND target_id = :target"
-        );
+        try {
+            $stmt = $this->pdo->prepare("
+                INSERT INTO subscriptions (id_fan, id_pecheur)
+                VALUES (:id_user, :id_competition)
+            ");
 
-        return $stmt->execute([
-            'fan' => $fanId,
-            'type' => $type,
-            'target' => $targetId
-        ]);
+            return $stmt->execute([
+                'id_fan' => $id_fan,
+                'id_pecheur' => $id_pecheur
+            ]);
+
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
-    public function getFanSubscriptions(int $fanId): array
+
+    public function isSubscribed(int $id_user, int $id_competition): bool
     {
-        $stmt = $this->pdo->prepare(
-            "SELECT * FROM subscriptions
-             WHERE fan_id = :fan"
-        );
-
-        $stmt->execute(['fan' => $fanId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function isSubscribed(int $fanId, string $type, int $targetId): bool
-    {
-        $stmt = $this->pdo->prepare(
-            "SELECT COUNT(*) FROM subscriptions
-             WHERE fan_id = :fan
-               AND target_type = :type
-               AND target_id = :target"
-        );
-
+        $stmt = $this->pdo->prepare("
+            SELECT COUNT(*)
+            FROM subscriptions
+            WHERE id_user = :id_user AND id_competition = :id_competition
+        ");
         $stmt->execute([
-            'fan' => $fanId,
-            'type' => $type,
-            'target' => $targetId
+            'id_user' => $id_user,
+            'id_competition' => $id_competition
         ]);
 
         return $stmt->fetchColumn() > 0;
     }
+
+    public function getByUser(int $id_fan): array
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT *
+            FROM subscriptions
+            WHERE id_user = :id_fan
+        ");
+        $stmt->execute(['id_user' => $id_fan]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function delete(int $id_user, int $id_competition): bool
+    {
+        $stmt = $this->pdo->prepare("
+            DELETE FROM subscriptions
+            WHERE id_user = :id_user AND id_competition = :id_competition
+        ");
+        return $stmt->execute([
+            'id_user' => $id_user,
+            'id_competition' => $id_competition
+        ]);
+    }
 }
+

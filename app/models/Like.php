@@ -18,6 +18,7 @@
 
    }
    
+   
    //Getters
    public function getIdLike(): int {return $this->id_like;}
    public function getIdFan(): int {return $this->id_fan;}

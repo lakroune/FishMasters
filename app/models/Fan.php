@@ -15,6 +15,7 @@ class Fan extends User
     {
         return parent::__toString();
     }
+    
     public function register(array $data): bool
     {
         $db = Connexion::connect()->getConnexion();

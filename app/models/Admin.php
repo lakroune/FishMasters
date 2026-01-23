@@ -13,3 +13,4 @@ class Admin extends User
         return parent::__toString();
     }
 }
+

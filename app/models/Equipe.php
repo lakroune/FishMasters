@@ -19,6 +19,7 @@ class Equipe
         self::$pdo = Connexion::connect()->getConnexion();
     }
 
+    
 
     public function all(): array
     {

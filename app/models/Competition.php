@@ -21,6 +21,7 @@ class Competition
     private int $id_categorie;
     private Categorie $categorie;
 
+    
 
 
     public function __construct() {}
@@ -162,8 +163,8 @@ class Competition
     public function addCompetition(array $data): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "INSERT INTO competitions (nom_competition, date_create, date_debut, date_fin, type_competition, nb_matchs, nb_participants, id_categorie) 
-        VALUES (:nom_competition, :date_create, :date_debut, :date_fin, :type_competition, :nb_matchs, :nb_participants, :id_categorie)";
+        $query = "INSERT INTO competitions (nom_competition, date_debut, date_fin, type_competition, nb_matchs, nb_participants, id_categorie) 
+        VALUES (:nom_competition, :date_debut, :date_fin, :type_competition, :nb_matchs, :nb_participants, :id_categorie)";
         try {
             $stmt = $db->prepare($query);
         } catch (Exception $e) {
@@ -177,7 +178,6 @@ class Competition
             return false;
         }
         $stmt->bindValue(':nom_competition', $this->nom_competition);
-        $stmt->bindValue(':date_create', $this->date_create);
         $stmt->bindValue(':date_debut', $this->date_debut);
         $stmt->bindValue(':date_fin', $this->date_fin);
         $stmt->bindValue(':type_competition', $this->type_competition);
