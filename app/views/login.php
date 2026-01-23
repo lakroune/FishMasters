@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,7 +56,7 @@
                     Welcome back to the digital frontier.
                 </p>
 
-                <form method="POST"  class="space-y-4">
+                <form method="POST" action="<?= PATH_ROOT ?>/login/login" class="space-y-4">
                     <div>
                         <label class="text-gray-300 text-xs">Email Address</label>
                         <input type="email" name="email" placeholder="name@company.com"
@@ -90,4 +91,5 @@
     </main>
 
 </body>
+
 </html>

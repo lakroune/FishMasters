@@ -108,17 +108,16 @@ class  User
         return "user  : id_user = $this->id_user, nom_user = $this->nom_user, prenom_user = $this->prenom_user, email = $this->email, password_user = $this->password_user, role_user = $this->role_user";
     }
 
-   public function findbyEmail(string $email)
-   { try {
-            $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM users WHERE email = :email";
+    public static function findByEmail(string $email): ?User
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM users WHERE email = :email";
+        try {
             $stmt = $db->prepare($sql);
-            $stmt->execute([':email'=> $email]);
-            return $stmt->fetch(PDO::FETCH_CLASS, 'User');
-   }catch(Exception $e){
-        return $e->getMessage();
-   }
-
-   }
-
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $sql . " : " . $e->getMessage());
+        }
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetchObject(User::class);
+    }
 }

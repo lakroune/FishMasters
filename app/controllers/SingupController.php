@@ -25,25 +25,38 @@ class SingupController
         $filename = $_FILES["photoPecheur"]['name'];
         $tempname = $_FILES["photoPecheur"]['tmp_name'];
 
-        if ($_POST['roleUser'] == "PECHEUR") {
-             move_uploaded_file($filename, './imFolder' .$tempname);
-            $pech->setNom($_POST['nomUser'] ?? '');
-            $pech->setPrenom($_POST['prenomUser'] ?? '');
-            $pech->setEmail($_POST['emailUser'] ?? '');
-            $pech->setRole($_POST['roleUser'] ?? '');
-            $pech->setRegion($_POST['region'] ?? '');
-            $pech->setTypePeche($_POST['type_peche_favorite'] ?? '');
-            $pech->setPhotoPecheur($filename);
-            $password_hash = password_hash($_POST['passwordUser'], PASSWORD_BCRYPT);
-            $pech->setPassword($password_hash);
-           
+        $folder = "uploads/" . "fish_master_" . time() . "_" . $filename;
 
-            $pech->creer();
-           
-        } elseif ($_POST['roleUser'] == "FAN") {
-            $fans->register($_POST);
-            header('Location: /login');
-            exit;
+        if (move_uploaded_file($tempname, $folder)) {
+            if ($_POST['roleUser'] == "PECHEUR") {
+                $pech->setNom($_POST['nomUser'] ?? '');
+                $pech->setPrenom($_POST['prenomUser'] ?? '');
+                $pech->setEmail($_POST['emailUser'] ?? '');
+                $pech->setRole($_POST['roleUser'] ?? '');
+                $pech->setRegion($_POST['region'] ?? '');
+                $pech->setTypePeche($_POST['type_peche_favorite'] ?? '');
+                $pech->setPhotoPecheur($filename);
+                $password_hash = password_hash($_POST['passwordUser'], PASSWORD_BCRYPT);
+                $pech->setPassword($password_hash);
+                if ($pech->creer()) {
+                    header('Location: ' . PATH_ROOT . '/login');
+                    exit;
+                } else {
+                    header('Location: ' . PATH_ROOT . '/singup/error');
+                    exit;
+                }
+            } elseif ($_POST['roleUser'] == "FAN") {
+                if ($fans->register($_POST)) {
+                    header('Location: ' . PATH_ROOT . '/login');
+                } else {
+                    header('Location: ' . PATH_ROOT . '/singup/error');
+                    exit;
+                }
+            } else {
+                header('Location: ' . PATH_ROOT . '/singup/error');
+            }
+        } else {
+            header('Location: ' . PATH_ROOT . '/singup/error');
         }
     }
 }

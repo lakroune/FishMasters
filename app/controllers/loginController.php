@@ -14,7 +14,6 @@ class LoginController
     public function index()
     {
         require_once __DIR__ . '/../views/login.php';
-
     }
     public function default()
     {
@@ -22,43 +21,36 @@ class LoginController
     }
 
     public function login()
-    { 
-       if(isset($_POST['login'])){
+    {
+        if (isset($_POST['login'])) {
 
-          $email = trim($_POST['email']);
-          $password = $_POST['passwordUser'];
+            $email = trim($_POST['email']);
+            $password = $_POST['passwordUser'];
 
-          if(empty($email) || empty($password)){
-            header("Location: ./login ");
-            exit;
-          }
-             $user = new User();
-             $user->findbyEmail($email);
+            if (empty($email) || empty($password)) {
+                header("Location:  " . PATH_ROOT . "/login");
+                exit;
+            }
+            $user = new User();
+            $user = User::findByEmail($email);
 
-            if(password_verify($password, $user->getPassword())){
-                $_SESSION['id_user'] = $user->getIdUser();
-                $_SESSION['email'] = $user->getEmail();
-                $_SESSION['role'] = $user->getRole();
-
-                if($user->getRole() === "ADMIN"){
+            if (password_verify($password, $user->getPassword())) {
+                $_SESSION['User'] = $user;
+                if ($user->getRole() === "ADMIN") {
                     header("Location: ./dash_admin");
-
-                } elseif($user->getRole() === "PECHEUR"){
+                } elseif ($user->getRole() === "PECHEUR") {
                     header("Location: ./Profile_Pecheur");
-                   
-                } elseif($user->getRole() === "FAN"){
+                } elseif ($user->getRole() === "FAN") {
                     header("Location: ./Profile_Fan");
                 }
                 exit;
-
-            } 
-            // else {
-            //     header("Location: ./")
-            // }
-          }
-       }
-       
-        // if ($this->user->($_POST))
-        //     header("location: " . PATH_ROOT . "/login");
+            } else {
+                header("Location: " . PATH_ROOT . "/login");
+                exit;
+            }
+        }
     }
 
+    // if ($this->user->($_POST))
+    //     header("location: " . PATH_ROOT . "/login");
+}

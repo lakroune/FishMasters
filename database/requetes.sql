@@ -39,6 +39,7 @@ CREATE TABLE users (
     role_user VARCHAR(20) NOT NULL
 );
 
+SELECT * FROM users;
 CREATE TABLE fans (
     PRIMARY KEY (id_user),
     CHECK (role_user = 'FAN')
