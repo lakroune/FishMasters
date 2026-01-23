@@ -65,7 +65,7 @@
                         </button>
                     </div>
                     <div class="mb-4">
-                        <h3 class="text-[13px] font-black uppercase tracking-tight truncate"><?= $pecheur->getNom()." ".$pecheur->getPrenom(); ?></h3>
+                        <h3 class="text-[13px] font-black uppercase tracking-tight truncate"><?= $pecheur->getNom() . " " . $pecheur->getPrenom(); ?></h3>
                         <p class="text-[9px] text-slate-500 font-bold uppercase"><i class="fa-solid fa-location-dot text-cyan-500 mr-1"></i> <?= $pecheur->getRegion(); ?></p>
                     </div>
                     <div class="flex flex-col gap-2">
@@ -73,9 +73,12 @@
                             <span class="text-[8px] font-black text-slate-500 uppercase italic">18k Pts</span>
 
                         </div>
-                        <button onclick="toggleFollow(this)" class="w-full bg-white text-black text-[9px] font-black uppercase py-3 rounded-xl hover:bg-cyan-500 transition-all tracking-widest active:scale-95">
-                            S'abonner
-                        </button>
+                        <form action="<?= PATH_ROOT ?>/pecheur/subscribe" method="post">
+                            <input type="hidden" name="id_pecheur" value="<?= $pecheur->getIdUser(); ?>">
+                            <button onclick="toggleFollow(this)" class="w-full bg-white text-black text-[9px] font-black uppercase py-3 rounded-xl hover:bg-cyan-500 transition-all tracking-widest active:scale-95">
+                                S'abonner
+                            </button>
+                        </form>
                     </div>
                 </div>
 

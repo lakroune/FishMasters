@@ -44,14 +44,14 @@ class PecheurController
     public function subscribe()
     {
         $subscribe = new Subscribe();
-        if ($subscribe->isSubscribed($_SESSION['User']->getId(), $_GET['id_pecheur']) === true) {
+        if ($subscribe->isSubscribed($_SESSION['User']->getIdUser(), $_GET['id_pecheur']) === true) {
             if ($subscribe->delete($_SESSION['User']->getId(), $_GET['id_pecheur'])) {
                 header("Location: " . PATH_ROOT . "/pecheur");
             } else {
                 header("Location: " . PATH_ROOT . "/pecheur");
             }
         } else {
-            if ($subscribe->create($_SESSION['User']->getId(), $_GET['id_pecheur'])) {
+            if ($subscribe->create($_SESSION['User']->getIdUser(), $_GET['id_pecheur'])) {
                 header("Location: " . PATH_ROOT . "/pecheur");
             } else {
                 header("Location: " . PATH_ROOT . "/pecheur");
