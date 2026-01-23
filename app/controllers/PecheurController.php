@@ -34,6 +34,6 @@ class PecheurController
     }
     public function profile()
     {
-        require_once __DIR__ . '/../views/classement.php';
+        require_once __DIR__ . '/../views/profilePecheur.php';
     }
 }
