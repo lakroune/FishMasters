@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Pecheur;
 use app\models\Subscribe;
 
 class PecheurController
@@ -32,6 +33,7 @@ class PecheurController
     }
     public function index()
     {
+        $pecheurs = Pecheur::getAllPecheur();
         require_once __DIR__ . '/../views/pecheurs.php';
     }
     public function profile()
