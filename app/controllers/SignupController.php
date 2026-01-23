@@ -59,4 +59,9 @@ class signupController
             header('Location: ' . PATH_ROOT . '/signup/error');
         }
     }
+    public function error()
+    {
+        echo "<script>alert('Veuillez remplir tous les champs')</script>";
+        require __DIR__ . '/../views/signup.php';
+    }
 }

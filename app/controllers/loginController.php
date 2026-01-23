@@ -50,6 +50,11 @@ class LoginController
             }
         }
     }
+    public function error()
+    {
+        echo "<script>alert('Veuillez remplir tous les champs')</script>";
+        require __DIR__ . '/../views/login.php';
+    }
 
     // if ($this->user->($_POST))
     //     header("location: " . PATH_ROOT . "/login");

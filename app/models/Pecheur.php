@@ -117,8 +117,7 @@ class Pecheur extends User
                 $this->role_user,
                 $this->photo_pecheur,
                 $this->region,
-                $this->type_peche_favorite,
-                $this->id_equipe
+                $this->type_peche_favorite
             ]);
             return true;
         } catch (Exception $e) {
