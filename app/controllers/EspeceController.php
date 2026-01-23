@@ -1,46 +1,67 @@
 <?php
-
 namespace app\controllers;
 
 use app\models\Espece;
 
-class EspeceController
-{
-    private Espece $model;
+class EspeceController{
 
-    public function __construct()
-    {
-        $this->model = new Espece();
-    }
 
-    public function index(): void
-    {
-        $especes = $this->model->getAll();
-        require __DIR__ . '/../views/espece/index.php';
-    }
-    
+public function ajauter(){
+   $espece = new Espece();
+$espece->setNomEspece($_POST['espece']);
+$espece->setCoefficient($_POST['coaficiant']);
+$espece->setDescription($_POST['description']);
+if($espece->ajouter()){
+    $especes =Espece::afficher();
+    require_once __DIR__.'/../views/Admin.php';
+}
+}
 
-    public function show(int $id): void
-    {
-        $espece = $this->model->find($id);
+public function afficher(){
+     $especes =Espece::afficher();
+      require_once __DIR__.'/../views/Admin.php';
+}
 
-        if (!$espece) {
-            http_response_code(404);
-            echo "Espèce introuvable";
-            return;
-        }
-
-        require __DIR__ . '/../views/espece/show.php';
-    }
-
-    public function addEspece()
-    {
-        $resultat = $this->model->create($_POST["nom_espece"], $_POST["coefficient"], $_POST["description"]);
-        if ($resultat) {
-            $sucess_message = "l'espece est ajouter avec success";
-        } else {
-            $erroe_message = "l'espece n'a été pas ajouter";
-        }
-            require __DIR__ . '/../views/espece/show.php';
+public function supprimer(){
+    $id=$_GET['id'];
+    $supprimer =Espece::supprimer($id);
+    if($supprimer){
+         $especes =Espece::afficher();
+           require_once __DIR__.'/../views/Admin.php';
     }
 }
+
+public function getEspece(){
+    $id=$_GET['id'];
+    $espece_to_edit=Espece::getEspeceParId($id);
+     require_once __DIR__.'/../views/modifier_espece.php';
+}
+
+public function modifier(){
+    $nom=$_POST['espece'];
+    $coeficient=$_POST['coaficiant'];
+    $description=$_POST['description'];
+    $id=$_POST['id_espece'];
+    $espece=new Espece($nom,$coeficient,$description,$id);
+    if($espece->modifierEspece()){
+          $especes =Espece::afficher();
+     require_once __DIR__.'/../views/Admin.php';
+    }
+}
+
+}
+
+
+
+
+
+
+
+?>
+
+
+
+
+
+
+

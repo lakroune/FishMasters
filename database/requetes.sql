@@ -1,4 +1,4 @@
--- Active: 1768924390402@@www.dockhosting.dev@49581@masterfich
+-- Active: 1769072311946@@www.dockhosting.dev@49581@masterfich
 
 DROP TABLE IF EXISTS commentaires;
 
@@ -112,8 +112,11 @@ CREATE TABLE especes (
     id_espece SERIAL PRIMARY KEY,
     nom_espece VARCHAR(100),
     coefficient INT DEFAULT 1,
-    description TEXT
+    description TEXT,
+    
 );
+ALTER TABLE especes
+ADD COLUMN id_delete INT DEFAULT 0;
 
 CREATE TABLE reglements (
     id_reglement SERIAL PRIMARY KEY,

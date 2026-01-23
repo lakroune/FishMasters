@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 <head>
@@ -11,7 +12,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@100;400;900&display=swap');
         :root { --accent: #00f2ff; --bg: #02040a; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #fff; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #fff; overflow-x: hidden; }
 
         .ultra-glass {
             background: rgba(255,255,255,0.02);
@@ -29,17 +30,81 @@
         }
         
         .sidebar-link.active {
-            background: rgba(255,255,255,0.05);
-            color: #00f2ff;
+            background: rgba(0, 242, 255, 0.1) !important;
+            color: #00f2ff !important;
+            border-right: 3px solid #00f2ff;
         }
 
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,242,255,0.2); border-radius: 10px; }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        
+        .modal-input {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .modal-input:focus {
+            border-color: #00f2ff;
+            background: rgba(255,255,255,0.07);
+        }
+
+        /* Utilitaire pour masquer les sections proprement */
+        .admin-section { display: none; }
+        .admin-section.active-content { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 
-<body class="antialiased">
+<body class="antialiased custom-scrollbar">
+
+<dialog id="addSpeciesModal" class="ultra-glass rounded-[40px] p-0 w-full max-w-lg bg-transparent border-none">
+    <div class="p-10 text-white">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-2xl font-black italic uppercase">Nouvelle <span class="text-cyan-400">Espèce</span></h3>
+            <button onclick="document.getElementById('addSpeciesModal').close()" class="text-slate-500 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <form method="POST" action="<?=PATH_ROOT?>/espece/ajauter" class="space-y-6">
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold uppercase tracking-widest text-cyan-400/60 pl-2">Nom de l'espèce</label>
+                <input name="espece" type="text" placeholder="ex: Espadon" class="modal-input" required>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold uppercase tracking-widest text-cyan-400/60 pl-2">Coefficient Multiplicateur</label>
+                <input type="number" name="coaficiant" step="0.1" placeholder="1.2" class="modal-input" required>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold uppercase tracking-widest text-cyan-400/60 pl-2">Description</label>
+                <textarea name="description" placeholder="Détails sur l'habitat..." class="modal-input min-h-[120px] resize-none"></textarea>
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <button type="button" onclick="document.getElementById('addSpeciesModal').close()" class="flex-1 py-4 rounded-2xl text-xs font-bold uppercase border border-white/10 hover:bg-white/5 transition-all">Annuler</button>
+                <button type="submit" class="flex-1 bg-cyan-500 text-black text-xs font-black py-4 rounded-2xl neo-button uppercase">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</dialog>
 
 <nav class="fixed top-0 w-full z-[100] p-6">
     <div class="max-w-[1600px] mx-auto ultra-glass rounded-full px-8 py-4 flex justify-between items-center">
@@ -49,17 +114,15 @@
             </div>
             <span class="text-2xl font-black uppercase tracking-tighter">
                 Fish<span class="text-cyan-400">Masters</span>
-                <span class="text-[10px] bg-white/10 px-2 py-1 rounded ml-2 text-slate-400">V.2.0</span>
+                <span class="text-[10px] bg-white/10 px-2 py-1 rounded ml-2 text-slate-400 uppercase tracking-widest">Admin</span>
             </span>
         </div>
         <div class="flex items-center gap-6">
-            <div class="hidden md:flex flex-col text-right">
+            <div class="hidden md:flex flex-col text-right border-r border-white/10 pr-6">
                 <span class="text-[10px] font-bold text-cyan-400 uppercase">Administrateur</span>
-                <span class="text-xs">Resp. Fédération</span>
+                <span class="text-xs opacity-70">Resp. Fédération</span>
             </div>
-            <button class="text-xs font-bold px-6 py-2 bg-white/5 border border-white/10 hover:bg-red-500/20 hover:border-red-500/50 transition-all rounded-full uppercase">
-                Logout
-            </button>
+            <button class="text-xs font-bold px-6 py-2 bg-white/5 border border-white/10 hover:bg-red-500/20 hover:border-red-500/50 transition-all rounded-full uppercase">Logout</button>
         </div>
     </div>
 </nav>
@@ -68,7 +131,6 @@
 
     <aside class="w-72 ultra-glass rounded-[30px] p-6 space-y-6 sticky top-32 h-[calc(100vh-10rem)]">
         <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400/60 pl-3">Menu Principal</h3>
-
         <nav class="space-y-2 text-sm" id="sidebar">
             <button data-section="dashboard" class="sidebar-link active w-full flex items-center gap-3 p-4 rounded-2xl transition-all">
                 <i class="fa-solid fa-chart-line"></i> Dashboard
@@ -76,7 +138,7 @@
             <button data-section="competitions" class="sidebar-link w-full flex items-center gap-3 p-4 rounded-2xl transition-all">
                 <i class="fa-solid fa-trophy"></i> Compétitions
             </button>
-            <button data-section="species" class="sidebar-link w-full flex items-center gap-3 p-4 rounded-2xl transition-all text-cyan-400">
+            <button data-section="species" class="sidebar-link w-full flex items-center gap-3 p-4 rounded-2xl transition-all">
                 <i class="fa-solid fa-dna"></i> Gestion Espèces
             </button>
             <button data-section="catches" class="sidebar-link w-full flex items-center gap-3 p-4 rounded-2xl transition-all">
@@ -85,223 +147,131 @@
             <button data-section="fishermen" class="sidebar-link w-full flex items-center gap-3 p-4 rounded-2xl transition-all">
                 <i class="fa-solid fa-users-gear"></i> Pêcheurs
             </button>
-            <div class="pt-4 mt-4 border-t border-white/5">
-                <button data-section="settings" class="sidebar-link w-full flex items-center gap-3 p-4 rounded-2xl transition-all opacity-50">
-                    <i class="fa-solid fa-gears"></i> Paramètres
-                </button>
-            </div>
         </nav>
     </aside>
 
     <main class="flex-1 space-y-10 pb-20">
 
-        <section id="dashboard" class="admin-section">
-            <h2 class="text-4xl font-black mb-8 italic">VUE <span class="text-cyan-400">D'ENSEMBLE</span></h2>
-            
-            <div class="grid lg:grid-cols-4 gap-6 mb-8">
+        <section id="dashboard" class="admin-section active-content">
+            <h2 class="text-4xl font-black mb-8 italic uppercase text-white">Vue <span class="text-cyan-400">D'ensemble</span></h2>
+            <div class="grid lg:grid-cols-4 gap-6">
                 <div class="ultra-glass p-6 rounded-[30px] border-l-4 border-cyan-500">
                     <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Total Prises</p>
                     <p class="text-4xl font-black">1,420</p>
                     <p class="text-[10px] text-green-400 mt-2 font-bold"><i class="fa-solid fa-arrow-up"></i> +12%</p>
                 </div>
                 <div class="ultra-glass p-6 rounded-[30px]">
-                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Poids (Biomasse)</p>
-                    <p class="text-4xl font-black">2.1 <span class="text-lg font-light text-slate-400 uppercase">Tonnes</span></p>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Poids Global</p>
+                    <p class="text-4xl font-black">2.1 <span class="text-lg font-light text-slate-400">T</span></p>
                 </div>
                 <div class="ultra-glass p-6 rounded-[30px]">
                     <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Moyenne Points</p>
                     <p class="text-4xl font-black">412</p>
-                    <p class="text-[10px] text-slate-500 mt-2 italic font-medium">Par participant</p>
                 </div>
                 <div class="ultra-glass p-6 rounded-[30px] border-l-4 border-green-400">
                     <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Efficacité No-Kill</p>
                     <p class="text-4xl font-black text-green-400">94%</p>
                 </div>
             </div>
-
-            <div class="grid lg:grid-cols-2 gap-6">
-                <div class="ultra-glass p-8 rounded-[40px]">
-                    <h3 class="text-xl font-black mb-6 flex items-center gap-3 underline decoration-cyan-500 underline-offset-8">
-                        Records de Saison
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5">
-                            <div>
-                                <p class="text-[10px] text-slate-400 uppercase font-black">Record Espèce</p>
-                                <p class="font-bold text-lg">Thon Rouge — 142 kg</p>
-                            </div>
-                            <span class="text-[10px] bg-cyan-500 text-black px-3 py-1 rounded font-black">SAHARA</span>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5">
-                            <div>
-                                <p class="text-[10px] text-slate-400 uppercase font-black">MVP Actuel</p>
-                                <p class="font-bold text-lg">Mehdi Bensaid</p>
-                            </div>
-                            <p class="font-black text-cyan-400 text-xl tracking-tighter">4,120 PTS</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ultra-glass p-8 rounded-[40px]">
-                    <h3 class="text-xl font-black mb-6">Activité par Milieu</h3>
-                    <div class="space-y-8 mt-4">
-                        <div>
-                            <div class="flex justify-between mb-3 items-end">
-                                <span class="text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-                                    <i class="fa-solid fa-anchor text-blue-400"></i> Zone Maritime
-                                </span>
-                                <span class="text-xl font-black italic">65%</span>
-                            </div>
-                            <div class="w-full h-3 bg-white/5 rounded-full p-1 border border-white/10">
-                                <div class="h-full bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full" style="width: 65%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-3 items-end">
-                                <span class="text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-                                    <i class="fa-solid fa-tree text-green-400"></i> Eaux Intérieures
-                                </span>
-                                <span class="text-xl font-black italic">35%</span>
-                            </div>
-                            <div class="w-full h-3 bg-white/5 rounded-full p-1 border border-white/10">
-                                <div class="h-full bg-gradient-to-r from-green-600 to-emerald-400 rounded-full" style="width: 35%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
 
-        <section id="species" class="admin-section hidden">
+        <section id="species" class="admin-section">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
-                    <h2 class="text-4xl font-black italic">GESTION DES <span class="text-cyan-400">ESPÈCES</span></h2>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">Règlementation & Barème de Points</p>
+                    <h2 class="text-4xl font-black italic uppercase">Gestion <span class="text-cyan-400">Espèces</span></h2>
+                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">Paramétrage du barème simplifié</p>
                 </div>
-                <button class="bg-cyan-500 text-black text-xs font-black px-8 py-4 rounded-2xl neo-button uppercase flex items-center gap-3">
+                <button onclick="document.getElementById('addSpeciesModal').showModal()" class="bg-cyan-500 text-black text-xs font-black px-8 py-4 rounded-2xl neo-button uppercase flex items-center gap-3">
                     <i class="fa-solid fa-plus-circle text-lg"></i> Ajouter une espèce
                 </button>
             </div>
 
-            
-
-            <div class="ultra-glass rounded-[40px] overflow-hidden border border-white/5 shadow-2xl">
+            <div class="ultra-glass rounded-[40px] overflow-hidden">
                 <table class="w-full text-left">
                     <thead class="bg-white/[0.03]">
                         <tr class="text-slate-500 uppercase text-[10px] font-black tracking-widest border-b border-white/5">
-                            <th class="px-8 py-6">Dénomination</th>
-                            <th class="px-6 py-6 text-center">Catégorie</th>
-                            <th class="px-6 py-6 text-center">Taille Min.</th>
-                            <th class="px-6 py-6 text-center">Coeff. Multiplicateur</th>
+                            <th class="px-8 py-6">Espèce</th>
+                            <th class="px-6 py-6">Description</th>
+                            <th class="px-6 py-6 text-center">Coefficient</th>
                             <th class="px-8 py-6 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
-                        <tr class="group hover:bg-cyan-500/[0.02] transition-all">
-                            <td class="px-8 py-5">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent flex items-center justify-center border border-white/5 group-hover:border-cyan-500/50 transition-all">
-                                        <i class="fa-solid fa-fish text-cyan-400"></i>
+                        <?php if(isset($especes) && count($especes) > 0): ?>
+                            <?php foreach($especes as $row): 
+                                if($row['id_delete']=='0'):
+
+                               
+                                ?>
+                            <tr class="group hover:bg-cyan-500/[0.02] transition-all">
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center border border-white/5 group-hover:border-cyan-500/50">
+                                            <i class="fa-solid fa-fish text-cyan-400"></i>
+                                        </div>
+                                        <p class="font-bold text-slate-100"><?= htmlspecialchars($row['nom_espece'] ?? 'N/A') ?></p>
                                     </div>
-                                    <div>
-                                        <p class="font-bold text-slate-100">Dorade Royale</p>
-                                        <p class="text-[10px] text-slate-500 italic uppercase">Sparidae</p>
+                                </td>
+                                <td class="px-6 py-5 text-sm text-slate-400">
+                                    <?= htmlspecialchars($row['description'] ?? 'Pas de description') ?>
+                                </td>
+                                <td class="px-6 py-5 text-center">
+                                    <span class="text-cyan-400 font-black italic text-xl">x <?= $row['coefficient'] ?? '1.0' ?></span>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex justify-end gap-2 opacity-30 group-hover:opacity-100 transition-opacity">
+                                       <a href="<?=PATH_ROOT?>/espece/getEspece?id=<?= $row['id_espece'] ?>">
+                                         <button class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                       </a>
+                                   
+
+                                        <a href="<?=PATH_ROOT?>/espece/supprimer?id=<?= $row['id_espece'] ?>">
+                                            <button class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-red-500 transition-all">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                        </a>
+                                        
                                     </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5 text-center">
-                                <span class="px-3 py-1 rounded-lg bg-blue-500/10 text-blue-400 text-[9px] font-black border border-blue-500/20 uppercase">Mer</span>
-                            </td>
-                            <td class="px-6 py-5 text-center font-mono font-bold text-slate-300">23 cm</td>
-                            <td class="px-6 py-5 text-center">
-                                <span class="text-cyan-400 font-black italic text-xl">x 1.3</span>
-                            </td>
-                            <td class="px-8 py-5">
-                                <div class="flex justify-end gap-2 opacity-30 group-hover:opacity-100 transition-opacity">
-                                    <button class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
-                                        <i class="fa-solid fa-edit"></i>
-                                    </button>
-                                    <button class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-red-500 transition-all">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="group hover:bg-green-500/[0.02] transition-all">
-                            <td class="px-8 py-5">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500/10 to-transparent flex items-center justify-center border border-white/5 group-hover:border-green-500/50 transition-all">
-                                        <i class="fa-solid fa-water text-green-400"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-slate-100">Black Bass</p>
-                                        <p class="text-[10px] text-slate-500 italic uppercase">Centrarchidae</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5 text-center">
-                                <span class="px-3 py-1 rounded-lg bg-green-500/10 text-green-400 text-[9px] font-black border border-green-500/20 uppercase">Eau Douce</span>
-                            </td>
-                            <td class="px-6 py-5 text-center font-mono font-bold text-slate-300">30 cm</td>
-                            <td class="px-6 py-5 text-center">
-                                <span class="text-cyan-400 font-black italic text-xl">x 1.5</span>
-                            </td>
-                            <td class="px-8 py-5 text-right">
-                                <div class="flex justify-end gap-2 opacity-30 group-hover:opacity-100 transition-opacity">
-                                    <button class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
-                                        <i class="fa-solid fa-edit"></i>
-                                    </button>
-                                    <button class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-red-500 transition-all">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                            <?php   endif; ?>
+                            <?php  endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4" class="px-8 py-20 text-center text-slate-500 italic">Aucune espèce enregistrée pour le moment.</td>
+                            </tr>
+                        <?php endif; 
+                        
+                        ?>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <section id="competitions" class="admin-section hidden">
-            <h2 class="text-4xl font-black mb-6">COMPÉTITIONS</h2>
-            <div class="ultra-glass p-12 rounded-[40px] border border-dashed border-white/20 text-center">
-                <i class="fa-solid fa-trophy text-6xl text-slate-700 mb-4"></i>
-                <p class="text-slate-500">Module de gestion des tournois en cours de chargement...</p>
-            </div>
+        <section id="competitions" class="admin-section">
+            <h2 class="text-4xl font-black mb-6 uppercase italic text-white">Compétitions</h2>
+            <div class="ultra-glass p-12 rounded-[40px] text-center text-slate-500 italic">Chargement du calendrier...</div>
         </section>
 
-        <section id="catches" class="admin-section hidden">
-            <h2 class="text-4xl font-black mb-6 italic">VALIDATION <span class="text-cyan-400">PRISES</span></h2>
-            <div class="grid grid-cols-3 gap-6">
-                <div class="ultra-glass p-4 rounded-3xl animate-pulse">
-                    <div class="aspect-video bg-white/5 rounded-2xl mb-4"></div>
-                    <div class="h-4 w-2/3 bg-white/10 rounded mb-2"></div>
-                    <div class="h-3 w-1/2 bg-white/5 rounded"></div>
-                </div>
-            </div>
+        <section id="catches" class="admin-section">
+            <h2 class="text-4xl font-black mb-6 uppercase italic text-white">Validation Prises</h2>
+            <div class="ultra-glass p-12 rounded-[40px] text-center text-slate-500 italic">Aucune prise en attente de validation.</div>
         </section>
 
-        <section id="fishermen" class="admin-section hidden">
-            <h2 class="text-4xl font-black mb-6 italic italic">BASE <span class="text-cyan-400">PÊCHEURS</span></h2>
-            <div class="ultra-glass p-8 rounded-[40px]">
-                <p class="text-slate-400 italic">Analyse des 250 licenciés actifs sur la plateforme.</p>
-            </div>
+        <section id="fishermen" class="admin-section">
+            <h2 class="text-4xl font-black mb-6 uppercase italic text-white">Pêcheurs</h2>
+            <div class="ultra-glass p-12 rounded-[40px] text-center text-slate-500 italic">Liste des licenciés...</div>
         </section>
 
     </main>
 </div>
 
 <footer class="mt-20 py-12 border-t border-white/5 text-center">
-    <div class="flex flex-col items-center gap-4">
-        <div class="flex gap-6 text-slate-600 text-lg">
-            <i class="fa-brands fa-instagram hover:text-cyan-400 cursor-pointer"></i>
-            <i class="fa-brands fa-facebook hover:text-cyan-400 cursor-pointer"></i>
-            <i class="fa-brands fa-linkedin hover:text-cyan-400 cursor-pointer"></i>
-        </div>
-        <p class="text-[10px] font-bold tracking-[0.8em] text-slate-500 uppercase">
-            Fédération Royale Marocaine de Pêche Sportive © 2026
-        </p>
-    </div>
+    <p class="text-[10px] font-bold tracking-[0.8em] text-slate-500 uppercase">
+        Fédération Royale Marocaine de Pêche Sportive © 2026
+    </p>
 </footer>
 
 <script>
@@ -310,32 +280,30 @@
 
     links.forEach(link => {
         link.addEventListener('click', () => {
-            const target = link.dataset.section;
+            const targetSectionId = link.dataset.section;
 
-            // Masquer toutes les sections
+          
             sections.forEach(section => {
-                section.classList.add('hidden');
+                section.classList.remove('active-content');
             });
-
-            // Afficher la section cible
-            const targetSection = document.getElementById(target);
+            
+       
+            const targetSection = document.getElementById(targetSectionId);
             if(targetSection) {
-                targetSection.classList.remove('hidden');
-                // Scroll smooth to top of content
+                targetSection.classList.add('active-content');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Gérer les classes actives sur le menu
-            links.forEach(l => {
-                l.classList.remove('bg-white/5','text-cyan-400', 'active');
-            });
-            link.classList.add('bg-white/5','text-cyan-400', 'active');
+            
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
         });
     });
 
-    // Animation au chargement pour la première section
-    window.addEventListener('load', () => {
-        document.getElementById('dashboard').classList.remove('hidden');
+    
+    const modal = document.getElementById('addSpeciesModal');
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.close();
     });
 </script>
 
