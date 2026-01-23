@@ -57,22 +57,7 @@
 
 <body class="antialiased selection:bg-cyan-500 selection:text-black">
 
-    <nav class="fixed top-0 w-full z-[100] p-6">
-        <div class="max-w-[1600px] mx-auto ultra-glass rounded-full px-8 py-4 flex justify-between items-center bg-black/40">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-fish-fins text-black"></i>
-                </div>
-                <span class="text-2xl font-black uppercase tracking-tighter">Fish<span class="text-cyan-400">Masters</span></span>
-            </div>
-            <div class="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                <a href="#" class="hover:text-cyan-400 transition">Accueil</a>
-                <a href="#" class="text-cyan-400">Classement</a>
-                <a href="#" class="hover:text-cyan-400 transition">Calendrier</a>
-            </div>
-            <button class="text-[10px] font-black px-6 py-2 bg-white text-black rounded-full uppercase hover:bg-cyan-500 transition">Mon Profil</button>
-        </div>
-    </nav>
+    <?php require_once 'header.php'; ?>
 
     <main class="max-w-[1400px] mx-auto px-6 pt-32 pb-24">
 
@@ -224,17 +209,10 @@
             element.classList.add('btn-active');
             element.classList.remove('text-slate-500', 'hover:bg-white/5');
 
-<<<<<<< HEAD
-            element.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                element.style.transform = 'scale(1.02)';
-            }, 0);
-=======
             element.style.transform = 'scale(0.99)';
             setTimeout(() => {
                 element.style.transform = 'scale(1)';
             }, 20);
->>>>>>> 778b7def51f4cd8a64d05903ff0f16cf811db5b2
             submit();
         }
     </script>
