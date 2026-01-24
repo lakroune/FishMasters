@@ -22,7 +22,7 @@ class Espece
     }
 
 
-     public function getIdEspece(): int
+    public function getIdEspece(): int
     {
         return $this->id_espece;
     }
@@ -139,7 +139,7 @@ class Espece
         // return "espece : id_espece = $this->id_espece, nom_espece = $this->nom_espece, coefficient = $this->coefficient, description = $this->description";
     }
 
-   
+
 
     public function ajouter(): bool
     {
@@ -182,7 +182,7 @@ class Espece
 
 
 
-    public static function getEspeceParId($id)
+    public static function getEspeceParId($id): ?Espece
     {
 
         $db = Connexion::connect()->getConnexion();
@@ -192,7 +192,7 @@ class Espece
 
         $stmt = $db->prepare($sql);
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchObject(Espece::class)?: null;
     }
 
 
@@ -217,15 +217,17 @@ class Espece
         ]);
     }
 
-    public function getCountEspece(){
-  $sql="SELECT * FROM especes";
-  $stmt=$this->pdo->prepare($sql);
-  $stmt->execute();
-  return count($stmt->fetchAll(PDO::FETCH_ASSOC));
+    public function getCountEspece()
+    {
+        $sql = "SELECT * FROM especes";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return count($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-   public function getPoidsParEspece(){
-    $sql = "
+    public function getPoidsParEspece()
+    {
+        $sql = "
         SELECT 
             e.nom_espece AS nom,
             p.id_espece,
@@ -236,9 +238,8 @@ class Espece
         GROUP BY p.id_espece, e.nom_espece
     ";
 
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

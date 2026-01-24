@@ -75,23 +75,23 @@
                 <p class="text-3xl font-black italic"><?= $classement->getRank() ?> <span class="text-[10px] text-green-500"></span></p>
             </div>
         </div>
-
-        <button onclick="window.location.href= '<?= PATH_ROOT ?>/prise'" class="w-full bg-cyan-500 text-black py-5 rounded-[25px] font-black uppercase text-xs tracking-[0.2em] shadow-[0_10px_30px_rgba(6,182,212,0.3)] mb-12 hover:scale-[1.02] transition-transform">
-            <i class="fa-solid fa-camera-retro mr-3 text-lg"></i>Ajouter une nouvelle prise
-        </button>
-
+        <?php if ($modifier == true): ?>
+            <button onclick="window.location.href= '<?= PATH_ROOT ?>/prise'" class="w-full bg-cyan-500 text-black py-5 rounded-[25px] font-black uppercase text-xs tracking-[0.2em] shadow-[0_10px_30px_rgba(6,182,212,0.3)] mb-12 hover:scale-[1.02] transition-transform">
+                <i class="fa-solid fa-camera-retro mr-3 text-lg"></i>Ajouter une nouvelle prise
+            </button>
+        <?php endif; ?>
         <section>
             <div class="flex justify-between items-center mb-6">
-                <h3 class="font-black uppercase text-xs tracking-widest">Ma Galerie <span class="text-slate-600 ml-2">(12)</span></h3>
+                <h3 class="font-black uppercase text-xs tracking-widest">Ma Galerie <span class="text-slate-600 ml-2">(<?= count($prises) ?>)</span></h3>
                 <i class="fa-solid fa-grip text-cyan-500"></i>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <?php foreach ($prises as $prise): ?>
                     <div class="relative group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=400" class="img-gallery">
+                        <img src="<?= $prise->image_prise ?>" class="img-gallery">
                         <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg text-[8px] font-black uppercase border border-white/10">
-                            8.4 KG • BAR
+                            <?= $prise->poids ?> • KG • <?= $prise->taille ?> cm
                         </div>
                     </div>
                 <?php endforeach; ?>
