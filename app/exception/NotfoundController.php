@@ -11,6 +11,6 @@ class NotfoundController extends Exception
      */
     public function index()
     {
-        echo "404";
+        header("location: " . PATH_ROOT . "/error/404");
     }
 }

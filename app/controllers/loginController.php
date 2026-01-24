@@ -38,7 +38,7 @@ class LoginController
                 if ($user->getRole() === "ADMIN") {
                     header("Location: ./dash_admin");
                 } elseif ($user->getRole() === "PECHEUR") {
-                    header("Location: ./Profile_Pecheur");
+                    header("Location: " . PATH_ROOT . "/");
                 } elseif ($user->getRole() === "FAN") {
                     header("Location: " . PATH_ROOT . "/Profile_Fan");
                 }
