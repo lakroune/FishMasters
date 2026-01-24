@@ -46,8 +46,7 @@
                 </header>
             </div>
 
-                <form method="POST" action="<?= PATH_ROOT ?>/About/searchAll" class="space-y-4">
-            <form method="POST"  class="ultra-glass flex items-center px-5 py-2 rounded-2xl focus-within:ring-2 ring-cyan-500/30 transition-all">
+            <form method="POST" action="<?= PATH_ROOT ?>/About/searchAll" class="space-y-4">
                 <i class="fa-solid fa-magnifying-glass text-slate-500 mr-4"></i>
                 <input type="text" name="key" placeholder="Rechercher un spot, un pro ou un club..." class="bg-transparent w-full py-3 outline-none text-sm font-medium">
                 <button type="submit" name="submit" class="bg-white/5 p-2 rounded-xl hover:text-cyan-400"><i class="fa-solid fa-sliders"></i></button>
@@ -65,15 +64,14 @@
                 <a href="#" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-                <?php if(!empty($results)): ?>
-                     <?php var_dump($results) ?>
-                <?php foreach($results as $result): ?>
+                <?php if(!empty($data['results']['pecheurs'])): ?>
+                <?php foreach($data['results']['pecheurs'] as $pecheur): ?>
                 <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
                     <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                        <img src="<?= $result->getPhotoPecheur(); ?>" alt="image" class="w-16 h-16 rounded-full object-cover">
+                        <img src="<?= $pecheur->getPhotoPecheur(); ?>" alt="image" class="w-16 h-16 rounded-full object-cover">
                     </div>
                     <h3 class="font-bold text-sm"></h3>
-                    <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $result->getNom(); ?></p>
+                    <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $pecheur->getNom(); ?></p>
                 </div>
                 <?php endforeach; ?>
                 <!-- -->
@@ -83,50 +81,46 @@
 
             </div>
         </section>
-
-
-
-
-
-
-
+        
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-xs font-black uppercase tracking-[0.3em] text-cyan-500">Équipes de Légende</h2>
                 <a href="#" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                 <?php if(!empty($data['results']['equipes'])): ?>
+                <?php foreach($data['results']['equipes'] as $equipe): ?>
                 <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
                     <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                         <i class="fa-solid fa-shield-halved text-2xl text-black"></i>
                     </div>
-                    <h3 class="font-bold text-sm">Atlantic Kings</h3>
-                    <p class="text-[9px] text-slate-500 uppercase mt-1">12 Membres • Casablanca</p>
+                    <h3 class="font-bold text-sm"><?= $equipe->getNom(); ?></h3>
+                    <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $equipe->getNb(); ?>Membres</p>
                 </div>
-                <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
-                    <div class="w-16 h-16 bg-slate-800 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                        <i class="fa-solid fa-anchor text-2xl text-cyan-500"></i>
-                    </div>
-                    <h3 class="font-bold text-sm">Souss Predators</h3>
-                    <p class="text-[9px] text-slate-500 uppercase mt-1">8 Membres • Agadir</p>
-                </div>
+                <?php endforeach; ?>
+                <!-- -->
+                    <!-- <p>No results found.</p> -->
+                 <?php endif;?>  
             </div>
         </section>
 
         <section>
             <h2 class="text-xs font-black uppercase tracking-[0.3em] text-cyan-500 mb-6">Hot Spots 🔥</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 <?php if(!empty($data['results']['spots'])): ?>
+                <?php foreach($data['results']['spots'] as $spot): ?>
                 <div class="relative h-48 rounded-[30px] overflow-hidden group cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1505118380757-91f5f45d8de4?auto=format&fit=crop&q=80&w=500" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                     <div class="absolute bottom-6 left-6">
-                        <h3 class="font-black uppercase text-lg">Dakhla Lagoon</h3>
-                        <p class="text-[10px] text-cyan-400 font-bold tracking-widest italic">Bar, Courbine, Dorade</p>
-                    </div>
-                    <div class="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-black uppercase">
-                        <i class="fa-solid fa-location-dot mr-1"></i> Sud
+                        <h3 class="font-black uppercase text-lg"><?= $spot->getNomSpot(); ?></h3>
+                        <p class="text-[10px] text-cyan-400 font-bold tracking-widest italic"><?= $spot->getTypeEau(); ?></p>
                     </div>
                 </div>
+                <?php endforeach; ?>
+                <!-- -->
+                    <!-- <p>No results found.</p> -->
+                 <?php endif;?>  
             </div>
         </section>
 
@@ -134,10 +128,17 @@
         <section>
             <h2 class="text-xs font-black uppercase tracking-[0.3em] text-cyan-500 mb-6">Compétitions</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 <?php if(!empty($data['results']['competitions'])): ?>
+                <?php foreach($data['results']['competitions'] as $competition): ?>
                 <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
-                    <h3 class="font-bold text-sm">Tournoi de Pêche Sportive 2023</h3>
-                    <p class="text-[9px] text-slate-500 uppercase mt-1">Casablanca</p>
+                    <h3 class="font-bold text-sm"><?= $competition->getNom(); ?></h3>
+                    <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $competition->getNbParticipants(); ?></p>
+                   <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $competition->getDate(); ?></p>
                 </div>
+                <?php endforeach; ?>
+                <!-- -->
+                    <!-- <p>No results found.</p> -->
+                 <?php endif;?>  
             </div>
         </section>
 

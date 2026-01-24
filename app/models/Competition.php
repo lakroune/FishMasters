@@ -237,7 +237,15 @@ class Competition
         }
     }
 
-    
+     public static function searchCompetition($search)
+    { $db = Connexion::connect()->getConnexion();
+       $stmt = $db->prepare("SELECT * FROM competitions WHERE nom_competition LIKE ?");
+       $search = "%" . $search . "%";
+       $stmt->execute([$search]);
+      return $stmt->fetchAll(PDO::FETCH_CLASS, Competition::class);
+
+    }
+
 
 
 

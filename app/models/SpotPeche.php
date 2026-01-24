@@ -119,4 +119,15 @@ class SpotPeche
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, SpotPeche::class);
     }
+
+     public static function searchSpot($search)
+    { $db = Connexion::connect()->getConnexion();
+       $stmt = $db->prepare("SELECT * FROM spot_peches WHERE nom_spot LIKE ?");
+       $search = "%" . $search . "%";
+       $stmt->execute([$search]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, SpotPeche::class);
+
+    }
+
 }
+

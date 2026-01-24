@@ -10,28 +10,40 @@ use app\models\SearchResult;
 
 class AboutController
 {
-    public function index()
-    {
-        require_once __DIR__ . '/../views/about.php';
-       
-    }
-
-    public function searchAll()
-    {     $searchType = new SearchResult();
-          $data['results'] = [];
-
-         if(isset($_POST['submit'])){
-            $key = $_POST['key'];
-            $search = "%$key%"; 
-            $data['results'] = $searchType->search($search);   
+        public function index()
+        {
+            require_once __DIR__ . '/../views/about.php';
+        
         }
-        $this->view('about', $data);
 
-    }
+        public function searchAll()
+        {    
+
+            if(isset($_POST['submit'])){
+                $key = $_POST['key'];
+                $search = "%$key%"; 
+            $pecheurs = Pecheur::searchPecheur($search);
+            $equipes = Equipe::searchEquipe($search);
+            $Competitions = Competition::searchCompetition($search);
+            $spots = SpotPeche::searchSpot($search);
+            $data['results'] = [
+                 'pecheurs' => $pecheurs,
+                 'equipes' => $equipes,
+                 'competitions' => $Competitions,
+                 'spots' => $spots
+            ];  
+
+              require_once __DIR__ . '/../views/about.php';
+            
+            
+        }
+
+        }
+}
   
        
 
-    }
+    
     
 
  

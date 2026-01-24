@@ -125,5 +125,16 @@ class Pecheur extends User
             return false;
         }
     }
+   public static function searchPecheur($search)
+    { $db = Connexion::connect()->getConnexion();
+       $stmt = $db->prepare("SELECT * FROM pecheurs WHERE nom_user LIKE ?");
+       $search = "%" . $search . "%";
+       $stmt->execute([$search]);
+     return $stmt->fetchAll(PDO::FETCH_CLASS, Pecheur::class);
+
+    }
+
+
+
 }
 
