@@ -107,7 +107,7 @@ class Classement
 
     public function setRank(int $rank): void
     {
-        if ($rank <= 0) {
+        if ($rank <= 0 and $rank != NULL) {
             throw new Exception("Le rank doit être supérieur à 0");
         }
         $this->rank = $rank;
@@ -210,6 +210,6 @@ class Classement
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
         }
         $stmt->execute(['id_pecheur' => $id_pecheur]);
-        return $stmt->fetchObject(Classement::class);
+        return $stmt->fetchObject(Classement::class) ?: null;
     }
 }
