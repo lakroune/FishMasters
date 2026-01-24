@@ -135,6 +135,66 @@ class Pecheur extends User
     }
 
 
+    public function editPecheur()
+    {
+        try{
+         $db = Connexion::connect()->getConnexion();
+      $sql = "UPDATE pecheurs 
+       SET nom_user = :nom_user, prenom_user = :prenom_user, role_user = :role_user, photo_pecheur = :photo_pecheur,  region = :region, type_peche_favorite = :type_peche_favorite,  id_equipe = :id_equipe
+       WHERE id_user = :id_user ";
+       $stmt = $db->prepare($sql);
+       $success = $stmt->execute([
+            ':id_user' => $this->getIdUser(),
+            ':nom_user' => $this->getNom(),
+            ':prenom_user' => $this->getPrenom(),
+            ':role_user' => $this->getRole(),
+            ':photo_pecheur' => $this->getPhotoPecheur(),
+            ':region' => $this->getRegion(),
+            ':type_peche_favorite' => $this->getTypePeche(),
+            ':id_equipe' => $this->getIdEquipe()
+       ]);
 
-}
+       if($success && $stmt->rowCount() > 0){
+         return true;
+       } else{
+        return false;
+       }
+
+    }catch(Exception $e){
+        echo "something wrong" . $e->getMessage();
+        return false;
+    }
+    }
+
+    
+
+       public function mettreAJour($id_user)
+       { $db = Connexion::connect()->getConnexion();
+         $sql = "SELECT * FROM pecheurs WHERE id_user = ?";
+          $stmt = $db->prepare($sql);
+          $stmt->execute([(int) $id_user]);
+           $result = $stmt->fetch(PDO::FETCH_CLASS, Pecheur::class);
+
+           if($result) {
+                  $this->setIdUser($result->id_user);
+                  $this->setNom($result->nom_user);
+                  $this->setPrenom($result->prenom_user);
+                  $this->setRole($result->role_user);
+                  $this->setPhotoPecheur($result->photo_pecheur);
+                  $this->setRegion($result->region);
+                  $this->setTypePeche($result->type_peche_favorite);
+                 $this->setIdEquipe($result->id_equipe);
+
+                 return $this;
+           }
+
+       }
+
+
+
+    
+
+
+
+
 
