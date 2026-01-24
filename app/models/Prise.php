@@ -12,6 +12,10 @@ class Prise
     private string $date_capture;
     private string $poids;
     private string $taille;
+    private ?int $id_pecheur;
+    private ?int $approuve_par_admin = 0;
+    private ?int $id_espece;
+    private ?int $id_spot;
     private ?Pecheur $pecheur;
     private ?Espece $espece;
     private ?SpotPeche $spot;
@@ -51,10 +55,10 @@ class Prise
 
     public static function getPriseByPecheur(int $id_pecheur): array
     {
-
+        $prise = new Prise();
         $query = "SELECT * FROM prises WHERE id_pecheur=:id_pecheur";
         try {
-            $stmt = self::$pdo->prepare($query);
+            $stmt =  $prise->pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }

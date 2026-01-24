@@ -59,11 +59,11 @@
             </div>
 
             <div class="pt-6">
-                <a href="login.html" class="glow-button inline-flex items-center bg-cyan-500 text-black px-12 py-5 rounded-2xl font-black uppercase text-sm tracking-widest">
+                <a href="<?= PATH_ROOT ?>/login" class="glow-button inline-flex items-center bg-cyan-500 text-black px-12 py-5 rounded-2xl font-black uppercase text-sm tracking-widest">
                     Se connecter <i class="fa-solid fa-arrow-right ml-3"></i>
                 </a>
                 <p class="mt-6 text-[10px] text-slate-500 uppercase tracking-widest">
-                    Pas encore membre ? <a href="#" class="text-white border-b border-white/20 hover:text-cyan-400 hover:border-cyan-400 transition">Créer un compte</a>
+                    Pas encore membre ? <a href="<?= PATH_ROOT ?>/signup" class="text-white border-b border-white/20 hover:text-cyan-400 hover:border-cyan-400 transition">Créer un compte</a>
                 </p>
             </div>
 

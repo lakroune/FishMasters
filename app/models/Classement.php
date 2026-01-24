@@ -19,7 +19,7 @@ class Classement
 
     public function __construct() {}
 
-    
+
     public function getIdClassement(): int
     {
         return $this->id_classement;
@@ -91,7 +91,7 @@ class Classement
 
     public function setIdPecheur(int $id): void
     {
-        if ($id <= 0 ) {
+        if ($id <= 0) {
             throw new Exception("L'id du pecheur doit être supérieur à 0");
         }
         $this->id_pecheur = $id;
@@ -133,7 +133,7 @@ class Classement
         $idClassement = $stmt->fetchColumn();
         return $idClassement;
     }
-   
+
     public static function getClassementGeneralePecheurs(): array
     {
         $db = Connexion::connect()->getConnexion();
@@ -199,5 +199,17 @@ class Classement
         $stmt->bindParam(':name', $name);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+    }
+    public static function getClassementByPecheur(int $id_pecheur): ?Classement
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT * FROM classements WHERE id_pecheur = :id_pecheur";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $stmt->execute(['id_pecheur' => $id_pecheur]);
+        return $stmt->fetchObject(Classement::class);
     }
 }

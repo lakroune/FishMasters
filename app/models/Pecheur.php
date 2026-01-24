@@ -81,10 +81,10 @@ class Pecheur extends User
     }
     public static function getAllPecheur(): array
     {
-
+        $pecheur = new Pecheur();
         $query = "SELECT * FROM pecheurs";
         try {
-            $stmt =  self::$pdo->prepare($query);
+            $stmt =  $pecheur->pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
@@ -93,10 +93,10 @@ class Pecheur extends User
     }
     public static function getPecheurById(int $id): ?Pecheur
     {
-
+        $pecheur = new Pecheur();
         $query = "SELECT * FROM pecheurs WHERE id_user = :id";
         try {
-            $stmt =  self::$pdo->prepare($query);
+            $stmt =  $pecheur->pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }

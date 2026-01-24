@@ -6,8 +6,9 @@ class LogoutController
 {
     public function index()
     {
+        session_abort();
         session_destroy();
-        header('Location: ' . PATH_ROOT . '/index.php');
+        header('Location: ' . PATH_ROOT . '/');
     }
     public function default()
     {

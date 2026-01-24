@@ -68,11 +68,11 @@
         <div class="grid grid-cols-2 gap-4 mb-10">
             <div class="ultra-glass p-6 rounded-[30px] border-b-2 border-cyan-500">
                 <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Score Total</p>
-                <p class="text-3xl font-black text-cyan-400"> score <span class="text-xs italic text-white/50">pts</span></p>
+                <p class="text-3xl font-black text-cyan-400"> <?= $score->getTotalPoints() ?> <span class="text-xs italic text-white/50">pts</span></p>
             </div>
             <div class="ultra-glass p-6 rounded-[30px] border-b-2 border-white/10">
                 <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Position</p>
-                <p class="text-3xl font-black italic">classment <span class="text-[10px] text-green-500"></span></p>
+                <p class="text-3xl font-black italic"><?= $classement->getRank() ?> <span class="text-[10px] text-green-500"></span></p>
             </div>
         </div>
 
@@ -87,24 +87,14 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="relative group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=400" class="img-gallery">
-                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg text-[8px] font-black uppercase border border-white/10">
-                        8.4 KG • BAR
+                <?php foreach ($prises as $prise): ?>
+                    <div class="relative group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=400" class="img-gallery">
+                        <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg text-[8px] font-black uppercase border border-white/10">
+                            8.4 KG • BAR
+                        </div>
                     </div>
-                </div>
-                <div class="relative group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1516939884455-1445c8652f83?q=80&w=400" class="img-gallery">
-                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg text-[8px] font-black uppercase border border-white/10">
-                        12 KG • COURBINE
-                    </div>
-                </div>
-                <div class="relative group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1518977676601-b53f02ac6d31?q=80&w=400" class="img-gallery">
-                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg text-[8px] font-black uppercase border border-white/10">
-                        2.1 KG • DORADE
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </section>
     </main>

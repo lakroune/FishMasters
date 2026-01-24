@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Classement;
 use app\models\Pecheur;
 use app\models\Prise;
+use app\models\Score;
 use app\models\Subscribe;
 
 class PecheurController
@@ -55,7 +56,10 @@ class PecheurController
         if ($pecheur != NULL):
             $prise = new Prise();
             $prises = $prise->getAll();
-            // $clasment = Classement::getCla ssementByPecheur($id_pecheur);
+            $classement = Classement::getClassementByPecheur($id_pecheur);
+            $score = Score::getScorePecheur($id_pecheur);
+            $prises= Prise::getPriseByPecheur($id_pecheur);
+            
             $modifier = false;
             require_once __DIR__ . '/../views/profilePecheur.php';
         else:
