@@ -86,7 +86,7 @@ if (isset($_SESSION['User'])) {
                         </div>
                         <div class="relative group">
                             <button class="w-10 h-10 rounded-full border-2 border-cyan-500/30 p-0.5 hover:border-cyan-400 transition duration-300">
-                                <img src="<?= $_SESSION['User']->getPhotoPecheur() ?? 'https://ui-avatars.com/api/?name=Pecheur'; ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
+                                <img src="<?=  'https://ui-avatars.com/api/?name=' . $_SESSION['User']->getPrenom() . '+' . $_SESSION['User']->getNom() . '&background=0f172a&color=fff'; ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
                             </button>
                             <div class="absolute right-0 mt-2 w-48 bg-[#0f172a] border border-white/10 rounded-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
                                 <a href="<?= PATH_ROOT ?>/dashboard" class="block px-4 py-2 text-xs font-bold text-slate-300 hover:bg-cyan-500 hover:text-black transition">TABLEAU DE BORD</a>

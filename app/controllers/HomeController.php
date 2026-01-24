@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Pecheur;
 
 class HomeController
 {
@@ -12,10 +13,12 @@ class HomeController
     public function index()
     {
         if (isset($_SESSION['User'])):
+            $user = $_SESSION["User"];
             if ($_SESSION['User']->getRole() === "ADMIN"):
                 require_once __DIR__ . '/../views/admin.php';
             elseif ($_SESSION['User']->getRole() === "PECHEUR"):
-                require_once __DIR__ . '/../views/Profile_Pecheur.php';
+                $pecheur = Pecheur::getPecheurById($user->getIdUser());
+                require_once __DIR__ . '/../views/dashboard_pecheur.php';
             elseif ($_SESSION['User']->getRole() === "FAN"):
                 require_once __DIR__ . '/../views/actualites.php';
             endif;
