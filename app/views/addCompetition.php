@@ -55,15 +55,9 @@
     </div>
 </nav>
 
-                   
-        <!-- $stmt->bindValue(':type_competition', $this->type_competition);
-        $stmt->bindValue(':nb_matchs', $this->nb_matchs);
-        $stmt->bindValue(':nb_participants', $this->nb_participants);
-        $stmt->bindValue(':id_categorie', $this->id_categorie); -->
-
 <main class="max-w-[1100px] mx-auto pt-32 px-6">
 
-    <form method="POST"
+    <form method="POST" action="<?= PATH_ROOT ?>/competition/add"
           class="ultra-glass p-10 rounded-[45px] space-y-10">
 
         <h1 class="text-4xl font-black uppercase">Ajouter une compétition</h1>

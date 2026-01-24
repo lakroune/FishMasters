@@ -1,24 +1,34 @@
 <?php
-
 namespace app\controllers;
 
 use app\models\Competition;
-use app\models\SpotPeche;
-use app\models\Reglement;
 
 class CompetitionController
 {
+    private $competitionModel;
+
+    public function __construct()
+    {
+        $this->competitionModel = new Competition();
+    }
 
     public function index()
     {
-        $competitions = Competition::getAllCompetition();
-        $spotsPeches = SpotPeche::getAllSpotPeche();
-        $reglements = (new Reglement())->getAllReglement();
-        require_once "app/views/calendrier.php";
+
+        $filters = [
+            'categorie' => $_GET['categorie'] ?? null,
+            'milieu' => $_GET['milieu'] ?? null,
+            'region' => $_GET['region'] ?? null,
+        ];
+
+        $competitions = $this->competitionModel->getFilteredCompetitions(array_filter($filters));
+
+        $categories = $this->competitionModel->getCategories();
+        $milieux = $this->competitionModel->getMilieux();
+        $regions = $this->competitionModel->getRegions();
+
+        $title = "Filtrer les compétitions";
+
+        require_once __DIR__ . '/../views/competitions.php';
     }
-    public function default()
-    {
-        $this->index();
-    }
-    
 }
