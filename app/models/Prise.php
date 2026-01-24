@@ -12,9 +12,9 @@ class Prise
     private string $date_capture;
     private string $poids;
     private string $taille;
-    private Pecheur $pecheur;
-    private Espece $espece;
-    private SpotPeche $spot;
+    private ?Pecheur $pecheur;
+    private ?Espece $espece;
+    private ?SpotPeche $spot;
     private PDO $pdo;
 
     public function __construct()

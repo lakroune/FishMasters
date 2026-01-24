@@ -133,6 +133,7 @@ class Classement
         $idClassement = $stmt->fetchColumn();
         return $idClassement;
     }
+   
     public static function getClassementGeneralePecheurs(): array
     {
         $db = Connexion::connect()->getConnexion();
