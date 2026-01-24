@@ -6,8 +6,10 @@ use app\controllers\DashboardController;
 
 class EspeceController{
 private DashboardController $dashboard;
+private Espece $espece;
 public function __construct(){
     $this->dashboard=new DashboardController();
+    $this->espece=new Espece();
 }
 public function ajauter(){
    $espece = new Espece();
@@ -36,7 +38,7 @@ public function supprimer(){
 
 public function getEspece(){
     $id=$_GET['id'];
-    $this->dashboard->index();
+    $espece;
      require_once __DIR__.'/../views/modifier_espece.php';
 }
 
