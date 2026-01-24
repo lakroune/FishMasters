@@ -133,4 +133,3 @@ class Prise
   return count($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 }
-it
