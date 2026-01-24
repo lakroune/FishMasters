@@ -51,10 +51,10 @@ class Prise
 
     public static function getPriseByPecheur(int $id_pecheur): array
     {
-    
+
         $query = "SELECT * FROM prises WHERE id_pecheur=:id_pecheur";
         try {
-            $stmt = $this->pdo->prepare($query);
+            $stmt = self::$pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
@@ -126,10 +126,11 @@ class Prise
         return $this->$att;
     }
 
-    public function getCountPrise(){
-  $sql="SELECT * FROM prises";
-  $stmt=$this->pdo->prepare($sql);
-  $stmt->execute();
-  return count($stmt->fetchAll(PDO::FETCH_ASSOC));
+    public function getCountPrise()
+    {
+        $sql = "SELECT * FROM prises";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return count($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 }
