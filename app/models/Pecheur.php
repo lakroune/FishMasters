@@ -109,7 +109,7 @@ class Pecheur extends User
     {
         try {
 
-            $sql = "INSERT INTO pecheurs(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite, id_equipe) VALUES (?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO pecheurs(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite) VALUES (?,?,?,?,?,?,?,?)";
             try {
                 $stmt =  $this->pdo->prepare($sql);
             } catch (Exception $e) {
