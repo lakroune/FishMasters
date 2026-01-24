@@ -461,4 +461,4 @@ GROUP BY
     u.nom_user,
     u.prenom_user;
 
-SELECT * from classementGeneralPecheur;
+select * from equipes;
