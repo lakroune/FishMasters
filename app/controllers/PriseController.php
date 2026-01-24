@@ -58,14 +58,13 @@ class PriseController
                     (int) $_POST['id_espece'],
                     (int)  $_POST['id_spot']
                 );
-                // if ($success) {
-                //     header('Location: ' . PATH_ROOT . '/prise');
-                //     exit;
-                // } else {
-                //     header('Location: ' . PATH_ROOT . '/prise/error');
-                //     exit;
-                // }
-                echo "Prise ajoutée avec succès.";
+                if ($success) {
+                    header('Location: ' . PATH_ROOT . '/prise/success');
+                    exit;
+                } else {
+                    header('Location: ' . PATH_ROOT . '/prise/error');
+                    exit;
+                }
             }
         } else {
             header('Location: ' . PATH_ROOT . '/prise/error');
