@@ -6,8 +6,10 @@ use app\controllers\DashboardController;
 
 class EspeceController{
 private DashboardController $dashboard;
+private Espece $espece;
 public function __construct(){
     $this->dashboard=new DashboardController();
+    $this->espece=new Espece();
 }
 public function ajauter(){
    $espece = new Espece();
@@ -36,16 +38,17 @@ public function supprimer(){
 
 public function getEspece(){
     $id=$_GET['id'];
-    $this->dashboard->index();
+    $espece_to_edit=$this->espece->getEspeceParId($id);
      require_once __DIR__.'/../views/modifier_espece.php';
 }
 
 public function modifier(){
-    $nom=$_POST['espece'];
-    $coeficient=$_POST['coaficiant'];
-    $description=$_POST['description'];
-    $id=$_POST['id_espece'];
-    $espece=new Espece($nom,$coeficient,$description,$id);
+       $espece = new Espece();
+$espece->setNomEspece($_POST['espece']);
+$espece->setCoefficient($_POST['coaficiant']);
+$espece->setDescription($_POST['description']);
+$espece->setIdEspece($_POST['id_espece']);
+
     if($espece->modifierEspece()){
           $this->dashboard->index();
      require_once __DIR__.'/../views/Admin.php';
