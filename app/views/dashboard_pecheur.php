@@ -60,9 +60,9 @@
                 <p class="text-slate-500 text-xs font-bold uppercase tracking-[0.3em] mt-1">Tableau de bord personnel • Saison 2026</p>
             </div>
             <div class="flex gap-3">
-                <button onclick="toggleModal('update-modal')" class="ultra-glass px-6 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest border border-white/10 hover:border-cyan-500/50 transition-all">
+                <!-- <button onclick="toggleModal('update-modal')" class="ultra-glass px-6 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest border border-white/10 hover:border-cyan-500/50 transition-all">
                     <i class="fa-solid fa-user-gear mr-2"></i> Profil Info
-                </button>
+                </button> -->
                 <button onclick="window.location.href='<?= PATH_ROOT ?>/prise'" class="bg-cyan-500 text-black px-6 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-[0_10px_30px_rgba(6,182,212,0.4)] hover:scale-105 transition-transform">
                     Déclarer une Prise <i class="fa-solid fa-fish-fins ml-2"></i>
                 </button>

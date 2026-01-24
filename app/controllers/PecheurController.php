@@ -43,6 +43,13 @@ class PecheurController
     {
         $pecheur = $_SESSION["User"];
         if ($pecheur->getRole() === "PECHEUR"):
+            $id_pecheur = $pecheur->getIdUser();
+            $pecheur = Pecheur::getPecheurById($id_pecheur);
+            $prise = new Prise();
+            $prises = $prise->getAll();
+            $classement = Classement::getClassementByPecheur($id_pecheur);
+            $score = Score::getScorePecheur($id_pecheur);
+            $prises = Prise::getPriseByPecheur($id_pecheur);
             $modifier = true;
             require_once __DIR__ . '/../views/profilePecheur.php';
 
@@ -58,8 +65,7 @@ class PecheurController
             $prises = $prise->getAll();
             $classement = Classement::getClassementByPecheur($id_pecheur);
             $score = Score::getScorePecheur($id_pecheur);
-            $prises= Prise::getPriseByPecheur($id_pecheur);
-            
+            $prises = Prise::getPriseByPecheur($id_pecheur);
             $modifier = false;
             require_once __DIR__ . '/../views/profilePecheur.php';
         else:

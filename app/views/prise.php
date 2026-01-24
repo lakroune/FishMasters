@@ -52,7 +52,7 @@
 
     <main class="max-w-2xl mx-auto pt-10 pb-20">
         <div class="flex items-center justify-between mb-10">
-            <a href="<?= PATH_ROOT ?>/pecheur/profile" class="text-slate-500 hover:text-white transition"><i class="fa-solid fa-arrow-left mr-2"></i> Retour</a>
+            <a href="<?= PATH_ROOT ?>/" class="text-slate-500 hover:text-white transition"><i class="fa-solid fa-arrow-left mr-2"></i> Retour</a>
             <h1 class="text-2xl font-black uppercase tracking-tighter">Nouvelle <span class="text-cyan-500">Prise</span></h1>
             <div class="w-10"></div>
         </div>
