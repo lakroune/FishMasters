@@ -140,10 +140,12 @@
                             <tr class="hover:bg-white/5 transition group">
                                 <td class="p-6 font-mono text-slate-500"><?php echo $array_classements[$i][0]->getRank(); ?></td>
                                 <td class="p-6">
-                                    <div class="flex items-center space-x-4">
-                                        <img src="<?php echo $array_classements[$i][1]->getPhotoPecheur(); ?>" class="w-10 h-10 rounded-full border border-white/10">
-                                        <span class="font-bold"><?php echo ($array_classements[$i][1]->getPrenom() . ' ' . $array_classements[$i][1]->getNom()); ?></span>
-                                    </div>
+                                    <a href="<?php echo PATH_ROOT ?>/pecheur/show/<?= $array_classements[$i][1]->getIdUser() ?>">
+                                        <div class="flex items-center space-x-4">
+                                            <img src="<?php echo $array_classements[$i][1]->getPhotoPecheur(); ?>" class="w-10 h-10 rounded-full border border-white/10">
+                                            <span class="font-bold"><?php echo ($array_classements[$i][1]->getPrenom() . ' ' . $array_classements[$i][1]->getNom()); ?></span>
+                                        </div>
+                                    </a>
                                 </td>
                                 <td class="p-6 text-xs text-slate-400 uppercase font-bold text-[10px]">Junior / Mer</td>
                                 <td class="p-6 font-mono text-cyan-400 font-bold"><?php echo $array_classements[$i][2]->getTotalPoints(); ?></td>

@@ -96,7 +96,7 @@ class SpotPeche
     public function getSpotPeche($id_spot): ?SpotPeche
     {
         $db = Connexion::connect()->getConnexion();
-        $query = "SELECT * FROM spot_peche WHERE id_spot = :id_spot";
+        $query = "SELECT * FROM spot_peches WHERE id_spot = :id_spot";
 
         try {
             $stmt = $db->prepare($query);

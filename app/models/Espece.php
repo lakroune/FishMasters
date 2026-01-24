@@ -18,10 +18,10 @@ class Espece
 
     public function __construct()
     {
-        self::$pdo = Connexion::connect()->getConnexion();
+        $this->pdo = Connexion::connect()->getConnexion();
     }
 
-    
+
     public function getAll(): array
     {
         $stmt = $this->pdo->query("SELECT * FROM espece");
@@ -78,7 +78,7 @@ class Espece
     public function __toString()
     {
         return "ghfebjfhh";
-       // return "espece : id_espece = $this->id_espece, nom_espece = $this->nom_espece, coefficient = $this->coefficient, description = $this->description";
+        // return "espece : id_espece = $this->id_espece, nom_espece = $this->nom_espece, coefficient = $this->coefficient, description = $this->description";
     }
 
     public function getIdEspece(): int
@@ -139,48 +139,49 @@ class Espece
 
 
     public function ajouter(): bool
-{
-    try {
-       $db = Connexion::connect()->getConnexion(); 
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
 
-        $sql = "INSERT INTO especes (nom_espece, coefficient, description)
+            $sql = "INSERT INTO especes (nom_espece, coefficient, description)
                 VALUES (:nom, :coef, :desc)";
 
+            $stmt = $db->prepare($sql);
+
+            return $stmt->execute([
+                ':nom'  => $this->nom_espece,
+                ':coef' => $this->coefficient,
+                ':desc' => $this->description
+            ]);
+        } catch (Exception $e) {
+            throw new Exception("Erreur lors de l'ajout de l'espèce : " . $e->getMessage());
+        }
+    }
+
+
+    public static function afficher(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM especes";
         $stmt = $db->prepare($sql);
-
-        return $stmt->execute([
-            ':nom'  => $this->nom_espece,
-            ':coef' => $this->coefficient,
-            ':desc' => $this->description
-        ]);
-
-    } catch (Exception $e) {
-        throw new Exception("Erreur lors de l'ajout de l'espèce : " . $e->getMessage());
-    }
-}
-
-
-public static function afficher():array{
-          $db = Connexion::connect()->getConnexion();
-          $sql="SELECT * FROM especes";
-             $stmt = $db->prepare($sql);
-             $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-public static function supprimer($id){
-    $db = Connexion::connect()->getConnexion();
-    $sql="UPDATE  especes SET id_delete='1' WHERE id_espece=:id";
-    $stmt = $db->prepare($sql);
-    return $stmt->execute([':id'=>$id]);
-}
+    public static function supprimer($id)
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "UPDATE  especes SET id_delete='1' WHERE id_espece=:id";
+        $stmt = $db->prepare($sql);
+        return $stmt->execute([':id' => $id]);
+    }
 
 
 
 
-public static function getEspeceParId($id)
-{
-    
+    public static function getEspeceParId($id)
+    {
+
         $db = Connexion::connect()->getConnexion();
 
         $sql = "SELECT * FROM especes 
@@ -188,18 +189,13 @@ public static function getEspeceParId($id)
 
         $stmt = $db->prepare($sql);
         $stmt->execute([':id' => $id]);
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result ;
-
- 
-}
+        $result = $stmt->fetchObject(Espece::class);
+    }
 
 
-public function modifierEspece():bool
-{
-  
+    public function modifierEspece(): bool
+    {
+
         $db = Connexion::connect()->getConnexion();
 
         $sql = "UPDATE especes 
@@ -214,10 +210,7 @@ public function modifierEspece():bool
             ':nom'  => $this->nom_espece,
             ':coef' => $this->coefficient,
             ':desc' => $this->description,
-            ':id' =>$this->id_espece
+            ':id' => $this->id_espece
         ]);
-
-   
-}
-
+    }
 }

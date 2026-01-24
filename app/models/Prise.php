@@ -49,6 +49,19 @@ class Prise
         return $prises;
     }
 
+    public static function getPriseByPecheur(int $id_pecheur): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $query = "SELECT * FROM prises WHERE id_pecheur=:id_pecheur";
+        try {
+            $stmt = $db->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
+        }
+        $stmt->bindParam(':id_pecheur', $id_pecheur);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Prise::class);
+    }
 
     public function find(int $id): ?Prise
     {

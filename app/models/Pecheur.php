@@ -89,7 +89,7 @@ class Pecheur extends User
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, Pecheur::class);
     }
-    public function getPecheurById(int $id): ?Pecheur
+    public static function getPecheurById(int $id): ?Pecheur
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM pecheurs WHERE id_user = :id";

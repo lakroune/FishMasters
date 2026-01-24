@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Pecheur;
+use app\models\Prise;
 use app\models\Subscribe;
 
 class PecheurController
@@ -38,7 +39,27 @@ class PecheurController
     }
     public function profile()
     {
-        require_once __DIR__ . '/../views/profilePecheur.php';
+        $pecheur = $_SESSION["User"];
+        if ($pecheur->getRole() === "PECHEUR"):
+            $modifier = true;
+            require_once __DIR__ . '/../views/profilePecheur.php';
+
+        else:
+            $this->index();
+        endif;
+    }
+    public function show(int $id_pecheur)
+    {
+        $pecheur = Pecheur::getPecheurById($id_pecheur);
+        if ($pecheur != NULL):
+            $prise = new Prise();
+            $prises = $prise->getAll();
+            $modifier = false;
+            require_once __DIR__ . '/../views/profilePecheur.php';
+        else:
+            $this->index();
+
+        endif;
     }
 
     public function subscribe(int $id_pecheur)
