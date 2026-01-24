@@ -42,9 +42,18 @@
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #02040a; }
-        ::-webkit-scrollbar-thumb { background: #06b6d4; border-radius: 10px; }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #02040a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -106,17 +115,17 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                <?php if(empty($prises)): ?>
+                <?php if (empty($prises)): ?>
                     <p class="col-span-full text-center text-slate-600 italic py-10">Aucune prise enregistrée pour le moment.</p>
                 <?php else: ?>
-                    <?php foreach($prises as $p): ?>
+                    <?php foreach ($prises as $p): ?>
                         <div class="prise-card relative aspect-[3/4] rounded-[30px] overflow-hidden ultra-glass border border-white/5 group cursor-pointer">
-                            <img src="<?= $p->getImageUrl() ?>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                            <img src="<?= $p->image_prise ?>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent p-5 flex flex-col justify-end">
-                                <span class="text-[8px] font-black text-cyan-400 uppercase tracking-widest mb-1"><?= $p->getDate() ?></span>
-                                <h4 class="text-xs font-black uppercase italic"><?= $p->getEspece() ?></h4>
+                                <span class="text-[8px] font-black text-cyan-400 uppercase tracking-widest mb-1"><?= $p->date_capture ?></span>
+                                <h4 class="text-xs font-black uppercase italic"><?= $p->taille ?></h4>
                                 <div class="flex justify-between items-center mt-2">
-                                    <span class="text-[10px] font-bold"><?= $p->getPoids() ?> kg</span>
+                                    <span class="text-[10px] font-bold"><?= $p->poids ?> kg</span>
                                     <i class="fa-solid fa-circle-check text-green-500 text-[10px]"></i>
                                 </div>
                             </div>
@@ -135,9 +144,9 @@
             </button>
 
             <h3 class="text-2xl font-black uppercase italic mb-8 tracking-tighter text-cyan-400">Modifier mon profil</h3>
-            
+
             <form action="process_update.php" method="POST" enctype="multipart/form-data" class="space-y-5">
-                
+
                 <div class="relative group mb-8">
                     <label for="img-upload" class="cursor-pointer flex flex-col items-center justify-center w-full h-40 bg-white/5 border-2 border-dashed border-white/10 rounded-[35px] hover:border-cyan-500/50 hover:bg-white/10 transition-all group">
                         <div id="upload-placeholder" class="flex flex-col items-center transition-all">
@@ -156,13 +165,13 @@
                         <i class="fa-solid fa-signature absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500 text-xs"></i>
                         <input type="text" name="nom" placeholder="Nom Complet" value="<?= $pecheur->getNom(); ?>" class="w-full bg-white/5 border border-white/10 p-5 pl-12 rounded-2xl outline-none focus:border-cyan-500 transition-all text-sm font-medium">
                     </div>
-                    
+
                     <div class="relative">
                         <i class="fa-solid fa-location-dot absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500 text-xs"></i>
                         <input type="text" name="ville" placeholder="Votre Ville" class="w-full bg-white/5 border border-white/10 p-5 pl-12 rounded-2xl outline-none focus:border-cyan-500 transition-all text-sm font-medium">
                     </div>
                 </div>
-                
+
                 <div class="grid grid-cols-2 gap-4 pt-6">
                     <button type="button" onclick="toggleModal('update-modal')" class="p-5 text-slate-500 font-black text-[10px] uppercase tracking-widest hover:text-white">Annuler</button>
                     <button type="submit" class="bg-white text-black p-5 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl hover:bg-cyan-500 transition-colors">
@@ -182,7 +191,7 @@
         function handlePreview(input) {
             const preview = document.getElementById('img-preview');
             const placeholder = document.getElementById('upload-placeholder');
-            
+
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -196,4 +205,5 @@
     </script>
 
 </body>
+
 </html>
