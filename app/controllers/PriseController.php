@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Prise;
+use app\models\SpotPeche;
 
 class PriseController
 {
@@ -16,7 +17,8 @@ class PriseController
 
     public function index(): void
     {
-        // $prises = $this->model->getAll();
+        $prises = $this->model->getAll();
+        $spots = (new SpotPeche())->getAllSpotPeche();
         require __DIR__ . '/../views/prise.php';
     }
 
@@ -57,13 +59,14 @@ class PriseController
                     $_POST['id_espece'],
                     $_POST['id_spot']
                 );
-                if ($success) {
-                    header('Location: ' . PATH_ROOT . '/prise');
-                    exit;
-                } else {
-                    header('Location: ' . PATH_ROOT . '/prise/error');
-                    exit;
-                }
+                // if ($success) {
+                //     header('Location: ' . PATH_ROOT . '/prise');
+                //     exit;
+                // } else {
+                //     header('Location: ' . PATH_ROOT . '/prise/error');
+                //     exit;
+                // }
+                echo "Prise ajoutée avec succès.";
             }
         } else {
             header('Location: ' . PATH_ROOT . '/prise/error');
@@ -73,6 +76,6 @@ class PriseController
     public function error(): void
     {
         $error_msg = "Veuillez remplir tous les champs avant de valider.";
-        require __DIR__ . '/../views/prise.php';
+        $this->index();
     }
 }

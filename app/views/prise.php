@@ -57,7 +57,7 @@
             <div class="w-10"></div>
         </div>
 
-        <form action="<?= PATH_ROOT ?>/prise/store" method="post" class="space-y-6">
+        <form action="<?= PATH_ROOT ?>/prise/store" method="post" enctype="multipart/form-data" class="space-y-6">
 
             <div class="ultra-glass rounded-[30px] p-8 border-dashed border-2 border-white/10 text-center hover:border-cyan-500/50 transition cursor-pointer group">
                 <input type="file" name="photoPrise" id="photo" class="hidden" accept="image/*">
@@ -98,12 +98,10 @@
                     <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Spot de pêche</label>
                     <div class="relative">
                         <select name="id_spot" class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none bg-dark text-slate-500 cursor-pointer pr-12  bg-transpar ent border-none focus:border-cyan-500/50 transition all duration-300 ease-in outline-none ">
-                            <option class="" value="1" selected>Spot 1</option>
-                            <option value="2">Spot 2</option>
-                            <option value="3">Spot 3</option>
-                            <option value="4">Spot 4</option>
-                            <option value="5">Spot 5</option>
-                            <option value="6">Spot 6</option>
+                            <?php foreach ($spots as $spot) : ?>
+                                <option class="" value="<?= $spot->getIdSpot() ?>"><?= $spot->getNomSpot() ?></option>
+                            <?php endforeach; ?>
+
                         </select>
                         <i class="fa-solid fa-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-500"></i>
                     </div>
