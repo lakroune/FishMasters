@@ -70,7 +70,6 @@ if (isset($_SESSION['User'])) {
                     <a href="<?= PATH_ROOT ?>/home" class="hover:text-cyan-400 transition">Accueil</a>
                     <a href="<?= PATH_ROOT ?>/competition" class="hover:text-cyan-400 transition">Calendrier</a>
                     <a href="<?= PATH_ROOT ?>/classement" class="hover:text-cyan-400 transition">Classement</a>
-                    <a href="<?= PATH_ROOT ?>/mes-prises" class="hover:text-cyan-400 transition">Mes Prises</a>
                 </div>
 
                 <div class="flex items-center space-x-6">

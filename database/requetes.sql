@@ -1,5 +1,4 @@
--- Active: 1769072311946@@www.dockhosting.dev@49581@masterfich
-
+-- Active: 1769072311946@@www.dockhosting.dev@49581@masterfich;
 DROP TABLE IF EXISTS commentaires;
 
 DROP TABLE IF EXISTS notification;
@@ -461,4 +460,3 @@ GROUP BY
     u.nom_user,
     u.prenom_user;
 
-select * from equipes;

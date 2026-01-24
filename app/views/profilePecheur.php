@@ -88,7 +88,8 @@
             </div>
             <div class="ultra-glass p-6 rounded-[30px] border-b-2 border-white/10">
                 <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Position</p>
-                <p class="text-3xl font-black italic">#<?php if($classment != null) echo $classment->getRank(); else echo "-"; ?></p>
+                <p class="text-3xl font-black italic">#<?php if ($classement != null) echo $classement->getRank();
+                                                        else echo "-"; ?></p>
             </div>
         </div>
 
