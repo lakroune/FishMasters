@@ -213,4 +213,29 @@ class Espece
             ':id' => $this->id_espece
         ]);
     }
+
+    public function getCountEspece(){
+  $sql="SELECT * FROM especes";
+  $stmt=$this->pdo->prepare($sql);
+  $stmt->execute();
+  return count($stmt->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+   public function getPoidsParEspece(){
+    $sql = "
+        SELECT 
+            e.nom_espece AS nom,
+            p.id_espece,
+            SUM(p.poids) AS totale
+        FROM prises p
+        INNER JOIN especes e ON e.id_espece = p.id_espece
+        WHERE p.approuve_par_admin IS TRUE
+        GROUP BY p.id_espece, e.nom_espece
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
