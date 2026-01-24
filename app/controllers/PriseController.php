@@ -72,7 +72,7 @@ class PriseController
     }
     public function error(): void
     {
-        echo "<script>alert('Veuillez remplir tous les champs')</script>";
+        $error_msg = "Veuillez remplir tous les champs avant de valider.";
         require __DIR__ . '/../views/prise.php';
     }
 }

@@ -97,18 +97,18 @@
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Spot de pêche</label>
                     <div class="relative">
-                                <select name="id_spot" class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none bg-dark text-slate-500 cursor-pointer pr-12  bg-transpar ent border-none focus:border-cyan-500/50 transition all duration-300 ease-in outline-none ">
-                                    <option class="" value="1" selected>Spot 1</option>
-                                    <option value="2">Spot 2</option>
-                                    <option value="3">Spot 3</option>
-                                    <option value="4">Spot 4</option>
-                                    <option value="5">Spot 5</option>
-                                    <option value="6">Spot 6</option>
-                                </select>
-                                <i class="fa-solid fa-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                      </div>
+                        <select name="id_spot" class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none bg-dark text-slate-500 cursor-pointer pr-12  bg-transpar ent border-none focus:border-cyan-500/50 transition all duration-300 ease-in outline-none ">
+                            <option class="" value="1" selected>Spot 1</option>
+                            <option value="2">Spot 2</option>
+                            <option value="3">Spot 3</option>
+                            <option value="4">Spot 4</option>
+                            <option value="5">Spot 5</option>
+                            <option value="6">Spot 6</option>
+                        </select>
+                        <i class="fa-solid fa-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                    </div>
                 </div>
-                
+
             </div>
 
             <div class="grid grid-cols-2 gap-4">
@@ -133,7 +133,48 @@
             </button>
         </form>
     </main>
+    <?php if (isset($error_msg)): ?>
+        <div id="error-toast" class="fixed top-24 left-1/2 -translate-x-1/2 z-[200] w-[90%] max-w-md">
+            <div class="ultra-glass border-l-4 border-rose-500 p-5 rounded-2xl shadow-2xl flex items-center gap-4 animate-bounce-subtle">
+                <div class="w-10 h-10 bg-rose-500/20 rounded-xl flex items-center justify-center text-rose-500">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="flex-grow">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-rose-500">Erreur de saisie</p>
+                    <p class="text-xs font-medium text-slate-200"><?= $error_msg ?></p>
+                </div>
+                <button onclick="this.parentElement.parentElement.remove()" class="text-slate-500 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
 
+        <style>
+            @keyframes bounce-subtle {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-5px);
+                }
+            }
+
+            .animate-bounce-subtle {
+                animation: bounce-subtle 2s infinite;
+            }
+        </style>
+
+        <script>
+            setTimeout(() => {
+                const toast = document.getElementById('error-toast');
+                if (toast) toast.style.opacity = '0';
+                setTimeout(() => toast?.remove(), 500);
+            }, 5000);
+        </script>
+    <?php endif; ?>
     <script>
         const now = new Date();
         const timeInput = document.getElementById('currentTime');
