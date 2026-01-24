@@ -60,7 +60,7 @@
         <form action="<?= PATH_ROOT ?>/prise/store" method="post" enctype="multipart/form-data" class="space-y-6">
 
             <div class="ultra-glass rounded-[30px] p-8 border-dashed border-2 border-white/10 text-center hover:border-cyan-500/50 transition cursor-pointer group">
-                <input type="file" name="photoPrise" id="photo" class="hidden" accept="image/*">
+                <input type="file" name="photoPrise" id="photo" class="hidden">
                 <label for="photo" class="cursor-pointer">
                     <div class="w-16 h-16 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-camera text-cyan-500 text-2xl"></i>
@@ -74,10 +74,9 @@
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block tracking-widest">Espèce de poisson</label>
                     <select name="id_espece" class="input-field w-full p-4 rounded-2xl text-sm font-bold appearance-none">
-                        <option>Loup de Mer (Bar)</option>
-                        <option>Dorade Royale</option>
-                        <option>Sars</option>
-                        <option>Espèce non listée...</option>
+                        <?php foreach ($especes as $espece) : ?>
+                            <option class=" p-4 rounded-2xl text-sm font-bold appearance-none  " value="<?= $espece->getIdEspece() ?>"><?= $espece->getNomEspece() ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 

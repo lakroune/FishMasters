@@ -95,14 +95,14 @@ class Prise
         return $prise;
     }
 
-    public function create(string $image_prise, string $date_capture, string $poids, string $taille, string $id_pecheur, string $id_espece, string $id_spot): bool
+    public function create(string $image_prise, float $poids, float $taille, int $id_pecheur, int $id_espece, int $id_spot): bool
     {
-        $stmt = self::$pdo->prepare(
-            "INSERT INTO prises (image_prise, date_capture, poids, taille, id_pecheur, id_espece, id_spot) VALUES (:image_prise, :date_capture, :poids, :taille, :id_pecheur, :id_espece, :id_spot)"
+        $prise = new Prise();
+        $stmt = $prise->pdo->prepare(
+            "INSERT INTO prises (image_prise, poids, taille, id_pecheur, id_espece, id_spot) VALUES (:image_prise, :poids, :taille, :id_pecheur, :id_espece, :id_spot)"
         );
         return $stmt->execute([
             'image_prise' => $image_prise,
-            'date_capture' => $date_capture,
             'poids' => $poids,
             'taille' => $taille,
             'id_pecheur' => $id_pecheur,

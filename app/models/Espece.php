@@ -82,22 +82,15 @@ class Espece
 
     public function getAll(): array
     {
-        $stmt = $this->pdo->query("SELECT * FROM espece");
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $especes = [];
-
-        foreach ($rows as $row) {
-            $espece = new Espece();
-            $espece->setIdEspece($row['id_espece']);
-            $espece->setNomEspece($row['nom_espece']);
-            $espece->setCoefficient($row['coefficient']);
-            $espece->setDescription($row['description']);
-
-            $especes[] = $espece;
+        $db = Connexion::connect()->getConnexion();
+        try {
+            $stmt = $db->prepare("SELECT * FROM especes");
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL " . $e->getMessage());
         }
 
-        return $especes;
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Espece::class);
     }
 
     public function find(int $id): ?Espece
@@ -192,7 +185,7 @@ class Espece
 
         $stmt = $db->prepare($sql);
         $stmt->execute([':id' => $id]);
-        return $stmt->fetchObject(Espece::class)?: null;
+        return $stmt->fetchObject(Espece::class) ?: null;
     }
 
 
