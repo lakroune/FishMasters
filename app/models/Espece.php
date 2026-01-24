@@ -14,12 +14,8 @@ class Espece
     private string $description;
 
 
-    public function __construct($nom_espece,$coefficient,$description,$id_espece) {
+    public function __construct() {
 
-    $this->nom_espece=$nom_espece;
-    $this->coefficient=$coefficient;
-    $this->description=$description;
-    $this->id_espece=$id_espece;
     }
 
     public function __toString()

@@ -38,11 +38,12 @@ public function getEspece(){
 }
 
 public function modifier(){
-    $nom=$_POST['espece'];
-    $coeficient=$_POST['coaficiant'];
-    $description=$_POST['description'];
+     $espece = new Espece();
     $id=$_POST['id_espece'];
-    $espece=new Espece($nom,$coeficient,$description,$id);
+    $espece->setIdEspece($id);
+    $espece->setNomEspece($_POST['espece']);
+$espece->setCoefficient($_POST['coaficiant']);
+$espece->setDescription($_POST['description']);
     if($espece->modifierEspece()){
           $especes =Espece::afficher();
      require_once __DIR__.'/../views/Admin.php';
