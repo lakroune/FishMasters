@@ -76,4 +76,14 @@ class PriseController
         $error_msg = "Veuillez remplir tous les champs avant de valider.";
         $this->index();
     }
+
+    public function success(): void
+    {
+        $success_msg = "Prise ajoutée avec succès.";
+        $this->index();
+    }
+    public function default(): void
+    {
+        $this->index();
+    }
 }

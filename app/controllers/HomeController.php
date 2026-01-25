@@ -30,6 +30,8 @@ class HomeController
 
                 require_once __DIR__ . '/../views/dashboard_pecheur.php';
             elseif ($_SESSION['User']->getRole() === "FAN"):
+                $prises = (new Prise())->getAll();
+                $top_pecheurs = Pecheur::getTopRanked(5);
                 require_once __DIR__ . '/../views/actualites.php';
             endif;
         else:

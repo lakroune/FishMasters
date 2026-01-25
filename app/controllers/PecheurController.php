@@ -7,6 +7,9 @@ use app\models\Pecheur;
 use app\models\Prise;
 use app\models\Score;
 use app\models\Subscribe;
+use config\Connexion;
+use Exception;
+use PDO;
 
 class PecheurController
 {

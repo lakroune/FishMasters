@@ -73,11 +73,7 @@ if (isset($_SESSION['User'])) {
                 </div>
 
                 <div class="flex items-center space-x-6">
-                    <button class="relative text-slate-400 hover:text-cyan-400 transition">
-                        <i class="fa-solid fa-bell text-lg"></i>
-                        <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-[#0a0a0a]"></span>
-                    </button>
-
+                  
                     <div class="flex items-center space-x-4 border-l border-white/10 pl-6">
                         <div class="text-right hidden sm:block">
                             <p class="text-[10px] text-slate-500 uppercase font-bold leading-none">Pêcheur </p>

@@ -130,6 +130,18 @@ class Pecheur extends User
             return false;
         }
     }
+    public static function getTopRanked(int $limit): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        try {
+            $stmt = $db->prepare("SELECT pe.* FROM pecheurs pe inner join classements cl on pe.id_user = cl.id_pecheur order by cl.rank asc limit :limit");
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL " . $e->getMessage());
+        }
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Pecheur::class);
+    }
 
     public static function afficherPecheure()
     {
