@@ -40,12 +40,12 @@ class Classement
         return $this->id_competition;
     }
 
-    public function getIdPecheur(): int
+    public function getIdPecheur(): ?int
     {
         return $this->id_pecheur;
     }
 
-    public function getIdEquipe(): int
+    public function getIdEquipe(): ?int
     {
         return $this->id_equipe;
     }
@@ -162,7 +162,7 @@ class Classement
     public static function getClassementByTypeEau(string $type_eau): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where sp.type_eau = :type_eau group by cl.id_classement order by cl.rank asc";
+        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where cl.type_classement = 'Individuelle' and sp.type_eau = :type_eau group by cl.id_classement order by cl.rank asc";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {

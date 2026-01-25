@@ -8,46 +8,40 @@ use app\models\Score;
 
 class ClassementController
 {
-    public function index()
+    public function index($type_eau = null)
     {
-        $pecheur = new Pecheur();
-        $score = new Score();
-        $classements = Classement::getClassementGeneralePecheurs();
-        foreach ($classements as $classement) {
-            $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur()), $score->getScoreByClassement($classement->getIdClassement())];
+        $pecheurModel = new Pecheur();
+        $scoreModel = new Score();
+        
+        if ($type_eau) {
+            $classements = Classement::getClassementByTypeEau($type_eau);
+        } else {
+            $classements = Classement::getClassementGeneralePecheurs();
+        }
+
+        $array_classements = [];
+        if ($classements) {
+            foreach ($classements as $classement) {
+                $array_classements[] = [
+                    'info'    => $classement,
+                    'pecheur' => $pecheurModel->getPecheurById($classement->getIdPecheur()),
+                    'score'   => $scoreModel->getScoreByClassement($classement->getIdClassement())
+                ];
+            }
         }
 
         require_once __DIR__ . '/../views/classement.php';
     }
-    public function default()
-    {
-        $this->index();
-    }
+
     public function filter()
     {
-        $pecheur = new Pecheur();
-        if (isset($_POST['spot']) && isset($_POST['exper'])) {
-            if ($_POST['exper'] == "all") {
-                $classements = Classement::getClassementGeneralePecheurs();
-                foreach ($classements as $classement) {
-                    $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
-                }
-                require_once __DIR__ . '/../views/classement.php';
-            } elseif ($_POST['exper'] == "mer") {
-                $classements = Classement::getClassementByTypeEau("Mer");
-                foreach ($classements as $classement) {
-                    $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
-                }
-                require_once __DIR__ . '/../views/classement.php';
-            } elseif ($_POST['exper'] == "eaudouce") {
-                $classements = Classement::getClassementByTypeEau("Mer");
-                foreach ($classements as $classement) {
-                    $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
-                }
-                require_once __DIR__ . '/../views/classement.php';
-            } else {
-                $this->index();
-            }
+        $type = $_POST['exper'] ?? 'all';
+        if ($type === "mer") {
+            $this->index("Mer");
+        } elseif ($type === "eaudouce") {
+            $this->index("Eau Douce");
+        } else {
+            $this->index();
         }
     }
 }
