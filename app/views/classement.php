@@ -81,12 +81,12 @@
 
             <div class="ultra-glass rounded-2xl px-4 flex items-center">
                 <i class="fa-solid fa-filter text-cyan-500 mr-3 text-xs"></i>
-                <select name="species" class="bg-transparent w-full py-4 text-[10px] font-black uppercase outline-none cursor-pointer">
+                <!-- <select name="species" class="bg-transparent w-full py-4 text-[10px] font-black uppercase outline-none cursor-pointer">
                     <option class="bg-slate-900">Toutes Espèces</option>
                     <option class="bg-slate-900">Loup de Mer</option>
                     <option class="bg-slate-900">Dorade Royale</option>
                     <option class="bg-slate-900">Black Bass</option>
-                </select>
+                </select> -->
             </div>
 
             <!-- <div class="relative">

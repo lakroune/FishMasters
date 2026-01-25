@@ -16,7 +16,7 @@ class ClassementController
         foreach ($classements as $classement) {
             $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur()), $score->getScoreByClassement($classement->getIdClassement())];
         }
-        
+
         require_once __DIR__ . '/../views/classement.php';
     }
     public function default()
@@ -27,7 +27,7 @@ class ClassementController
     {
         $pecheur = new Pecheur();
         if (isset($_POST['spot']) && isset($_POST['exper'])) {
-            if ($_POST['spot'] == "all") {
+            if ($_POST['exper'] == "all") {
                 $classements = Classement::getClassementGeneralePecheurs();
                 foreach ($classements as $classement) {
                     $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
@@ -39,8 +39,8 @@ class ClassementController
                     $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
                 }
                 require_once __DIR__ . '/../views/classement.php';
-            } elseif ($_POST['spot'] == "eaudouce") {
-                $classements = Classement::getClassementByTypeEau("Eau Douce");
+            } elseif ($_POST['exper'] == "eaudouce") {
+                $classements = Classement::getClassementByTypeEau("Mer");
                 foreach ($classements as $classement) {
                     $array_classements[] = [$classement, $pecheur->getPecheurById($classement->getIdPecheur())];
                 }
@@ -50,5 +50,4 @@ class ClassementController
             }
         }
     }
-    
 }

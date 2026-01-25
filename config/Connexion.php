@@ -7,11 +7,19 @@ use PDOException;
 
 class Connexion
 {
-    private string $nomDB = "masterfich";
-    private string $userDB = "admin";
-    private string $passDB = "af22c17a3e7b0a2d1800ea79";
-    private string $hostDB = "www.dockhosting.dev";
-    private int $portDB = 49581;
+    // server dock
+    // private string $nomDB = "masterfich";
+    // private string $userDB = "admin";
+    // private string $passDB = "af22c17a3e7b0a2d1800ea79";
+    // private string $hostDB = "www.dockhosting.dev";
+    // private int $portDB = 49581;
+    // server local
+    private string $nomDB = "FICHMASTERS";
+    private string $userDB = "postgres";
+    private string $passDB = "123456";
+    private string $hostDB = "localhost";
+    private int $portDB = 5432;
+
 
     private ?PDO $pdo = null;
     private static ?Connexion $instance = null;
