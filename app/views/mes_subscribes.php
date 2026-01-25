@@ -93,7 +93,7 @@
                             <a href="<?= PATH_ROOT ?>/pecheur/show/<?= $pecheur->getIdUser(); ?>" class="block w-full text-center py-3 rounded-2xl bg-white/5 text-white text-[9px] font-black uppercase hover:bg-white/10 transition-all tracking-widest">
                                 Voir le Profil
                             </a>
-                            <form action="<?= PATH_ROOT ?>/pecheur/unsubscribe" method="post" onsubmit="return confirm('Voulez-vous vraiment vous désabonner ?')">
+                            <form action="<?= PATH_ROOT ?>/pecheur/subscribe/<?= $pecheur->getIdUser(); ?>" method="post" onsubmit="return confirm('Voulez-vous vraiment vous désabonner ?')">
                                 <input type="hidden" name="id_pecheur" value="<?= $pecheur->getIdUser(); ?>">
                                 <button type="submit" class="w-full py-3 rounded-2xl border border-rose-500/20 text-rose-500 text-[9px] font-black uppercase hover:bg-rose-500 hover:text-white transition-all tracking-widest">
                                     Désabonner
