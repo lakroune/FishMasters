@@ -43,20 +43,20 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <?php foreach ($prises as $p): ?>
+                <?php foreach ($array_prises as $p): ?>
                     <div class="ultra-glass rounded-[35px] overflow-hidden group border border-white/5">
                         <div class="relative h-64 overflow-hidden">
-                            <img src="<?= $p->image_prise ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <img src="<?= $p["prise"]->image_prise ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         </div>
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
                                     <h4 class="text-lg font-black uppercase italic"><?= "" //$p->espece 
                                                                                     ?></h4>
-                                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Pêché par <span class="text-cyan-500"><?= "" // $p->nom_pecheur 
-                                                                                                                                                    ?></span></p>
+                                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Pêché par  <a href="<?= PATH_ROOT ?>/pecheur/show/<?= $p["pecheur"]->getIdUser() ?>"><span class="text-cyan-500"><?= $p["pecheur"]->getNom() 
+                                                                                                                                                    ?></span></a></p>
                                 </div>
-                                <span class="text-white font-black italic"><?= $p->poids ?> KG</span>
+                                <span class="text-white font-black italic"><?= $p["prise"]->poids ?> KG</span>
                             </div>
                             <div class="flex gap-2">
                                 <button class="flex-grow bg-white/5 hover:bg-rose-500/20 py-3 rounded-xl transition-all group/btn">
@@ -80,13 +80,13 @@
                         <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-transparent hover:border-cyan-500/30">
                             <div class="flex items-center gap-4">
                                 <span class="text-xl font-black italic text-slate-700"><?= sprintf("%02d", $index + 1) ?></span>
-                                <img src="<?= $rank->getPhotoPecheur() ?>" class="w-10 h-10 rounded-full object-cover border border-white/10">
+                                <img src="<?= $rank['pecheur']->getPhotoPecheur() ?>" class="w-10 h-10 rounded-full object-cover border border-white/10">
                                 <div>
-                                    <p class="text-xs font-black uppercase"><?= $rank->getNom() ?></p>
-                                    <p class="text-[8px] text-slate-500 font-bold uppercase tracking-widest"><?= $rank->getRegion() ?></p>
+                                    <p class="text-xs font-black uppercase"><?= $rank['pecheur']->getNom() ?></p>
+                                    <p class="text-[8px] text-slate-500 font-bold uppercase tracking-widest"><?= $rank['pecheur']->getRegion() ?></p>
                                 </div>
                             </div>
-                            <p class="text-sm font-black <?= ($index == 0) ? 'text-cyan-400' : 'text-white' ?> italic"><?= "" // $rank->getTotalPoints" 
+                            <p class="text-sm font-black <?= ($index == 0) ? 'text-cyan-400' : 'text-white' ?> italic"><?= $rank["score"]->getTotalPoints() 
                                                                                                                         ?> PTS</p>
                         </div>
                     <?php endforeach; ?>

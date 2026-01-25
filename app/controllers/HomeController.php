@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Classement;
+use app\models\Espece;
 use app\models\Pecheur;
 use app\models\Prise;
 use app\models\Score;
@@ -25,7 +26,16 @@ class HomeController
                 require_once __DIR__ . '/../views/dashboard_pecheur.php';
             elseif ($user->getRole() === "FAN"):
                 $prises = (new Prise())->getAll();
-                $top_pecheurs = Pecheur::getTopRanked(5);
+                $array_prises = array();
+                foreach ($prises as $prise) {
+                        $array_prises[] = ["prise" => $prise, "pecheur" => Pecheur::getPecheurById($prise->id_pecheur), "espece" => (new Espece())->getEspeceParId($prise->id_espece)];
+                }
+                $top_pecheurs = array();
+                $pecheurs = Pecheur::getTopRanked(5);
+                foreach ($pecheurs as $pecheur) {
+                    $top_pecheurs[] = ["pecheur" => $pecheur, "score" => Score::getScorePecheur($pecheur->getIdUser())];
+                }
+
                 require_once __DIR__ . '/../views/actualites.php';
             endif;
         else:

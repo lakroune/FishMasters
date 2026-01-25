@@ -35,7 +35,7 @@ if (isset($_SESSION['User'])) {
                         <div class="relative group">
                             <button class="flex items-center space-x-2 focus:outline-none">
                                 <div class="w-10 h-10 rounded-full border-2 border-pink-500 overflow-hidden shadow-[0_0_15px_rgba(244,63,94,0.2)]">
-                                    <img src="https://ui-avatars.com/api/?name=Fan&background=f43f5e&color=fff" class="w-full h-full object-cover" alt="Fan Avatar">
+                                    <img src="https://ui-avatars.com/api/?name=<?= $_SESSION['User']->getNom() . ' ' . $_SESSION['User']->getPrenom() ?>&background=f43f5e&color=fff" class="w-full h-full object-cover" alt="Fan Avatar">
                                 </div>
                                 <i class="fa-solid fa-angle-down text-slate-500 text-[10px]"></i>
                             </button>
@@ -73,7 +73,7 @@ if (isset($_SESSION['User'])) {
                 </div>
 
                 <div class="flex items-center space-x-6">
-                  
+
                     <div class="flex items-center space-x-4 border-l border-white/10 pl-6">
                         <div class="text-right hidden sm:block">
                             <p class="text-[10px] text-slate-500 uppercase font-bold leading-none">Pêcheur </p>
@@ -81,7 +81,7 @@ if (isset($_SESSION['User'])) {
                         </div>
                         <div class="relative group">
                             <button class="w-10 h-10 rounded-full border-2 border-cyan-500/30 p-0.5 hover:border-cyan-400 transition duration-300">
-                                <img src="<?=  'https://ui-avatars.com/api/?name=' . $_SESSION['User']->getPrenom() . '+' . $_SESSION['User']->getNom() . '&background=0f172a&color=fff'; ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
+                                <img src="<?= 'https://ui-avatars.com/api/?name=' . $_SESSION['User']->getPrenom() . '+' . $_SESSION['User']->getNom() . '&background=0f172a&color=fff'; ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
                             </button>
                             <div class="absolute right-0 mt-2 w-48 bg-[#0f172a] border border-white/10 rounded-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
                                 <a href="<?= PATH_ROOT ?>/home" class="block px-4 py-2 text-xs font-bold text-slate-300 hover:bg-cyan-500 hover:text-black transition">TABLEAU DE BORD</a>

@@ -12,7 +12,7 @@ class Prise
     private string $date_capture;
     private string $poids;
     private string $taille;
-    private ?int $id_pecheur;
+    private int $id_pecheur;
     private ?int $approuve_par_admin = 0;
     private ?int $id_espece;
     private ?int $id_spot;
@@ -29,7 +29,7 @@ class Prise
 
     public function getAll(): array
     {
-        $stmt = $this->pdo->query("SELECT * FROM prises");
+        $stmt = $this->pdo->query("SELECT * FROM prises WHERE approuve_par_admin = true ORDER BY date_capture DESC LIMIT 20");
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $prises = [];
@@ -44,6 +44,9 @@ class Prise
             $prise->date_capture = $row['date_capture'];
             $prise->poids = $row['poids'];
             $prise->taille = $row['taille'];
+            $prise->id_pecheur = $row['id_pecheur'];  //  hadxi attifi mayhtajx dir had xi kamal ghir id pecheur kafya
+            $prise->id_espece = $row['id_espece'];
+            $prise->id_spot = $row['id_spot'];
             $prise->pecheur = $pecheur;
             $prise->espece = $espece;
             $prise->spot = $spot;
@@ -126,8 +129,7 @@ class Prise
         if (!property_exists($this, $att)) {
             throw new Exception("Propriété introuvable : $att");
         }
-
-        return $this->$att;
+        return $this->$att ?? null;
     }
 
     public function getCountPrise()

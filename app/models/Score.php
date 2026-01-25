@@ -4,6 +4,7 @@ namespace app\models;
 
 use config\Connexion;
 use Exception;
+use PDO;
 
 class Score
 {
