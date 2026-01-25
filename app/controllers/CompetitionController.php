@@ -20,5 +20,4 @@ class CompetitionController
     {
         $this->index();
     }
-    
 }

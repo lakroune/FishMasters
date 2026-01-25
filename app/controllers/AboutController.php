@@ -8,4 +8,8 @@ class AboutController
     {
         require_once __DIR__ . '/../views/about.php';
     }
+    public function default()
+    {
+        $this->index();
+    }
 }

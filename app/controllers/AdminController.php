@@ -15,7 +15,10 @@ Class AdminController
     {
 
     }
-
+    public function default()
+    {
+        $this->index();
+    }
 }
 
 ?>

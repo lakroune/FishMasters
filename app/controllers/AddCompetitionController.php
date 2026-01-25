@@ -41,7 +41,10 @@ Class AddCompetitionController
 
         $this->competition->addCompetition($data);
     }
-
+    public function default()
+    {
+        $this->index();
+    }
 }
 
 ?>

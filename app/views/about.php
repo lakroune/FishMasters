@@ -61,7 +61,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-xs font-black uppercase tracking-[0.3em] text-cyan-500">les pecheurs</h2>
-                <a href="#" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
+                <a href="<?= PATH_ROOT ?>/pecheur" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
                 <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
@@ -91,7 +91,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-xs font-black uppercase tracking-[0.3em] text-cyan-500">Équipes de Légende</h2>
-                <a href="#" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
+                <a href="<?= PATH_ROOT ?>/equipe" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
@@ -145,13 +145,11 @@
 
     <script>
         function switchTab(btn) {
-            // Reset all buttons
             const buttons = btn.parentElement.querySelectorAll('button');
             buttons.forEach(b => {
                 b.classList.remove('tab-active');
                 b.classList.add('text-slate-500');
             });
-            // Set active
             btn.classList.add('tab-active');
             btn.classList.remove('text-slate-500');
         }
