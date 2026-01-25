@@ -26,7 +26,7 @@ if (isset($_SESSION['User'])) {
                 </div>
 
                 <div class="flex items-center space-x-5">
-                    <button class="relative text-slate-400 hover:text-cyan-400 transition">
+                    <button type="submit" onclick="window.location.href='<?= PATH_ROOT ?>/notification'" class="relative text-slate-400 hover:text-cyan-400 transition">
                         <i class="fa-solid fa-bell text-lg"></i>
                         <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-[#0a0a0a]"></span>
                     </button>
