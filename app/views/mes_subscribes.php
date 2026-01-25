@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background: #02040a; color: #fff; }
-        
-        .ultra-glass { 
-            background: rgba(255, 255, 255, 0.01); 
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #02040a;
+            color: #fff;
+        }
+
+        .ultra-glass {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .rose-glow-card:hover {
@@ -47,20 +53,20 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <?php if (empty($subscriptions)): ?>
+            <?php if (empty($pecheurs)): ?>
                 <div class="col-span-full py-32 text-center ultra-glass rounded-[50px] border-dashed border-2 border-white/5">
                     <div class="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-anchor text-3xl text-rose-500"></i>
                     </div>
                     <h3 class="text-xl font-bold uppercase italic">Votre port est vide</h3>
                     <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest">Vous ne suivez aucun pêcheur pour le moment.</p>
-                    <a href="<?= PATH_ROOT ?>/explore" class="mt-8 inline-block bg-white text-black px-8 py-3 rounded-full font-black text-[10px] uppercase hover:scale-105 transition-transform">Explorer les pros</a>
+                    <a href="<?= PATH_ROOT ?>/pecheur" class="mt-8 inline-block bg-white text-black px-8 py-3 rounded-full font-black text-[10px] uppercase hover:scale-105 transition-transform">Explorer les pros</a>
                 </div>
             <?php else: ?>
 
-                <?php foreach ($subscriptions as $pecheur) : ?>
+                <?php foreach ($pecheurs as $pecheur) : ?>
                     <div class="ultra-glass rose-glow-card rounded-[40px] p-6 transition-all duration-500 group relative overflow-hidden">
-                        
+
                         <div class="flex justify-between items-start mb-6">
                             <div class="relative">
                                 <img src="<?= $pecheur->getPhotoPecheur(); ?>" class="w-20 h-20 rounded-[25px] object-cover border-2 border-white/5 group-hover:border-rose-500/50 transition-all duration-500">
@@ -84,7 +90,7 @@
                         </div>
 
                         <div class="space-y-3">
-                            <a href="<?= PATH_ROOT ?>/pecheur/profile/<?= $pecheur->getIdUser(); ?>" class="block w-full text-center py-3 rounded-2xl bg-white/5 text-white text-[9px] font-black uppercase hover:bg-white/10 transition-all tracking-widest">
+                            <a href="<?= PATH_ROOT ?>/pecheur/show/<?= $pecheur->getIdUser(); ?>" class="block w-full text-center py-3 rounded-2xl bg-white/5 text-white text-[9px] font-black uppercase hover:bg-white/10 transition-all tracking-widest">
                                 Voir le Profil
                             </a>
                             <form action="<?= PATH_ROOT ?>/pecheur/unsubscribe" method="post" onsubmit="return confirm('Voulez-vous vraiment vous désabonner ?')">
@@ -102,11 +108,8 @@
         </div>
     </main>
 
-    <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] ultra-glass px-10 py-5 rounded-full border border-white/10 flex items-center gap-10">
-        <a href="<?= PATH_ROOT ?>/" class="text-slate-500 hover:text-white transition-all"><i class="fa-solid fa-house text-lg"></i></a>
-        <a href="<?= PATH_ROOT ?>/explore" class="text-slate-500 hover:text-white transition-all"><i class="fa-solid fa-magnifying-glass text-lg"></i></a>
-        <a href="<?= PATH_ROOT ?>/favorites" class="text-rose-500"><i class="fa-solid fa-heart text-lg"></i></a>
-    </nav>
+
 
 </body>
+
 </html>

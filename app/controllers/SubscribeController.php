@@ -22,8 +22,10 @@ class SubscribeController
         }
 
         $id_fan = $_SESSION['User']->getIdUser();
-        $subscriptions = $this->model->getSubscriptionsByFan($id_fan);
-        $pecheurs [] = (new Pecheur())->getPecheurById($id_fan);
+        $subscriptions = $this->model->getByUser($id_fan);
+        foreach ($subscriptions as $subscription) {
+            $pecheurs[] = (new Pecheur())->getPecheurById($subscription->getIdPecheur());
+        }
         require_once __DIR__ . '/../views/mes_subscribes.php';
     }
 
