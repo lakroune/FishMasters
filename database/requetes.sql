@@ -41,6 +41,10 @@ CREATE TABLE users (
     password_user VARCHAR(255) NOT NULL,
     role_user VARCHAR(20) NOT NULL
 );
+CREATE TABLE admin (
+    PRIMARY KEY (id_user),
+    CHECK (role_user = 'ADMIN')
+) INHERITS (users);
 
 CREATE TABLE badges (
     id_badge SERIAL PRIMARY KEY,
