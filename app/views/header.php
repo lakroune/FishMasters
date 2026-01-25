@@ -41,7 +41,7 @@ if (isset($_SESSION['User'])) {
                             </button>
                             <div class="absolute right-0 mt-4 w-52 bg-[#0f172a]/95 backdrop-blur-xl border border-white/5 rounded-3xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
                                 <a href="<?= PATH_ROOT ?>/subscribe" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">❤️ MESABONNER</a>
-                                <a href="<?= PATH_ROOT ?>/meslikes" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">🎟️ MES BILLETS</a>
+                                <a href="<?= PATH_ROOT ?>/like" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">🎟️ MES Likes</a>
                                 <a href="<?= PATH_ROOT ?>/profile" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">👤 PROFIL</a>
                                 <hr class="my-2 border-white/5">
                                 <a href="<?= PATH_ROOT ?>/logout" class="block px-4 py-2 text-[11px] font-bold text-slate-500 hover:text-white transition">DECONNEXION</a>

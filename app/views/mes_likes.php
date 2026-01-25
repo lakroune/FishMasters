@@ -1,76 +1,115 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MES BILLETS — FISHMASTERS</title>
+    <title>MES LIKES — FISHFAN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background: #02040a; color: #fff; }
-        .ultra-glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .ticket-cut {
-            clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 95% 75%, 100% 80%, 100% 100%, 0% 100%, 0% 80%, 5% 75%, 0% 70%);
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;900&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #02040a;
+            color: #fff;
+        }
+
+        .ultra-glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .pink-gradient {
+            background: linear-gradient(to bottom, #f43f5e15 0%, #02040a 100%);
+        }
+
+        .img-zoom {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .group:hover .img-zoom {
+            transform: scale(1.1);
         }
     </style>
 </head>
 
-<body class="antialiased pb-32">
+<body class="antialiased pb-20">
     <?php include "header.php"; ?>
 
-    <main class="max-w-4xl mx-auto px-6 pt-32">
-        <div class="mb-12">
-            <h1 class="text-5xl font-black uppercase italic tracking-tighter">Mes <span class="text-pink-500">Billets.</span></h1>
-            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em] mt-2">Accès exclusifs aux événements live</p>
+    <div class="relative h-64 w-full pink-gradient border-b border-white/5 flex items-end">
+        <div class="max-w-6xl mx-auto w-full px-6 pb-12">
+            <h1 class="text-5xl font-black uppercase italic tracking-tighter">Mes <span class="text-pink-500">Likes.</span></h1>
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-[0.4em] mt-2">Vos captures favorites en un seul endroit</p>
         </div>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="ultra-glass rounded-[40px] overflow-hidden ticket-cut relative border-t-4 border-pink-500 shadow-2xl group">
-                <div class="p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <span class="bg-pink-500 text-black text-[8px] font-black px-3 py-1 rounded-full uppercase">VIP ACCESS</span>
-                            <h3 class="text-2xl font-black uppercase italic mt-2 tracking-tight">Grand Open <br>Dakhla 2026</h3>
-                        </div>
-                        <i class="fa-solid fa-fish-fins text-4xl text-white/10 group-hover:text-pink-500/20 transition-colors"></i>
-                    </div>
-
-                    <div class="space-y-3 mb-10">
-                        <div class="flex items-center gap-3 text-[10px] text-slate-400 font-bold uppercase">
-                            <i class="fa-solid fa-calendar text-pink-500"></i> 14 Mars 2026
-                        </div>
-                        <div class="flex items-center gap-3 text-[10px] text-slate-400 font-bold uppercase">
-                            <i class="fa-solid fa-location-dot text-pink-500"></i> Port de Dakhla, Maroc
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <div class="text-center">
-                            <p class="text-[8px] text-slate-500 uppercase font-black">Rang</p>
-                            <p class="text-lg font-black italic">A-12</p>
-                        </div>
-                        <div class="h-8 w-px bg-white/10"></div>
-                        <div class="text-center">
-                            <p class="text-[8px] text-slate-500 uppercase font-black">Porte</p>
-                            <p class="text-lg font-black italic">04</p>
-                        </div>
-                        <div class="h-8 w-px bg-white/10"></div>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Ticket-ID-9921&bgcolor=02040a&color=f43f5e" class="w-12 h-12 rounded-lg grayscale hover:grayscale-0 transition-all">
-                    </div>
+    <main class="max-w-6xl mx-auto px-6 mt-12">
+        <?php if (empty($prisesAimees)): ?>
+            <div class="ultra-glass rounded-[40px] p-20 text-center border-dashed border-2 border-white/10">
+                <div class="w-20 h-20 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-heart-crack text-3xl text-pink-500"></i>
                 </div>
-                <div class="bg-pink-500 p-3 text-center">
-                    <p class="text-black font-black text-[9px] uppercase tracking-[0.3em]">Présenter ce QR Code à l'entrée</p>
-                </div>
+                <h2 class="text-xl font-black uppercase italic">Aucun coup de cœur ?</h2>
+                <p class="text-slate-500 text-sm mt-2 mb-8">Explorez le fil d'actualité pour soutenir nos pêcheurs.</p>
+                <a href="<?= PATH_ROOT ?>/" class="bg-white text-black px-8 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-pink-500 hover:text-white transition-all">
+                    Découvrir les prises
+                </a>
             </div>
+        <?php else: ?>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <?php foreach ($prisesAimees as $prise): ?>
+                    <div class="group relative ultra-glass rounded-[35px] overflow-hidden border border-white/5 hover:border-pink-500/30 transition-all duration-500">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="<?= $prise->image_prise ?>" class="img-zoom w-full h-full object-cover" alt="Prise">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#02040a] via-transparent to-transparent opacity-80"></div>
 
-            <div class="rounded-[40px] border-2 border-dashed border-white/5 flex flex-col items-center justify-center p-12 text-center group hover:border-pink-500/20 transition-all">
-                <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:bg-pink-500/10 transition-colors">
-                    <i class="fa-solid fa-plus text-slate-700 group-hover:text-pink-500"></i>
-                </div>
-                <p class="text-[10px] font-black uppercase text-slate-600 tracking-widest">Réserver un <br>nouveau billet</p>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-black/60 backdrop-blur-md text-[8px] font-black uppercase px-3 py-1.5 rounded-lg border border-white/10 tracking-widest">
+                                    🏆 <?= $prise->nom_competition ?>
+                                </span>
+                            </div>
+
+                            <form action="<?= PATH_ROOT ?>/like/toggle" method="POST" class="absolute top-4 right-4">
+                                <input type="hidden" name="id_prise" value="<?= $prise->id_prise ?>">
+                                <input type="hidden" name="id_competition" value="<?= $prise->id_competition ?>">
+                                <button type="submit" class="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-90 transition-all">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></div>
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Capture Validée</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-500"><?= $prise->date_prise ?></span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white/5 rounded-2xl p-3 border border-white/5">
+                                    <p class="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Poids</p>
+                                    <p class="text-sm font-black italic text-cyan-400"><?= $prise->poids ?> <span class="text-[10px] text-white/50">KG</span></p>
+                                </div>
+                                <div class="bg-white/5 rounded-2xl p-3 border border-white/5">
+                                    <p class="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Taille</p>
+                                    <p class="text-sm font-black italic text-pink-400"><?= $prise->taille ?> <span class="text-[10px] text-white/50">CM</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-        </div>
+        <?php endif; ?>
     </main>
+
+    <div class="max-w-6xl mx-auto px-6 mt-20 text-center">
+        <p class="text-[10px] font-black uppercase tracking-[0.5em] text-slate-700 italic">FishMasters X Fan Experience — 2026</p>
+    </div>
 </body>
+
 </html>
