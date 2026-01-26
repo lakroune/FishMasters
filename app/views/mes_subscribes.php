@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -17,24 +17,20 @@
         }
 
         .ultra-glass {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Couleur Rose pour les Fans */
+        .rose-glow-card:hover {
+            border-color: rgba(244, 63, 94, 0.4);
+            box-shadow: 0 0 30px rgba(244, 63, 94, 0.1);
+            transform: translateY(-5px);
+        }
+
         .text-rose-glow {
             color: #f43f5e;
-            text-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            text-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
         }
     </style>
 </head>
@@ -42,54 +38,65 @@
 <body class="antialiased pb-24">
     <?php include "header.php"; ?>
 
-    <main class="max-w-6xl mx-auto px-6 space-y-8 pt-40">
+    <main class="max-w-6xl mx-auto px-6 pt-40 space-y-12">
 
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <span class="text-rose-500 font-black text-[9px] uppercase tracking-[0.4em]">Ma Communauté</span>
-                <h1 class="text-4xl font-black uppercase italic leading-none mt-2">Mes <br> <span class="text-slate-500 text-rose-glow">Favoris.</span></h1>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="relative">
+                <span class="text-rose-500 font-black text-[10px] uppercase tracking-[0.5em] mb-2 block">Communauté VIP</span>
+                <h1 class="text-5xl font-black uppercase italic leading-none">Mes <span class="text-rose-glow">Favoris.</span></h1>
             </div>
-            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest bg-white/5 px-4 py-2 rounded-full border border-white/5">
-                <?= count($subscriptions) ?> Pêcheurs suivis
-            </p>
+            <div class="ultra-glass px-6 py-3 rounded-2xl border-l-4 border-rose-500">
+                <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest">Abonnements actifs</p>
+                <p class="text-xl font-black text-white"><?= count($subscriptions) ?> <span class="text-xs text-slate-600">PROS</span></p>
+            </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <?php if (empty($subscriptions)): ?>
-                <div class="col-span-full py-20 text-center ultra-glass rounded-[40px]">
-                    <i class="fa-solid fa-fish-fins text-slate-800 text-5xl mb-4"></i>
-                    <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">Vous ne suivez aucun pêcheur pour le moment.</p>
-                    <a href="<?= PATH_ROOT ?>/explore" class="mt-4 inline-block text-rose-500 font-black text-[10px] uppercase underline">Découvrir les pros</a>
+            <?php if (empty($pecheurs)): ?>
+                <div class="col-span-full py-32 text-center ultra-glass rounded-[50px] border-dashed border-2 border-white/5">
+                    <div class="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-anchor text-3xl text-rose-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase italic">Votre port est vide</h3>
+                    <p class="text-slate-500 text-xs mt-2 uppercase tracking-widest">Vous ne suivez aucun pêcheur pour le moment.</p>
+                    <a href="<?= PATH_ROOT ?>/pecheur" class="mt-8 inline-block bg-white text-black px-8 py-3 rounded-full font-black text-[10px] uppercase hover:scale-105 transition-transform">Explorer les pros</a>
                 </div>
             <?php else: ?>
 
-                <?php foreach ($subscriptions as $pecheur) : ?>
-                    <div class="ultra-glass rounded-[30px] p-4 flex flex-col justify-between border border-white/5 hover:border-rose-500/30 transition-all duration-300 group">
+                <?php foreach ($pecheurs as $pecheur) : ?>
+                    <div class="ultra-glass rose-glow-card rounded-[40px] p-6 transition-all duration-500 group relative overflow-hidden">
 
-                        <div class="flex justify-between items-start mb-4">
+                        <div class="flex justify-between items-start mb-6">
                             <div class="relative">
-                                <img src="<?= $pecheur->getPhotoPecheur(); ?>" class="w-16 h-16 rounded-2xl object-cover border-2 border-white/10 group-hover:border-rose-500 transition-colors">
-                                <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#02040a] shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                                <img src="<?= $pecheur->getPhotoPecheur(); ?>" class="w-20 h-20 rounded-[25px] object-cover border-2 border-white/5 group-hover:border-rose-500/50 transition-all duration-500">
+                                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#02040a] rounded-full flex items-center justify-center">
+                                    <div class="w-3 h-3 bg-rose-500 rounded-full animate-pulse"></div>
+                                </div>
                             </div>
-                            <div class="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-500">
-                                <i class="fa-solid fa-heart text-[10px]"></i>
+                            <div class="text-rose-500/20 group-hover:text-rose-500 transition-colors">
+                                <i class="fa-solid fa-heart text-2xl"></i>
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <h3 class="text-[13px] font-black uppercase tracking-tight truncate"><?= $pecheur->getNom() . " " . $pecheur->getPrenom(); ?></h3>
-                            <p class="text-[9px] text-slate-500 font-bold uppercase italic"><i class="fa-solid fa-location-dot text-rose-500 mr-1"></i> <?= $pecheur->getRegion(); ?></p>
+                        <div class="mb-8">
+                            <h3 class="text-lg font-black uppercase italic tracking-tighter line-clamp-1 italic"><?= $pecheur->getNom() . " " . $pecheur->getPrenom(); ?></h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-[9px] bg-rose-500/10 text-rose-500 px-2 py-0.5 rounded-md font-black uppercase">PRO</span>
+                                <p class="text-[9px] text-slate-500 font-bold uppercase italic">
+                                    <i class="fa-solid fa-location-dot mr-1"></i> <?= $pecheur->getRegion(); ?>
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="flex flex-col gap-2">
-                            <a href="<?= PATH_ROOT ?>/pecheur/profile/<?= $pecheur->getIdUser(); ?>" class="w-full bg-white/5 text-white text-[8px] font-black uppercase py-2 rounded-lg text-center hover:bg-white/10 transition-all mb-1">
+                        <div class="space-y-3">
+                            <a href="<?= PATH_ROOT ?>/pecheur/show/<?= $pecheur->getIdUser(); ?>" class="block w-full text-center py-3 rounded-2xl bg-white/5 text-white text-[9px] font-black uppercase hover:bg-white/10 transition-all tracking-widest">
                                 Voir le Profil
                             </a>
-                            <form action="<?= PATH_ROOT ?>/pecheur/unsubscribe" method="post">
+                            <form action="<?= PATH_ROOT ?>/pecheur/subscribe/<?= $pecheur->getIdUser(); ?>" method="post" onsubmit="return confirm('Voulez-vous vraiment vous désabonner ?')">
                                 <input type="hidden" name="id_pecheur" value="<?= $pecheur->getIdUser(); ?>">
-                                <button type="submit" class="w-full bg-rose-500/10 text-rose-500 border border-rose-500/20 text-[9px] font-black uppercase py-3 rounded-xl hover:bg-rose-500 hover:text-white transition-all tracking-widest">
-                                    Se désabonner
+                                <button type="submit" class="w-full py-3 rounded-2xl border border-rose-500/20 text-rose-500 text-[9px] font-black uppercase hover:bg-rose-500 hover:text-white transition-all tracking-widest">
+                                    Désabonner
                                 </button>
                             </form>
                         </div>
@@ -100,6 +107,8 @@
 
         </div>
     </main>
+
+
 
 </body>
 

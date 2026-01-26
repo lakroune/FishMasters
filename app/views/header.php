@@ -26,7 +26,7 @@ if (isset($_SESSION['User'])) {
                 </div>
 
                 <div class="flex items-center space-x-5">
-                    <button class="relative text-slate-400 hover:text-cyan-400 transition">
+                    <button type="submit" onclick="window.location.href='<?= PATH_ROOT ?>/notification'" class="relative text-slate-400 hover:text-cyan-400 transition">
                         <i class="fa-solid fa-bell text-lg"></i>
                         <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-[#0a0a0a]"></span>
                     </button>
@@ -35,14 +35,14 @@ if (isset($_SESSION['User'])) {
                         <div class="relative group">
                             <button class="flex items-center space-x-2 focus:outline-none">
                                 <div class="w-10 h-10 rounded-full border-2 border-pink-500 overflow-hidden shadow-[0_0_15px_rgba(244,63,94,0.2)]">
-                                    <img src="https://ui-avatars.com/api/?name=Fan&background=f43f5e&color=fff" class="w-full h-full object-cover" alt="Fan Avatar">
+                                    <img src="https://ui-avatars.com/api/?name=<?= $_SESSION['User']->getNom() . ' ' . $_SESSION['User']->getPrenom() ?>&background=f43f5e&color=fff" class="w-full h-full object-cover" alt="Fan Avatar">
                                 </div>
                                 <i class="fa-solid fa-angle-down text-slate-500 text-[10px]"></i>
                             </button>
                             <div class="absolute right-0 mt-4 w-52 bg-[#0f172a]/95 backdrop-blur-xl border border-white/5 rounded-3xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
                                 <a href="<?= PATH_ROOT ?>/subscribe" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">❤️ MESABONNER</a>
-                                <a href="<?= PATH_ROOT ?>/meslikes" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">🎟️ MES BILLETS</a>
-                                <a href="<?= PATH_ROOT ?>/profil" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">👤 PROFIL</a>
+                                <a href="<?= PATH_ROOT ?>/like" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">🎟️ MES Likes</a>
+                                <a href="<?= PATH_ROOT ?>/profile" class="block px-4 py-2 text-[11px] font-bold text-slate-300 hover:text-pink-400 transition">👤 PROFIL</a>
                                 <hr class="my-2 border-white/5">
                                 <a href="<?= PATH_ROOT ?>/logout" class="block px-4 py-2 text-[11px] font-bold text-slate-500 hover:text-white transition">DECONNEXION</a>
                             </div>
@@ -70,14 +70,9 @@ if (isset($_SESSION['User'])) {
                     <a href="<?= PATH_ROOT ?>/home" class="hover:text-cyan-400 transition">Accueil</a>
                     <a href="<?= PATH_ROOT ?>/competition" class="hover:text-cyan-400 transition">Calendrier</a>
                     <a href="<?= PATH_ROOT ?>/classement" class="hover:text-cyan-400 transition">Classement</a>
-                    <a href="<?= PATH_ROOT ?>/mes-prises" class="hover:text-cyan-400 transition">Mes Prises</a>
                 </div>
 
                 <div class="flex items-center space-x-6">
-                    <button class="relative text-slate-400 hover:text-cyan-400 transition">
-                        <i class="fa-solid fa-bell text-lg"></i>
-                        <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-[#0a0a0a]"></span>
-                    </button>
 
                     <div class="flex items-center space-x-4 border-l border-white/10 pl-6">
                         <div class="text-right hidden sm:block">
@@ -86,11 +81,11 @@ if (isset($_SESSION['User'])) {
                         </div>
                         <div class="relative group">
                             <button class="w-10 h-10 rounded-full border-2 border-cyan-500/30 p-0.5 hover:border-cyan-400 transition duration-300">
-                                <img src="<?= $_SESSION['User']->getPhotoPecheur() ?? 'https://ui-avatars.com/api/?name=Pecheur'; ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
+                                <img src="<?= 'https://ui-avatars.com/api/?name=' . $_SESSION['User']->getPrenom() . '+' . $_SESSION['User']->getNom() . '&background=0f172a&color=fff'; ?>" class="w-full h-full rounded-full object-cover" alt="Profile">
                             </button>
                             <div class="absolute right-0 mt-2 w-48 bg-[#0f172a] border border-white/10 rounded-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl">
-                                <a href="<?= PATH_ROOT ?>/dashboard" class="block px-4 py-2 text-xs font-bold text-slate-300 hover:bg-cyan-500 hover:text-black transition">TABLEAU DE BORD</a>
-                                <a href="<?= PATH_ROOT ?>/settings" class="block px-4 py-2 text-xs font-bold text-slate-300 hover:bg-cyan-500 hover:text-black transition">PARAMÈTRES</a>
+                                <a href="<?= PATH_ROOT ?>/home" class="block px-4 py-2 text-xs font-bold text-slate-300 hover:bg-cyan-500 hover:text-black transition">TABLEAU DE BORD</a>
+                                <a href="<?= PATH_ROOT ?>/pecheur/profile" class="block px-4 py-2 text-xs font-bold text-slate-300 hover:bg-cyan-500 hover:text-black transition">👤 PROFIL</a>
                                 <hr class="my-2 border-white/5">
                                 <a href="<?= PATH_ROOT ?>/logout" class="block px-4 py-2 text-xs font-bold text-red-400 hover:bg-red-500 hover:text-white transition">DÉCONNEXION</a>
                             </div>

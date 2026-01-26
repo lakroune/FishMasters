@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Pecheur;
 use app\models\Subscribe;
 
 class SubscribeController
@@ -15,6 +16,16 @@ class SubscribeController
 
     public function index()
     {
+        if (!isset($_SESSION['User'])) {
+            header('Location: ' . PATH_ROOT . '/login');
+            exit();
+        }
+
+        $id_fan = $_SESSION['User']->getIdUser();
+        $subscriptions = $this->model->getByUser($id_fan);
+        foreach ($subscriptions as $subscription) {
+            $pecheurs[] = (new Pecheur())->getPecheurById($subscription->getIdPecheur());
+        }
         require_once __DIR__ . '/../views/mes_subscribes.php';
     }
 

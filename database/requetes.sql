@@ -1,5 +1,4 @@
--- Active: 1769072311946@@www.dockhosting.dev@49581@masterfich
-
+-- Active: 1769072311946@@www.dockhosting.dev@49581@masterfich;
 DROP TABLE IF EXISTS commentaires;
 
 DROP TABLE IF EXISTS notification;
@@ -42,6 +41,10 @@ CREATE TABLE users (
     password_user VARCHAR(255) NOT NULL,
     role_user VARCHAR(20) NOT NULL
 );
+CREATE TABLE admin (
+    PRIMARY KEY (id_user),
+    CHECK (role_user = 'ADMIN')
+) INHERITS (users);
 
 CREATE TABLE badges (
     id_badge SERIAL PRIMARY KEY,
@@ -461,4 +464,3 @@ GROUP BY
     u.nom_user,
     u.prenom_user;
 
-SELECT * from classementGeneralPecheur;

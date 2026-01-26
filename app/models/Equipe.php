@@ -23,7 +23,7 @@ class Equipe
 
     public function all(): array
     {
-        $stmt = self::$pdo->query("SELECT * FROM equipe");
+        $stmt = self::$pdo->query("SELECT * FROM equipes");
         $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
         $equipes = [];
         foreach ($rows as $row) {

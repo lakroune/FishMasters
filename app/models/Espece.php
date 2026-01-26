@@ -22,65 +22,6 @@ class Espece
     }
 
 
-    public function getAll(): array
-    {
-        $stmt = $this->pdo->query("SELECT * FROM espece");
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $especes = [];
-
-        foreach ($rows as $row) {
-            $espece = new Espece();
-            $espece->setIdEspece($row['id_espece']);
-            $espece->setNomEspece($row['nom_espece']);
-            $espece->setCoefficient($row['coefficient']);
-            $espece->setDescription($row['description']);
-
-            $especes[] = $espece;
-        }
-
-        return $especes;
-    }
-
-    public function find(int $id): ?Espece
-    {
-        $stmt = $this->pdo->prepare(
-            "SELECT * FROM espece WHERE id_espece = :id"
-        );
-        $stmt->execute(['id' => $id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$row) {
-            return null;
-        }
-
-        $espece = new Espece();
-        $espece->setIdEspece($row['id_espece']);
-        $espece->setNomEspece($row['nom_espece']);
-        $espece->setCoefficient($row['coefficient']);
-        $espece->setDescription($row['description']);
-
-        return $espece;
-    }
-
-    public function create(string $nom_espece, string $coefficient, string $description): bool
-    {
-        $stmt = self::$pdo->prepare(
-            "INSERT INTO especes (nom_espece, coefficient, description) VALUES (:nom_equipe, :coefficient, :description)"
-        );
-        return $stmt->execute([
-            'nom_espece' => $nom_espece,
-            'coefficient' => $coefficient,
-            'description' => $description
-        ]);
-    }
-
-    public function __toString()
-    {
-        return "ghfebjfhh";
-        // return "espece : id_espece = $this->id_espece, nom_espece = $this->nom_espece, coefficient = $this->coefficient, description = $this->description";
-    }
-
     public function getIdEspece(): int
     {
         return $this->id_espece;
@@ -138,6 +79,61 @@ class Espece
     }
 
 
+
+    public function getAll(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        try {
+            $stmt = $db->prepare("SELECT * FROM especes");
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL " . $e->getMessage());
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Espece::class);
+    }
+
+    public function find(int $id): ?Espece
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT * FROM espece WHERE id_espece = :id"
+        );
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        $espece = new Espece();
+        $espece->setIdEspece($row['id_espece']);
+        $espece->setNomEspece($row['nom_espece']);
+        $espece->setCoefficient($row['coefficient']);
+        $espece->setDescription($row['description']);
+
+        return $espece;
+    }
+
+    public function create(string $nom_espece, string $coefficient, string $description): bool
+    {
+        $stmt = self::$pdo->prepare(
+            "INSERT INTO especes (nom_espece, coefficient, description) VALUES (:nom_equipe, :coefficient, :description)"
+        );
+        return $stmt->execute([
+            'nom_espece' => $nom_espece,
+            'coefficient' => $coefficient,
+            'description' => $description
+        ]);
+    }
+
+    public function __toString()
+    {
+        return "ghfebjfhh";
+        // return "espece : id_espece = $this->id_espece, nom_espece = $this->nom_espece, coefficient = $this->coefficient, description = $this->description";
+    }
+
+
+
     public function ajouter(): bool
     {
         try {
@@ -179,7 +175,7 @@ class Espece
 
 
 
-    public static function getEspeceParId($id)
+    public static function getEspeceParId($id): ?Espece
     {
 
         $db = Connexion::connect()->getConnexion();
@@ -189,7 +185,7 @@ class Espece
 
         $stmt = $db->prepare($sql);
         $stmt->execute([':id' => $id]);
-        $result = $stmt->fetchObject(Espece::class);
+        return $stmt->fetchObject(Espece::class) ?: null;
     }
 
 
@@ -212,5 +208,31 @@ class Espece
             ':desc' => $this->description,
             ':id' => $this->id_espece
         ]);
+    }
+
+    public function getCountEspece()
+    {
+        $sql = "SELECT * FROM especes";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return count($stmt->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function getPoidsParEspece()
+    {
+        $sql = "
+        SELECT 
+            e.nom_espece AS nom,
+            p.id_espece,
+            SUM(p.poids) AS totale
+        FROM prises p
+        INNER JOIN especes e ON e.id_espece = p.id_espece
+        WHERE p.approuve_par_admin IS TRUE
+        GROUP BY p.id_espece, e.nom_espece
+    ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-class AboutController
+class ErrorController
 {
     public function index()
     {
-        require_once __DIR__ . '/../views/about.php';
+        require_once __DIR__ . '/../views/error.php';
     }
     public function default()
     {

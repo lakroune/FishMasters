@@ -12,6 +12,10 @@ class Prise
     private string $date_capture;
     private string $poids;
     private string $taille;
+    private int $id_pecheur;
+    private ?int $approuve_par_admin = 0;
+    private ?int $id_espece;
+    private ?int $id_spot;
     private ?Pecheur $pecheur;
     private ?Espece $espece;
     private ?SpotPeche $spot;
@@ -25,7 +29,7 @@ class Prise
 
     public function getAll(): array
     {
-        $stmt = $this->pdo->query("SELECT * FROM prises");
+        $stmt = $this->pdo->query("SELECT * FROM prises WHERE approuve_par_admin = true ORDER BY date_capture DESC LIMIT 20");
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $prises = [];
@@ -40,6 +44,9 @@ class Prise
             $prise->date_capture = $row['date_capture'];
             $prise->poids = $row['poids'];
             $prise->taille = $row['taille'];
+            $prise->id_pecheur = $row['id_pecheur'];  //  hadxi attifi mayhtajx dir had xi kamal ghir id pecheur kafya
+            $prise->id_espece = $row['id_espece'];
+            $prise->id_spot = $row['id_spot'];
             $prise->pecheur = $pecheur;
             $prise->espece = $espece;
             $prise->spot = $spot;
@@ -51,10 +58,10 @@ class Prise
 
     public static function getPriseByPecheur(int $id_pecheur): array
     {
-        $db = Connexion::connect()->getConnexion();
+        $prise = new Prise();
         $query = "SELECT * FROM prises WHERE id_pecheur=:id_pecheur";
         try {
-            $stmt = $db->prepare($query);
+            $stmt =  $prise->pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
@@ -91,14 +98,14 @@ class Prise
         return $prise;
     }
 
-    public function create(string $image_prise, string $date_capture, string $poids, string $taille, string $id_pecheur, string $id_espece, string $id_spot): bool
+    public function create(string $image_prise, float $poids, float $taille, int $id_pecheur, int $id_espece, int $id_spot): bool
     {
-        $stmt = self::$pdo->prepare(
-            "INSERT INTO prises (image_prise, date_capture, poids, taille, id_pecheur, id_espece, id_spot) VALUES (:image_prise, :date_capture, :poids, :taille, :id_pecheur, :id_espece, :id_spot)"
+        $prise = new Prise();
+        $stmt = $prise->pdo->prepare(
+            "INSERT INTO prises (image_prise, poids, taille, id_pecheur, id_espece, id_spot) VALUES (:image_prise, :poids, :taille, :id_pecheur, :id_espece, :id_spot)"
         );
         return $stmt->execute([
             'image_prise' => $image_prise,
-            'date_capture' => $date_capture,
             'poids' => $poids,
             'taille' => $taille,
             'id_pecheur' => $id_pecheur,
@@ -122,7 +129,14 @@ class Prise
         if (!property_exists($this, $att)) {
             throw new Exception("Propriété introuvable : $att");
         }
+        return $this->$att ?? null;
+    }
 
-        return $this->$att;
+    public function getCountPrise()
+    {
+        $sql = "SELECT * FROM prises";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return count($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 }

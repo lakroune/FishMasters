@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Espece;
 use app\models\Prise;
+use app\models\SpotPeche;
 
 class PriseController
 {
@@ -16,7 +18,9 @@ class PriseController
 
     public function index(): void
     {
-        // $prises = $this->model->getAll();
+        $prises = $this->model->getAll();
+        $especes = (new Espece())->getAll();
+        $spots = (new SpotPeche())->getAllSpotPeche();
         require __DIR__ . '/../views/prise.php';
     }
 
@@ -40,25 +44,22 @@ class PriseController
 
     public function store(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $filename = $_FILES["photoPrise"]['name'];
             $tempname = $_FILES["photoPrise"]['tmp_name'];
 
             $folder = "uploads/" . "fish_master_Prises" . time() . "_" . $filename;
-
             if (move_uploaded_file($tempname, $folder)) {
                 $success = $this->model->create(
-                    $_POST['image_prise'],
-                    $_POST['date_capture'],
+                    $folder,
                     $_POST['poids'],
                     $_POST['taille'],
                     $_SESSION['User']->getIdUser(),
-                    $_POST['id_espece'],
-                    $_POST['id_spot']
+                    (int) $_POST['id_espece'],
+                    (int)  $_POST['id_spot']
                 );
                 if ($success) {
-                    header('Location: ' . PATH_ROOT . '/prise');
+                    header('Location: ' . PATH_ROOT . '/prise/success');
                     exit;
                 } else {
                     header('Location: ' . PATH_ROOT . '/prise/error');
@@ -72,7 +73,17 @@ class PriseController
     }
     public function error(): void
     {
-        echo "<script>alert('Veuillez remplir tous les champs')</script>";
-        require __DIR__ . '/../views/prise.php';
+        $error_msg = "Veuillez remplir tous les champs avant de valider.";
+        $this->index();
+    }
+
+    public function success(): void
+    {
+        $success_msg = "Prise ajoutée avec succès.";
+        $this->index();
+    }
+    public function default(): void
+    {
+        $this->index();
     }
 }

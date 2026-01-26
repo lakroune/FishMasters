@@ -19,7 +19,7 @@ class Classement
 
     public function __construct() {}
 
-    
+
     public function getIdClassement(): int
     {
         return $this->id_classement;
@@ -40,12 +40,12 @@ class Classement
         return $this->id_competition;
     }
 
-    public function getIdPecheur(): int
+    public function getIdPecheur(): ?int
     {
         return $this->id_pecheur;
     }
 
-    public function getIdEquipe(): int
+    public function getIdEquipe(): ?int
     {
         return $this->id_equipe;
     }
@@ -91,7 +91,7 @@ class Classement
 
     public function setIdPecheur(int $id): void
     {
-        if ($id <= 0 ) {
+        if ($id <= 0) {
             throw new Exception("L'id du pecheur doit être supérieur à 0");
         }
         $this->id_pecheur = $id;
@@ -107,7 +107,7 @@ class Classement
 
     public function setRank(int $rank): void
     {
-        if ($rank <= 0) {
+        if ($rank <= 0 and $rank != NULL) {
             throw new Exception("Le rank doit être supérieur à 0");
         }
         $this->rank = $rank;
@@ -133,7 +133,7 @@ class Classement
         $idClassement = $stmt->fetchColumn();
         return $idClassement;
     }
-   
+
     public static function getClassementGeneralePecheurs(): array
     {
         $db = Connexion::connect()->getConnexion();
@@ -162,7 +162,7 @@ class Classement
     public static function getClassementByTypeEau(string $type_eau): array
     {
         $db = Connexion::connect()->getConnexion();
-        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where sp.type_eau = :type_eau group by cl.id_classement order by cl.rank asc";
+        $requete = "SELECT cl.* from classements cl inner join  competitions comp on cl.id_competition = comp.id_competition inner join categories cat on comp.id_categorie = cat.id_categorie inner join spot_peches sp on cat.id_categorie = sp.id_categorie where cl.type_classement = 'Individuelle' and sp.type_eau = :type_eau group by cl.id_classement order by cl.rank asc";
         try {
             $stmt = $db->prepare($requete);
         } catch (Exception $e) {
@@ -199,5 +199,17 @@ class Classement
         $stmt->bindParam(':name', $name);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, Classement::class);
+    }
+    public static function getClassementByPecheur(int $id_pecheur): ?Classement
+    {
+        $db = Connexion::connect()->getConnexion();
+        $requete = "SELECT * FROM classements WHERE id_pecheur = :id_pecheur";
+        try {
+            $stmt = $db->prepare($requete);
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL : " . $requete . " : " . $e->getMessage());
+        }
+        $stmt->execute(['id_pecheur' => $id_pecheur]);
+        return $stmt->fetchObject(Classement::class) ?: null;
     }
 }

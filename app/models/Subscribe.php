@@ -6,13 +6,49 @@ use PDO;
 use Exception;
 use config\Connexion;
 
+
+
+
+
 class Subscribe
 {
+    private  int $id_subscription;
+    private  int $id_fan;
+    private  int $id_pecheur;
     private PDO $pdo;
 
     public function __construct()
     {
         $this->pdo = Connexion::connect()->getConnexion();
+    }
+
+    public function getIdSubscription(): int
+    {
+        return $this->id_subscription;
+    }
+
+    public function setIdSubscription(int $id_subscription): void
+    {
+        $this->id_subscription = $id_subscription;
+    }
+    public function getIdFan(): int
+    {
+        return $this->id_fan;
+    }
+
+    public function setIdFan(int $id_fan): void
+    {
+        $this->id_fan = $id_fan;
+    }
+
+    public function getIdPecheur(): int
+    {
+        return $this->id_pecheur;
+    }
+
+    public function setIdPecheur(int $id_pecheur): void
+    {
+        $this->id_pecheur = $id_pecheur;
     }
 
     public function create(int $id_fan, int $id_pecheur): bool
@@ -56,7 +92,7 @@ class Subscribe
             WHERE id_fan = :id_fan
         ");
         $stmt->execute(['id_fan' => $id_fan]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Subscribe::class);
     }
 
     public function delete(int $id_fan, int $id_pecheur): bool

@@ -5,7 +5,11 @@ namespace app\controllers;
 use app\models\Classement;
 use app\models\Pecheur;
 use app\models\Prise;
+use app\models\Score;
 use app\models\Subscribe;
+use config\Connexion;
+use Exception;
+use PDO;
 
 class PecheurController
 {
@@ -42,6 +46,13 @@ class PecheurController
     {
         $pecheur = $_SESSION["User"];
         if ($pecheur->getRole() === "PECHEUR"):
+            $id_pecheur = $pecheur->getIdUser();
+            $pecheur = Pecheur::getPecheurById($id_pecheur);
+            $prise = new Prise();
+            $prises = $prise->getAll();
+            $classement = Classement::getClassementByPecheur($id_pecheur);
+            $score = Score::getScorePecheur($id_pecheur);
+            $prises = Prise::getPriseByPecheur($id_pecheur);
             $modifier = true;
             require_once __DIR__ . '/../views/profilePecheur.php';
 
@@ -55,7 +66,9 @@ class PecheurController
         if ($pecheur != NULL):
             $prise = new Prise();
             $prises = $prise->getAll();
-            // $clasment = Classement::getCla ssementByPecheur($id_pecheur);
+            $classement = Classement::getClassementByPecheur($id_pecheur);
+            $score = Score::getScorePecheur($id_pecheur);
+            $prises = Prise::getPriseByPecheur($id_pecheur);
             $modifier = false;
             require_once __DIR__ . '/../views/profilePecheur.php';
         else:

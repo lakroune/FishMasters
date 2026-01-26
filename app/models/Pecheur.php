@@ -12,9 +12,11 @@ class Pecheur extends User
     private string $region;
     private string $type_peche_favorite;
     private ?int $id_equipe;
+    private PDO $pdo;
     public function __construct()
     {
         parent::__construct();
+        $this->pdo = Connexion::connect()->getConnexion();
     }
 
     public function __toString()
@@ -79,10 +81,10 @@ class Pecheur extends User
     }
     public static function getAllPecheur(): array
     {
-        $db = Connexion::connect()->getConnexion();
+        $pecheur = new Pecheur();
         $query = "SELECT * FROM pecheurs";
         try {
-            $stmt = $db->prepare($query);
+            $stmt =  $pecheur->pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
@@ -91,10 +93,10 @@ class Pecheur extends User
     }
     public static function getPecheurById(int $id): ?Pecheur
     {
-        $db = Connexion::connect()->getConnexion();
+        $pecheur = new Pecheur();
         $query = "SELECT * FROM pecheurs WHERE id_user = :id";
         try {
-            $stmt = $db->prepare($query);
+            $stmt =  $pecheur->pdo->prepare($query);
         } catch (Exception $e) {
             throw new Exception("Une erreur est survenue lors de la requête SQL : " . $query . " : " . $e->getMessage());
         }
@@ -106,10 +108,10 @@ class Pecheur extends User
     public  function creer(): bool
     {
         try {
-            $db = Connexion::connect()->getConnexion();
-            $sql = "INSERT INTO pecheurs(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite, id_equipe) VALUES (?,?,?,?,?,?,?,?,?)";
+
+            $sql = "INSERT INTO pecheurs(nom_user, prenom_user, email, password_user, role_user, photo_pecheur, region, type_peche_favorite) VALUES (?,?,?,?,?,?,?,?)";
             try {
-                $stmt = $db->prepare($sql);
+                $stmt =  $this->pdo->prepare($sql);
             } catch (Exception $e) {
                 new Exception("ee" . $e);
             }
@@ -128,11 +130,23 @@ class Pecheur extends User
             return false;
         }
     }
+    public static function getTopRanked(int $limit): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        try {
+            $stmt = $db->prepare("SELECT pe.* FROM pecheurs pe inner join classements cl on pe.id_user = cl.id_pecheur order by cl.rank asc limit :limit");
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la requête SQL " . $e->getMessage());
+        }
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Pecheur::class);
+    }
 
     public static function afficherPecheure()
     {
 
-        $db = Connexion::connect()->getConnexion();
+
 
         $sql = "
             SELECT 
@@ -150,9 +164,18 @@ class Pecheur extends User
             GROUP BY p.id_pecheur
         ";
 
-        $stmt = $db->prepare($sql);
+        $stmt = self::$pdo->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getCountPecheure()
+    {
+        $sql = "SELECT * FROM pecheurs";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return count($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 }

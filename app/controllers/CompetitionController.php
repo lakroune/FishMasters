@@ -31,4 +31,11 @@ class CompetitionController
 
         require_once __DIR__ . '/../views/competitions.php';
     }
+<<<<<<< HEAD
+=======
+    public function default()
+    {
+        $this->index();
+    }
+>>>>>>> a711dbfee3ebe1517376038b7f2265ef7fd3a2cc
 }

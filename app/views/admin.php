@@ -157,21 +157,29 @@
             <div class="grid lg:grid-cols-4 gap-6">
                 <div class="ultra-glass p-6 rounded-[30px] border-l-4 border-cyan-500">
                     <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Total Prises</p>
-                    <p class="text-4xl font-black">1,420</p>
+                    <p class="text-4xl font-black"><?= $count_prise ?></p>
                     <p class="text-[10px] text-green-400 mt-2 font-bold"><i class="fa-solid fa-arrow-up"></i> +12%</p>
                 </div>
                 <div class="ultra-glass p-6 rounded-[30px]">
-                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Poids Global</p>
-                    <p class="text-4xl font-black">2.1 <span class="text-lg font-light text-slate-400">T</span></p>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Tolal Especes</p>
+                    <p class="text-4xl font-black"><?=   $count_espece ?></p>
                 </div>
                 <div class="ultra-glass p-6 rounded-[30px]">
-                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Moyenne Points</p>
-                    <p class="text-4xl font-black">412</p>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Totale pécheure</p>
+                    <p class="text-4xl font-black"><?= $count_pecheure ?></p>
                 </div>
+                <?php  if(count($poids_par_espece)>0){
+
+              foreach($poids_par_espece as $row){
+
+             
+                    
+         ?>
                 <div class="ultra-glass p-6 rounded-[30px] border-l-4 border-green-400">
-                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Efficacité No-Kill</p>
-                    <p class="text-4xl font-black text-green-400">94%</p>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Total Poids Par espece : <?=$row['nom'] ?></p>
+                    <p class="text-4xl font-black text-green-400"><?= $row['totale'] ?></p>
                 </div>
+                <?php       }  }    ?>
             </div>
         </section>
 
