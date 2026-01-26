@@ -63,6 +63,22 @@
                 <h2 class="text-xs font-black uppercase tracking-[0.3em] text-cyan-500">les pecheurs</h2>
                 <a href="#" class="text-[9px] font-bold text-slate-500 border-b border-slate-800">Voir tout</a>
             </div>
+             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+                <?php if(!empty($data['ficherMan'])): ?>
+                <?php foreach($data['ficherMan'] as $p): ?>
+                    <?php var_dump($data);?>
+                <div class="ultra-glass p-4 rounded-3xl text-center card-hover transition-all cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                        <img src="<?= $p->getPhotoPecheur(); ?>" alt="<?= $p->getNom(); ?>" class="w-16 h-16 rounded-full object-cover">
+                    </div>
+                    <h3 class="font-bold text-sm"><?= $p->getPrenom(); ?></h3>
+                    <p class="text-[9px] text-slate-500 uppercase mt-1"><?= $p->getNom(); ?></p>
+                </div>
+                <?php endforeach; ?>
+                <!-- -->
+                    <!-- <p>No results found.</p> -->
+                 <?php endif;?>   
+                </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
                 <?php if(!empty($data['results']['pecheurs'])): ?>
                 <?php foreach($data['results']['pecheurs'] as $pecheur): ?>

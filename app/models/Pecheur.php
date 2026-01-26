@@ -77,7 +77,7 @@ class Pecheur extends User
 
         $this->id_equipe = $id;
     }
-    public function getAllPecheur(): array
+    public static function getAllPecheur(): array
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM pecheurs";
@@ -176,7 +176,7 @@ class Pecheur extends User
            $result = $stmt->fetch(PDO::FETCH_CLASS, Pecheur::class);
 
            if($result) {
-                  $this->setIdUser($result->id_user);
+                  $this->setId($result->id_user);
                   $this->setNom($result->nom_user);
                   $this->setPrenom($result->prenom_user);
                   $this->setRole($result->role_user);
@@ -189,12 +189,4 @@ class Pecheur extends User
            }
 
        }
-
-
-
-    
-
-
-
-
-
+}

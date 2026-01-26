@@ -88,12 +88,12 @@ class Equipe
     }
      public function __toString()
     {
-        return "equipe : id_equipe = $this->id_equipe, nom_equipe = $this->nom_equipe, nb_equipe = $this->nb_equipe, type_peche = $this->type_peche_favorite, id_competition = $this->id_competition";
+        return "equipe : id_equipe = $this->id_equipe, nom_equipe = $this->nom_equipe, nb_equipe = $this->nb_pecheurs, type_peche = $this->type_peche_favorite, id_competition = $this->id_competition";
     }
 
     
 
-    public function all(): array
+    public static function all(): array
     {
         $stmt = self::$pdo->query("SELECT * FROM equipe");
         $rows = $stmt->fetchAll(PDO::FETCH_OBJ);

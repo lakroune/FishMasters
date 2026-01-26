@@ -17,9 +17,7 @@ class AboutController
         }
 
         public function searchAll()
-        {    
-
-            if(isset($_POST['submit'])){
+        {  if(isset($_POST['submit'])){
                 $key = $_POST['key'];
                 $search = "%$key%"; 
             $pecheurs = Pecheur::searchPecheur($search);
@@ -39,6 +37,18 @@ class AboutController
         }
 
         }
+     
+     public function showAll()
+     {  $data = [
+        'ficherMan' => Pecheur::getAllPecheur(),
+        'team' => Equipe::all(),
+        'Competition' => Competition::getAllCompetition(),
+        'spot' =>  SpotPeche::getAllSpotPeche()
+     ];
+          var_dump($data);
+      
+          require_once __DIR__ . '/../views/about.php';
+     }   
 }
   
        

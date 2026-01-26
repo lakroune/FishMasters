@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\models\Competition;
+use app\models\Pecheur;
 use Exception, PDO;
 use config\Connexion;
 
@@ -21,6 +23,25 @@ class Prise
     {
         $this->pdo = Connexion::connect()->getConnexion();
     }
+
+      public function __set(string $att, $val): void
+    {
+        if (!property_exists($this, $att)) {
+            throw new Exception("Propriété introuvable : $att");
+        }
+
+        $this->$att = $val;
+    }
+
+    public function __get(string $att)
+    {
+        if (!property_exists($this, $att)) {
+            throw new Exception("Propriété introuvable : $att");
+        }
+
+        return $this->$att;
+    }
+
 
 
     public function getAll(): array
@@ -95,21 +116,62 @@ class Prise
     }
 
 
-    public function __set(string $att, $val): void
-    {
-        if (!property_exists($this, $att)) {
-            throw new Exception("Propriété introuvable : $att");
-        }
+  
 
-        $this->$att = $val;
-    }
 
-    public function __get(string $att)
-    {
-        if (!property_exists($this, $att)) {
-            throw new Exception("Propriété introuvable : $att");
-        }
+public function getPecheurData(int $id_user)
+{  $sql = "SELECT * FROM pecheurs WHERE id_user = i:d_user";
+   $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['id_user' => $id_user]);
+    $results = $stmt->fetch(PDO::FETCH_CLASS, Pecheur::class);
 
-        return $this->$att;
-    }
+    return $results;
+
+}
+
+public function getCompetitionData(int $id_competition)
+{   $sql = "SELECT * FROM competitions WHERE id_competition = :id_competition";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['id_competition' => $id_competition]);
+    $results = $stmt->fetch(PDO::FETCH_CLASS, Competition::class);
+
+    return $results;
+
+}
+
+public function getPriseDatabyIdPecheurAndComptition ($id_user, $id_competition){
+// todo : query to get this date
+     $sql = "SELECT * FROM prises WHERE id_competition = :id_competition
+     AND id_user = :id_user";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+             'id_user' => $id_user,
+             'id_competition' => $id_competition   
+    ]);
+     return $stmt->fetchAll(PDO::FETCH_CLASS, Prise::class);
+
+}
+
+public function  getAllData($id_user, $id_competition)
+{  $pecheur = $this->getPecheurData($id_user);
+   $competition = $this->getCompetitionData($id_competition);
+   $prises = $this->getPriseDatabyIdPecheurAndComptition($id_user, $id_competition); 
+    
+    $weights = array_map(fn($p) => $p->getPoids(), $prises);
+    
+   $results = [
+        'pecheur' => $pecheur,
+        'competition' => $competition,
+        'prises' => $prises,
+        'totalWeight' => array_sum( $weights),
+        'biggestCatch' => !empty($weights) ? max($weights) : 0,
+        'numberOfCatches' => count($prises)
+   ];
+
+   return $results;
+}
+
+
+
+
 }
