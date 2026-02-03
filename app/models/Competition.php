@@ -189,7 +189,7 @@ class Competition
         }
         return false;
     }
-    public static function getAllCompetition(): array
+    public static function getAll(): array
     {
         $db = Connexion::connect()->getConnexion();
         $query = "SELECT * FROM competitions";
@@ -235,5 +235,65 @@ class Competition
                 $this->$method($value);
             }
         }
+    }
+
+    public function getFilteredCompetitions(array $filters = [])
+    {
+        $pdo = Connexion::connect()->getConnexion();
+
+        $sql = "SELECT DISTINCT c.* 
+                FROM competitions c
+                LEFT JOIN categories cat ON c.id_categorie = cat.id_categorie
+                LEFT JOIN spot_peches sp ON sp.id_categorie = c.id_categorie";
+
+        $conditions = [];
+        $params = [];
+
+        if (!empty($filters['categorie'])) {
+            $conditions[] = "cat.nom_categorie = :categorie";
+            $params['categorie'] = $filters['categorie'];
+        }
+
+        if (!empty($filters['milieu'])) {
+            $conditions[] = "sp.type_eau = :milieu";
+            $params['milieu'] = $filters['milieu'];
+        }
+
+        if (!empty($filters['region'])) {
+            $conditions[] = "sp.localisation ILIKE :region"; // ILIKE for case-insensitive in Postgres
+            $params['region'] = '%' . $filters['region'] . '%';
+        }
+
+        if ($conditions) {
+            $sql .= " WHERE " . implode(' AND ', $conditions);
+        }
+
+        $sql .= " ORDER BY c.date_debut DESC";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCategories()
+    {
+        $pdo = Connexion::connect()->getConnexion();
+        $stmt = $pdo->query("SELECT nom_categorie FROM categories ORDER BY nom_categorie");
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function getMilieux()
+    {
+        $pdo = Connexion::connect()->getConnexion();
+        $stmt = $pdo->query("SELECT DISTINCT type_eau FROM spot_peches ORDER BY type_eau");
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function getRegions()
+    {
+        $pdo = Connexion::connect()->getConnexion();
+        $stmt = $pdo->query("SELECT DISTINCT localisation FROM spot_peches ORDER BY localisation");
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }

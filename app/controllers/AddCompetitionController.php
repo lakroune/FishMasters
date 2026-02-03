@@ -1,50 +1,51 @@
 <?php
-    namespace app\controllers;
 
-use app\models\Categorie;
+namespace app\controllers;
+
 use app\models\Competition;
+use app\models\Categorie;
 
-Class AddCompetitionController
+class AddCompetitionController
 {
-
-    private $competition;
-    private $categories;
+    private Competition $competition;
+    private Categorie $categories;
 
     public function __construct()
     {
-        $this->competition = new Competition ;
-        $this->categories = new Categorie ;
+        $this->competition = new Competition();
+        $this->categories  = new Categorie();
     }
-   
+
     public function index()
     {
-        if(isset($_POST['submit'])){
-            $add = new AddCompetitionController;
-            $add->addComptition();
-        }
-        
         $categories = $this->categories->getCategories();
         require_once __DIR__ . '/../views/addCompetition.php';
     }
-    
-    public function addComptition()
+
+    public function store()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . PATH_ROOT . '/competition/add');
+            exit;
+        }
+
         $data = [
-            'nom_competition'   => $_POST['name'],
-            'date_debut'        => $_POST['dateDebut'],
-            'date_fin'          => $_POST['dateFin'],
-            'type_competition'  => $_POST['Competition'],
-            'nb_matchs'         => 0,
-            'nb_participants'   => 0,
-            'id_categorie'      => $_POST['category'],
+            'nom_competition'  => $_POST['name'] ?? '',
+            'date_debut'       => $_POST['dateDebut'] ?? '',
+            'date_fin'         => $_POST['dateFin'] ?? '',
+            'type_competition' => $_POST['Competition'] ?? '',
+            'nb_matchs'        => 0,
+            'nb_participants'  => 0,
+            'id_categorie'     => $_POST['category'] ?? null,
         ];
 
         $this->competition->addCompetition($data);
+
+        header('Location: ' . PATH_ROOT . '/competition');
+        exit;
     }
     public function default()
     {
         $this->index();
     }
 }
-
-?>

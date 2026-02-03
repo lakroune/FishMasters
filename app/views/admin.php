@@ -259,9 +259,33 @@
         </section>
 
         <section id="competitions" class="admin-section">
-            <h2 class="text-4xl font-black mb-6 uppercase italic text-white">Compétitions</h2>
-            <div class="ultra-glass p-12 rounded-[40px] text-center text-slate-500 italic">Chargement du calendrier...</div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div>
+                    <h2 class="text-4xl font-black italic uppercase">Gestion <span class="text-cyan-400">Compétitions</span></h2>
+                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">
+                        Création & calendrier des compétitions
+                    </p>
+                </div>
+            
+                <div class="flex gap-4">
+                    <a href="./addCompetition" target="_blank"
+                    class="bg-cyan-500 text-black text-xs font-black px-8 py-4 rounded-2xl neo-button uppercase flex items-center gap-3">
+                        <i class="fa-solid fa-plus"></i> Nouvelle compétition
+                    </a>
+
+                    <a href="./competition" target="_blank"
+                    class="px-8 py-4 rounded-2xl text-xs font-bold uppercase border border-white/10 hover:bg-white/5 transition-all flex items-center gap-3">
+                        <i class="fa-solid fa-calendar-days"></i> Calendrier
+                    </a>
+                </div>
+
+            </div>
+            
+            <div class="ultra-glass p-12 rounded-[40px] text-center text-slate-400 italic">
+                Consultez le calendrier, ajoutez ou modifiez les compétitions existantes.
+            </div>
         </section>
+
 
         <section id="catches" class="admin-section">
             <h2 class="text-4xl font-black mb-6 uppercase italic text-white">Validation Prises</h2>
