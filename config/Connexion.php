@@ -48,3 +48,18 @@ class Connexion
         return $this->pdo;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+php artisan migrate
+php artisan migrate:rollback
+php artisan db:seed
+
